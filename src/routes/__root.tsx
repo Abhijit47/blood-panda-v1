@@ -19,8 +19,10 @@ import appCss from '../styles.css?url'
 import type { QueryClient } from '@tanstack/react-query'
 
 import { ThemeProvider } from '#/components/theme-provider'
+import { TooltipProvider } from '#/components/ui/tooltip'
 import type { TRPCRouter } from '#/integrations/trpc/router'
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query'
+import { Toaster } from 'sonner'
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -75,11 +77,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="font-sans antialiased [wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
-        <ThemeProvider defaultTheme="system" storageKey="theme">
+        <ThemeProvider defaultTheme="light" storageKey="theme">
           <PostHogProvider>
-            <Header />
-            {children}
-            <Footer />
+            <TooltipProvider>
+              <Header />
+              {children}
+              <Footer />
+            </TooltipProvider>
+            <Toaster closeButton richColors theme="system" />
             <TanStackDevtools
               config={{
                 position: 'bottom-right',
