@@ -2,6 +2,11 @@ import { prisma } from '#/db'
 import { createServerFn } from '@tanstack/react-start'
 import { selectCategorySchema } from './validators/tests-schema'
 
+export const getTests = createServerFn().handler(async () => {
+  const records = await prisma.bloodTest.findMany({})
+  return records
+})
+
 export const getPrimaryCategoryList = createServerFn().handler(async () => {
   const primary = await prisma.primaryCategory.findMany({})
   return primary.map((p) => ({ label: p.name, value: p.id }))

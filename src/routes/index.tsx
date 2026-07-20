@@ -1,23 +1,33 @@
-import { prisma } from '#/db'
-import { createFileRoute } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
-
-export const getTests = createServerFn().handler(async () => {
-  const records = await prisma.bloodTest.findMany({})
-  return records
-})
+import { Spinner } from '#/components/ui/spinner'
+import { getTests } from '#/lib/tests.functions'
+import { Await, createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
-  loader: async () => await getTests(),
+  loader: async () => {
+    const deferred = getTests()
+
+    return { deferred }
+  },
   component: App,
 })
 
 function App() {
-  const data = Route.useLoaderData()
+  const result = Route.useLoaderData()
   return (
-    <main>
-      HOME
-      {JSON.stringify(data, null, 2)}
+    <main className={'mx-auto max-w-(--breakpoint-xl) space-y-8 px-4 py-12'}>
+      <Await
+        promise={result.deferred}
+        fallback={
+          <div className={'flex items-center justify-center h-dvh gap-2'}>
+            <Spinner className={'size-6'} />
+            Loading...
+          </div>
+        }
+      >
+        {(data) => {
+          return <>{JSON.stringify(data, null, 2)}</>
+        }}
+      </Await>
     </main>
   )
 }

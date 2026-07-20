@@ -1,9 +1,12 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/packages/')({
+  loader: () => {
+    throw redirect({ to: '/' })
+  },
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  return <div>Hello "/packages/"!</div>
+  return null
 }
