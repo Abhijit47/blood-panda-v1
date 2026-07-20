@@ -28,6 +28,15 @@ export const Route = createFileRoute('/blogs/$blogId/')({
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,
   notFoundComponent: NotFoundComponent,
+  codeSplitGroupings: [
+    [
+      'loader',
+      'component',
+      'pendingComponent',
+      'errorComponent',
+      'notFoundComponent',
+    ],
+  ],
 })
 
 function RouteComponent() {

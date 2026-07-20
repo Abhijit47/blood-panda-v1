@@ -68,14 +68,12 @@ export default function Header() {
                           'hover:bg-transparent focus:bg-transparent',
                           'p-1',
                           'rounded-none',
-                          'border-primary',
-                          'data-active:bg-transparent data-active:hover:bg-transparent data-active:focus:bg-transparent',
-                          'data-active:border-b-2 data-active:hover:border-b-2 data-active:focus:border-b-2',
+                          'border-none',
+                          // 'data-active:bg-transparent data-active:hover:bg-transparent data-active:focus:bg-transparent',
+                          // 'data-active:border-b-2 data-active:hover:border-b-2 data-active:focus:border-b-2',
                         )}
                       >
-                        <Link to={link.href} viewTransition>
-                          {link.label}
-                        </Link>
+                        <Button variant={'ghost'}>{link.label}</Button>
                       </NavigationMenuLink>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
@@ -128,7 +126,11 @@ export default function Header() {
                       'data-active:border-b-2 data-active:hover:border-b-2 data-active:focus:border-b-2',
                     )}
                   >
-                    <Link to={link.href} viewTransition>
+                    <Link
+                      to={link.href}
+                      viewTransition
+                      preload={link.href === '/blogs' ? 'intent' : undefined}
+                    >
                       {link.label}
                     </Link>
                   </NavigationMenuLink>

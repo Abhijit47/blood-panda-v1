@@ -27,6 +27,15 @@ export const Route = createFileRoute('/packages/mini-packages/$miniPackage')({
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,
   notFoundComponent: NotFoundComponent,
+  codeSplitGroupings: [
+    [
+      'loader',
+      'component',
+      'pendingComponent',
+      'errorComponent',
+      'notFoundComponent',
+    ],
+  ],
 })
 
 function RouteComponent() {

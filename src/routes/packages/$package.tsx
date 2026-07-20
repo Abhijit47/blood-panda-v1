@@ -42,6 +42,15 @@ export const Route = createFileRoute('/packages/$package')({
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,
   notFoundComponent: NotFoundComponent,
+  codeSplitGroupings: [
+    [
+      'loader',
+      'component',
+      'pendingComponent',
+      'errorComponent',
+      'notFoundComponent',
+    ],
+  ],
 })
 
 function RouteComponent() {
