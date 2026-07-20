@@ -8,12 +8,16 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactUsRouteImport } from './routes/contact-us'
+import { Route as TestsRouteImport } from './routes/tests'
 import { Route as AdminBookingsRouteImport } from './routes/_admin/bookings'
 import { Route as AdminDashboardRouteImport } from './routes/_admin/dashboard'
 import { Route as AdminPatientsRouteImport } from './routes/_admin/patients'
@@ -28,18 +32,28 @@ import { Route as ProtectedProfileRouteImport } from './routes/_protected/profil
 import { Route as DemoBetterAuthRouteImport } from './routes/demo/better-auth'
 import { Route as DemoDbChatRouteImport } from './routes/demo/db-chat'
 import { Route as DemoDbChatApiRouteImport } from './routes/demo/db-chat-api'
-import { Route as DemoNeonRouteImport } from './routes/demo/neon'
 import { Route as DemoPosthogRouteImport } from './routes/demo/posthog'
 import { Route as DemoStoreRouteImport } from './routes/demo/store'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoTrpcTodoRouteImport } from './routes/demo/trpc-todo'
+import { Route as PackagesIndexRouteImport } from './routes/packages/index'
+import { Route as PackagesPackageRouteImport } from './routes/packages/$package'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiPaymentCallbackRouteImport } from './routes/api/payment/callback'
 import { Route as ApiPaymentCheckoutRouteImport } from './routes/api/payment/checkout'
 import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
+import { Route as BlogsBlogIdIndexRouteImport } from './routes/blogs/$blogId/index'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
+import { Route as PackagesMiniPackagesMiniPackageRouteImport } from './routes/packages/mini-packages/$miniPackage'
+
+const PrivacyPolicyLazyRouteImport = createFileRoute('/privacy-policy')()
+const RefundPolicyLazyRouteImport = createFileRoute('/refund-policy')()
+const TermsAndConditionLazyRouteImport = createFileRoute(
+  '/terms-and-condition',
+)()
+const BlogsIndexLazyRouteImport = createFileRoute('/blogs/')()
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -61,6 +75,35 @@ const ProtectedRoute = ProtectedRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactUsRoute = ContactUsRouteImport.update({
+  id: '/contact-us',
+  path: '/contact-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyLazyRoute = PrivacyPolicyLazyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/privacy-policy.lazy').then((d) => d.Route),
+)
+const RefundPolicyLazyRoute = RefundPolicyLazyRouteImport.update({
+  id: '/refund-policy',
+  path: '/refund-policy',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/refund-policy.lazy').then((d) => d.Route))
+const TermsAndConditionLazyRoute = TermsAndConditionLazyRouteImport.update({
+  id: '/terms-and-condition',
+  path: '/terms-and-condition',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/terms-and-condition.lazy').then((d) => d.Route),
+)
+const TestsRoute = TestsRouteImport.update({
+  id: '/tests',
+  path: '/tests',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminBookingsRoute = AdminBookingsRouteImport.update({
@@ -118,6 +161,11 @@ const ProtectedProfileRoute = ProtectedProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => ProtectedRoute,
 } as any)
+const BlogsIndexLazyRoute = BlogsIndexLazyRouteImport.update({
+  id: '/blogs/',
+  path: '/blogs/',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/blogs/index.lazy').then((d) => d.Route))
 const DemoBetterAuthRoute = DemoBetterAuthRouteImport.update({
   id: '/demo/better-auth',
   path: '/demo/better-auth',
@@ -131,11 +179,6 @@ const DemoDbChatRoute = DemoDbChatRouteImport.update({
 const DemoDbChatApiRoute = DemoDbChatApiRouteImport.update({
   id: '/demo/db-chat-api',
   path: '/demo/db-chat-api',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoNeonRoute = DemoNeonRouteImport.update({
-  id: '/demo/neon',
-  path: '/demo/neon',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoPosthogRoute = DemoPosthogRouteImport.update({
@@ -163,6 +206,16 @@ const DemoTrpcTodoRoute = DemoTrpcTodoRouteImport.update({
   path: '/demo/trpc-todo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PackagesIndexRoute = PackagesIndexRouteImport.update({
+  id: '/packages/',
+  path: '/packages/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PackagesPackageRoute = PackagesPackageRouteImport.update({
+  id: '/packages/$package',
+  path: '/packages/$package',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -183,6 +236,11 @@ const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
   path: '/api/trpc/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogsBlogIdIndexRoute = BlogsBlogIdIndexRouteImport.update({
+  id: '/blogs/$blogId/',
+  path: '/blogs/$blogId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
   id: '/demo/form/address',
   path: '/demo/form/address',
@@ -193,10 +251,21 @@ const DemoFormSimpleRoute = DemoFormSimpleRouteImport.update({
   path: '/demo/form/simple',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PackagesMiniPackagesMiniPackageRoute =
+  PackagesMiniPackagesMiniPackageRouteImport.update({
+    id: '/packages/mini-packages/$miniPackage',
+    path: '/packages/mini-packages/$miniPackage',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact-us': typeof ContactUsRoute
+  '/tests': typeof TestsRoute
+  '/privacy-policy': typeof PrivacyPolicyLazyRoute
+  '/refund-policy': typeof RefundPolicyLazyRoute
+  '/terms-and-condition': typeof TermsAndConditionLazyRoute
   '/bookings': typeof AdminBookingsRoute
   '/dashboard': typeof AdminDashboardRoute
   '/patients': typeof AdminPatientsRoute
@@ -211,22 +280,31 @@ export interface FileRoutesByFullPath {
   '/demo/better-auth': typeof DemoBetterAuthRoute
   '/demo/db-chat': typeof DemoDbChatRoute
   '/demo/db-chat-api': typeof DemoDbChatApiRoute
-  '/demo/neon': typeof DemoNeonRoute
   '/demo/posthog': typeof DemoPosthogRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
+  '/packages/$package': typeof PackagesPackageRoute
+  '/packages/': typeof PackagesIndexRoute
+  '/blogs/': typeof BlogsIndexLazyRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/payment/callback': typeof ApiPaymentCallbackRoute
   '/api/payment/checkout': typeof ApiPaymentCheckoutRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/packages/mini-packages/$miniPackage': typeof PackagesMiniPackagesMiniPackageRoute
+  '/blogs/$blogId/': typeof BlogsBlogIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact-us': typeof ContactUsRoute
+  '/tests': typeof TestsRoute
+  '/privacy-policy': typeof PrivacyPolicyLazyRoute
+  '/refund-policy': typeof RefundPolicyLazyRoute
+  '/terms-and-condition': typeof TermsAndConditionLazyRoute
   '/bookings': typeof AdminBookingsRoute
   '/dashboard': typeof AdminDashboardRoute
   '/patients': typeof AdminPatientsRoute
@@ -241,18 +319,22 @@ export interface FileRoutesByTo {
   '/demo/better-auth': typeof DemoBetterAuthRoute
   '/demo/db-chat': typeof DemoDbChatRoute
   '/demo/db-chat-api': typeof DemoDbChatApiRoute
-  '/demo/neon': typeof DemoNeonRoute
   '/demo/posthog': typeof DemoPosthogRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
+  '/packages/$package': typeof PackagesPackageRoute
+  '/packages': typeof PackagesIndexRoute
+  '/blogs': typeof BlogsIndexLazyRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/payment/callback': typeof ApiPaymentCallbackRoute
   '/api/payment/checkout': typeof ApiPaymentCheckoutRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/packages/mini-packages/$miniPackage': typeof PackagesMiniPackagesMiniPackageRoute
+  '/blogs/$blogId': typeof BlogsBlogIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -261,6 +343,11 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/_protected': typeof ProtectedRouteWithChildren
   '/about': typeof AboutRoute
+  '/contact-us': typeof ContactUsRoute
+  '/tests': typeof TestsRoute
+  '/privacy-policy': typeof PrivacyPolicyLazyRoute
+  '/refund-policy': typeof RefundPolicyLazyRoute
+  '/terms-and-condition': typeof TermsAndConditionLazyRoute
   '/_admin/bookings': typeof AdminBookingsRoute
   '/_admin/dashboard': typeof AdminDashboardRoute
   '/_admin/patients': typeof AdminPatientsRoute
@@ -275,24 +362,33 @@ export interface FileRoutesById {
   '/demo/better-auth': typeof DemoBetterAuthRoute
   '/demo/db-chat': typeof DemoDbChatRoute
   '/demo/db-chat-api': typeof DemoDbChatApiRoute
-  '/demo/neon': typeof DemoNeonRoute
   '/demo/posthog': typeof DemoPosthogRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/demo/trpc-todo': typeof DemoTrpcTodoRoute
+  '/packages/$package': typeof PackagesPackageRoute
+  '/packages/': typeof PackagesIndexRoute
+  '/blogs/': typeof BlogsIndexLazyRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/payment/callback': typeof ApiPaymentCallbackRoute
   '/api/payment/checkout': typeof ApiPaymentCheckoutRoute
   '/api/trpc/$': typeof ApiTrpcSplatRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
+  '/packages/mini-packages/$miniPackage': typeof PackagesMiniPackagesMiniPackageRoute
+  '/blogs/$blogId/': typeof BlogsBlogIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/contact-us'
+    | '/tests'
+    | '/privacy-policy'
+    | '/refund-policy'
+    | '/terms-and-condition'
     | '/bookings'
     | '/dashboard'
     | '/patients'
@@ -307,22 +403,31 @@ export interface FileRouteTypes {
     | '/demo/better-auth'
     | '/demo/db-chat'
     | '/demo/db-chat-api'
-    | '/demo/neon'
     | '/demo/posthog'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/demo/trpc-todo'
+    | '/packages/$package'
+    | '/packages/'
+    | '/blogs/'
     | '/api/auth/$'
     | '/api/payment/callback'
     | '/api/payment/checkout'
     | '/api/trpc/$'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/packages/mini-packages/$miniPackage'
+    | '/blogs/$blogId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/contact-us'
+    | '/tests'
+    | '/privacy-policy'
+    | '/refund-policy'
+    | '/terms-and-condition'
     | '/bookings'
     | '/dashboard'
     | '/patients'
@@ -337,18 +442,22 @@ export interface FileRouteTypes {
     | '/demo/better-auth'
     | '/demo/db-chat'
     | '/demo/db-chat-api'
-    | '/demo/neon'
     | '/demo/posthog'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/demo/trpc-todo'
+    | '/packages/$package'
+    | '/packages'
+    | '/blogs'
     | '/api/auth/$'
     | '/api/payment/callback'
     | '/api/payment/checkout'
     | '/api/trpc/$'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/packages/mini-packages/$miniPackage'
+    | '/blogs/$blogId'
   id:
     | '__root__'
     | '/'
@@ -356,6 +465,11 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_protected'
     | '/about'
+    | '/contact-us'
+    | '/tests'
+    | '/privacy-policy'
+    | '/refund-policy'
+    | '/terms-and-condition'
     | '/_admin/bookings'
     | '/_admin/dashboard'
     | '/_admin/patients'
@@ -370,18 +484,22 @@ export interface FileRouteTypes {
     | '/demo/better-auth'
     | '/demo/db-chat'
     | '/demo/db-chat-api'
-    | '/demo/neon'
     | '/demo/posthog'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
     | '/demo/trpc-todo'
+    | '/packages/$package'
+    | '/packages/'
+    | '/blogs/'
     | '/api/auth/$'
     | '/api/payment/callback'
     | '/api/payment/checkout'
     | '/api/trpc/$'
     | '/demo/form/address'
     | '/demo/form/simple'
+    | '/packages/mini-packages/$miniPackage'
+    | '/blogs/$blogId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -390,21 +508,30 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   ProtectedRoute: typeof ProtectedRouteWithChildren
   AboutRoute: typeof AboutRoute
+  ContactUsRoute: typeof ContactUsRoute
+  TestsRoute: typeof TestsRoute
+  PrivacyPolicyLazyRoute: typeof PrivacyPolicyLazyRoute
+  RefundPolicyLazyRoute: typeof RefundPolicyLazyRoute
+  TermsAndConditionLazyRoute: typeof TermsAndConditionLazyRoute
   DemoBetterAuthRoute: typeof DemoBetterAuthRoute
   DemoDbChatRoute: typeof DemoDbChatRoute
   DemoDbChatApiRoute: typeof DemoDbChatApiRoute
-  DemoNeonRoute: typeof DemoNeonRoute
   DemoPosthogRoute: typeof DemoPosthogRoute
   DemoStoreRoute: typeof DemoStoreRoute
   DemoTableRoute: typeof DemoTableRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   DemoTrpcTodoRoute: typeof DemoTrpcTodoRoute
+  PackagesPackageRoute: typeof PackagesPackageRoute
+  PackagesIndexRoute: typeof PackagesIndexRoute
+  BlogsIndexLazyRoute: typeof BlogsIndexLazyRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiPaymentCallbackRoute: typeof ApiPaymentCallbackRoute
   ApiPaymentCheckoutRoute: typeof ApiPaymentCheckoutRoute
   ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
+  PackagesMiniPackagesMiniPackageRoute: typeof PackagesMiniPackagesMiniPackageRoute
+  BlogsBlogIdIndexRoute: typeof BlogsBlogIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -442,6 +569,41 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact-us': {
+      id: '/contact-us'
+      path: '/contact-us'
+      fullPath: '/contact-us'
+      preLoaderRoute: typeof ContactUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refund-policy': {
+      id: '/refund-policy'
+      path: '/refund-policy'
+      fullPath: '/refund-policy'
+      preLoaderRoute: typeof RefundPolicyLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-and-condition': {
+      id: '/terms-and-condition'
+      path: '/terms-and-condition'
+      fullPath: '/terms-and-condition'
+      preLoaderRoute: typeof TermsAndConditionLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tests': {
+      id: '/tests'
+      path: '/tests'
+      fullPath: '/tests'
+      preLoaderRoute: typeof TestsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_admin/bookings': {
@@ -521,6 +683,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedProfileRouteImport
       parentRoute: typeof ProtectedRoute
     }
+    '/blogs/': {
+      id: '/blogs/'
+      path: '/blogs'
+      fullPath: '/blogs/'
+      preLoaderRoute: typeof BlogsIndexLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo/better-auth': {
       id: '/demo/better-auth'
       path: '/demo/better-auth'
@@ -540,13 +709,6 @@ declare module '@tanstack/react-router' {
       path: '/demo/db-chat-api'
       fullPath: '/demo/db-chat-api'
       preLoaderRoute: typeof DemoDbChatApiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/neon': {
-      id: '/demo/neon'
-      path: '/demo/neon'
-      fullPath: '/demo/neon'
-      preLoaderRoute: typeof DemoNeonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/posthog': {
@@ -584,6 +746,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTrpcTodoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/packages/': {
+      id: '/packages/'
+      path: '/packages'
+      fullPath: '/packages/'
+      preLoaderRoute: typeof PackagesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/packages/$package': {
+      id: '/packages/$package'
+      path: '/packages/$package'
+      fullPath: '/packages/$package'
+      preLoaderRoute: typeof PackagesPackageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -612,6 +788,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiTrpcSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blogs/$blogId/': {
+      id: '/blogs/$blogId/'
+      path: '/blogs/$blogId'
+      fullPath: '/blogs/$blogId/'
+      preLoaderRoute: typeof BlogsBlogIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo/form/address': {
       id: '/demo/form/address'
       path: '/demo/form/address'
@@ -624,6 +807,13 @@ declare module '@tanstack/react-router' {
       path: '/demo/form/simple'
       fullPath: '/demo/form/simple'
       preLoaderRoute: typeof DemoFormSimpleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/packages/mini-packages/$miniPackage': {
+      id: '/packages/mini-packages/$miniPackage'
+      path: '/packages/mini-packages/$miniPackage'
+      fullPath: '/packages/mini-packages/$miniPackage'
+      preLoaderRoute: typeof PackagesMiniPackagesMiniPackageRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -683,21 +873,30 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   ProtectedRoute: ProtectedRouteWithChildren,
   AboutRoute: AboutRoute,
+  ContactUsRoute: ContactUsRoute,
+  TestsRoute: TestsRoute,
+  PrivacyPolicyLazyRoute: PrivacyPolicyLazyRoute,
+  RefundPolicyLazyRoute: RefundPolicyLazyRoute,
+  TermsAndConditionLazyRoute: TermsAndConditionLazyRoute,
   DemoBetterAuthRoute: DemoBetterAuthRoute,
   DemoDbChatRoute: DemoDbChatRoute,
   DemoDbChatApiRoute: DemoDbChatApiRoute,
-  DemoNeonRoute: DemoNeonRoute,
   DemoPosthogRoute: DemoPosthogRoute,
   DemoStoreRoute: DemoStoreRoute,
   DemoTableRoute: DemoTableRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   DemoTrpcTodoRoute: DemoTrpcTodoRoute,
+  PackagesPackageRoute: PackagesPackageRoute,
+  PackagesIndexRoute: PackagesIndexRoute,
+  BlogsIndexLazyRoute: BlogsIndexLazyRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiPaymentCallbackRoute: ApiPaymentCallbackRoute,
   ApiPaymentCheckoutRoute: ApiPaymentCheckoutRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
+  PackagesMiniPackagesMiniPackageRoute: PackagesMiniPackagesMiniPackageRoute,
+  BlogsBlogIdIndexRoute: BlogsBlogIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

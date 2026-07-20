@@ -1,11 +1,6 @@
-import { env } from '#/env'
-import { paymentClient } from '#/integrations/phonepay'
+import { getPaymentClient } from '#/integrations/phonepay'
 import type { PhonePeException } from '@phonepe-pg/pg-sdk-node'
-import {
-  CreateSdkOrderRequest,
-  MetaInfo,
-  PrefillUserLoginDetails,
-} from '@phonepe-pg/pg-sdk-node'
+import { CreateSdkOrderRequest, MetaInfo } from '@phonepe-pg/pg-sdk-node'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { createMiddleware, createServerFn } from '@tanstack/react-start'
 
@@ -21,12 +16,16 @@ const loggingMiddleware = createMiddleware({ type: 'function' })
 
 export const checkoutUser = createServerFn({ method: 'POST' })
   .middleware([loggingMiddleware])
-  .handler(async ({ data }) => {
-    const redirectUrl = env.BETTER_AUTH_URL
+  .handler(async () => {
+    const redirectUrl = process.env.BETTER_AUTH_URL
+
+    if (!redirectUrl) {
+      throw new Error('Missing redirect URL')
+    }
 
     const merchantOrderId = crypto.randomUUID()
-    const prefillUserLoginDetails =
-      PrefillUserLoginDetails.builder().phoneNumber('')
+    // const prefillUserLoginDetails =
+    //   PrefillUserLoginDetails.builder().phoneNumber('')
 
     const metaInfo = MetaInfo.builder()
       .udf1('rand123')
@@ -55,7 +54,7 @@ export const checkoutUser = createServerFn({ method: 'POST' })
       .build()
 
     try {
-      const result = await paymentClient.pay(orderRequest)
+      const result = await getPaymentClient().pay(orderRequest)
       throw redirect({
         href: result.redirectUrl,
       })
@@ -80,6 +79,11 @@ export const Route = createFileRoute('/api/payment/callback')({
         const body = await request.text()
 
         const authorizationHeader = headers.get('authorization')
+
+        console.log('Authorization Header:', authorizationHeader)
+        console.log('Request Body:', body)
+
+        return new Response('OK', { status: 200 })
       },
     },
   },

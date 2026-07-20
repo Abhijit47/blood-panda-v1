@@ -1,11 +1,11 @@
-import type { ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import superjson from 'superjson'
 import { createTRPCClient, httpBatchStreamLink } from '@trpc/client'
 import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query'
+import type { ReactNode } from 'react'
+import superjson from 'superjson'
 
-import type { TRPCRouter } from '#/integrations/trpc/router'
 import { TRPCProvider } from '#/integrations/trpc/react'
+import type { TRPCRouter } from '#/integrations/trpc/router'
 
 function getUrl() {
   const base = (() => {
@@ -55,7 +55,7 @@ export default function TanstackQueryProvider({
 
   return (
     <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
-      {children}
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </TRPCProvider>
   )
 }

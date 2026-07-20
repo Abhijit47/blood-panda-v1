@@ -1,153 +1,235 @@
-import { Link } from '@tanstack/react-router'
-import BetterAuthHeader from '../integrations/better-auth/header-user.tsx'
-import ThemeToggle from './ThemeToggle'
+import { ShoppingBasketIcon } from 'lucide-react'
+import { Button, buttonVariants } from './ui/button'
+
+import { cn } from '#/lib/utils'
+import { Badge } from './ui/badge'
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from './ui/navigation-menu'
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '#/components/ui/dropdown-menu'
+import { miniPackagesLink, navLinks, packagesLink } from '#/constants'
+import { useSession } from '#/lib/auth-client'
+import { useCart } from '#/stores/useCart'
+import { Link, useLocation, useNavigate } from '@tanstack/react-router'
+import MobileMenu from './mobile-menu'
+import { Skeleton } from './ui/skeleton'
+import UserButton from './user-button'
 
 export default function Header() {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { data, isPending, isRefetching } = useSession()
+
+  const { items } = useCart()
+
+  // check the splat
+  // /packages/*
+  const isPackagesRoute = location.pathname.startsWith('/packages')
+
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--header-bg)] px-4 backdrop-blur-lg">
-      <nav className="page-wrap flex flex-wrap items-center gap-x-3 gap-y-2 py-3 sm:py-4">
-        <h2 className="m-0 flex-shrink-0 text-base font-semibold tracking-tight">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
-          >
-            <span className="h-2 w-2 rounded-full bg-[linear-gradient(90deg,#56c6be,#7ed3bf)]" />
-            TanStack Start
-          </Link>
-        </h2>
+    <header
+      className={
+        'sticky top-0 left-0 z-50 mx-auto flex w-full max-w-(--breakpoint-xl) items-center justify-between bg-background px-4'
+      }
+    >
+      <div className={'flex flex-col items-center justify-center py-2'}>
+        <img src="/logo-idol.png" alt="logo" width={70} height={49} />
+        <img src="/logo-txt.png" alt="logo" width={196} height={34} />
+      </div>
 
-        <div className="order-3 flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-none sm:w-auto sm:flex-nowrap sm:pb-0">
-          <Link
-            to="/"
-            className="nav-link"
-            activeProps={{ className: 'nav-link is-active' }}
-          >
-            Home
-          </Link>
-          <Link
-            to="/about"
-            className="nav-link"
-            activeProps={{ className: 'nav-link is-active' }}
-          >
-            About
-          </Link>
-          <a
-            href="https://tanstack.com/start/latest/docs/framework/react/overview"
-            className="nav-link"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Docs
-          </a>
-          <details className="relative w-full sm:w-auto">
-            <summary className="nav-link list-none cursor-pointer">
-              Demos
-            </summary>
-            <div className="mt-2 min-w-56 rounded-xl border border-[var(--line)] bg-[var(--header-bg)] p-2 shadow-lg sm:absolute sm:right-0">
-              <a
-                href="/demo/prisma"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Prisma
-              </a>
-              <a
-                href="/demo/db-chat"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                DB Chat
-              </a>
-              <a
-                href="/demo/form/simple"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Simple Form
-              </a>
-              <a
-                href="/demo/form/address"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Address Form
-              </a>
-              <a
-                href="/demo/table"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                TanStack Table
-              </a>
-              <a
-                href="/demo/trpc-todo"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                tRPC Todo
-              </a>
-              <a
-                href="/demo/better-auth"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Better Auth
-              </a>
-              <a
-                href="/demo/store"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Store
-              </a>
-              <a
-                href="/demo/posthog"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                PostHog
-              </a>
-              <a
-                href="/demo/tanstack-query"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                TanStack Query
-              </a>
-              <a
-                href="/demo/neon"
-                className="block rounded-lg px-3 py-2 text-sm text-[var(--sea-ink-soft)] no-underline transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              >
-                Neon
-              </a>
-            </div>
-          </details>
-        </div>
+      <nav className={'hidden items-center gap-4 md:flex'}>
+        <NavigationMenu>
+          <NavigationMenuList className={'gap-4'}>
+            {navLinks.map((link) => {
+              if (link.href === '/packages') {
+                return (
+                  <DropdownMenu key={link.id}>
+                    <DropdownMenuTrigger asChild>
+                      <NavigationMenuLink
+                        active={isPackagesRoute}
+                        asChild
+                        className={cn(
+                          'hover:bg-transparent focus:bg-transparent',
+                          'p-1',
+                          'rounded-none',
+                          'border-primary',
+                          'data-active:bg-transparent data-active:hover:bg-transparent data-active:focus:bg-transparent',
+                          'data-active:border-b-2 data-active:hover:border-b-2 data-active:focus:border-b-2',
+                        )}
+                      >
+                        <Link to={link.href} viewTransition>
+                          {link.label}
+                        </Link>
+                      </NavigationMenuLink>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuGroup>
+                        <DropdownMenuLabel>Popular Packages</DropdownMenuLabel>
+                        {packagesLink.map((pkg) => (
+                          <DropdownMenuItem key={pkg.id} asChild>
+                            <Link to={pkg.href} viewTransition>
+                              {pkg.label}
+                            </Link>
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuGroup>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuGroup>
+                        <DropdownMenuLabel>Mini Packages</DropdownMenuLabel>
+                        <DropdownMenuSub>
+                          <DropdownMenuSubTrigger>
+                            Explore...
+                          </DropdownMenuSubTrigger>
+                          <DropdownMenuPortal>
+                            <DropdownMenuSubContent>
+                              {miniPackagesLink.map((pkg) => (
+                                <DropdownMenuItem key={pkg.id} asChild>
+                                  <Link to={pkg.href} viewTransition>
+                                    {pkg.label}
+                                  </Link>
+                                </DropdownMenuItem>
+                              ))}
+                            </DropdownMenuSubContent>
+                          </DropdownMenuPortal>
+                        </DropdownMenuSub>
+                      </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                )
+              }
 
-        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-          <a
-            href="https://x.com/tan_stack"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden rounded-xl p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)] sm:block"
-          >
-            <span className="sr-only">Follow TanStack on X</span>
-            <svg viewBox="0 0 16 16" aria-hidden="true" width="24" height="24">
-              <path
-                fill="currentColor"
-                d="M12.6 1h2.2L10 6.48 15.64 15h-4.41L7.78 9.82 3.23 15H1l5.14-5.84L.72 1h4.52l3.12 4.73L12.6 1zm-.77 12.67h1.22L4.57 2.26H3.26l8.57 11.41z"
+              return (
+                <NavigationMenuItem key={link.id}>
+                  <NavigationMenuLink
+                    active={link.href === location.pathname}
+                    asChild
+                    className={cn(
+                      'hover:bg-transparent focus:bg-transparent',
+                      'p-1',
+                      'rounded-none',
+                      'border-primary',
+                      'data-active:bg-transparent data-active:hover:bg-transparent data-active:focus:bg-transparent',
+                      'data-active:border-b-2 data-active:hover:border-b-2 data-active:focus:border-b-2',
+                    )}
+                  >
+                    <Link to={link.href} viewTransition>
+                      {link.label}
+                    </Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              )
+            })}
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        <ul className={'flex items-center gap-3'}>
+          {isPending || isRefetching ? (
+            <li className={'mt-auto'}>
+              <Skeleton
+                className={buttonVariants({
+                  size: 'lg',
+                  variant: 'ghost',
+                  className: 'h-9 w-24',
+                })}
               />
-            </svg>
-          </a>
-          <a
-            href="https://github.com/TanStack"
-            target="_blank"
-            rel="noreferrer"
-            className="hidden rounded-xl p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)] sm:block"
-          >
-            <span className="sr-only">Go to TanStack GitHub</span>
-            <svg viewBox="0 0 16 16" aria-hidden="true" width="24" height="24">
-              <path
-                fill="currentColor"
-                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-              />
-            </svg>
-          </a>
-          <BetterAuthHeader />
+            </li>
+          ) : !data ? (
+            <li>
+              <Button
+                type="button"
+                variant={'outline'}
+                // size={"icon-sm"}
+                className={'relative'}
+                onClick={() =>
+                  navigate({
+                    to: '/login',
+                    // state: {
+                    //   __tempLocation: location,
+                    // },
+                    hash: 'login',
+                    viewTransition: true,
+                    search: `?redirectTo=${encodeURIComponent(location.pathname)}`,
+                  })
+                }
+              >
+                Add to cart
+                <ShoppingBasketIcon className={'size-4'} />
+                <Badge
+                  variant={'default'}
+                  className={'absolute -top-2.5 -right-1.5 z-10 px-1 text-xs'}
+                >
+                  {items.length}
+                </Badge>
+              </Button>
+            </li>
+          ) : (
+            <li>
+              <Button
+                type="button"
+                variant={'outline'}
+                // size={"icon-sm"}
+                className={'relative'}
+                onClick={() =>
+                  navigate({
+                    to: '/login',
+                    // state: {
+                    //   __tempLocation: location,
+                    // },
+                    hash: 'login',
+                    viewTransition: true,
+                    search: `?redirectTo=${encodeURIComponent(location.pathname)}`,
+                  })
+                }
+              >
+                Add to cart
+                <ShoppingBasketIcon className={'size-4'} />
+                <Badge
+                  variant={'default'}
+                  className={'absolute -top-2.5 -right-1.5 z-10 px-1 text-xs'}
+                >
+                  {items.length}
+                </Badge>
+              </Button>
+            </li>
+          )}
 
-          <ThemeToggle />
-        </div>
+          {isPending || isRefetching ? (
+            <li>
+              <Skeleton
+                className={buttonVariants({
+                  size: 'lg',
+                  variant: 'ghost',
+                  className: 'size-8',
+                })}
+              />
+            </li>
+          ) : !data ? null : (
+            <li>
+              <UserButton user={data.user} />
+            </li>
+          )}
+        </ul>
       </nav>
+
+      <div className={'block md:hidden'}>
+        <MobileMenu />
+      </div>
     </header>
   )
 }

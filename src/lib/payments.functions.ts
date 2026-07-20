@@ -1,5 +1,5 @@
-import { env } from '#/env'
-import { paymentClient } from '#/integrations/phonepay'
+import { getServerEnv } from '#/config/server-env'
+import { getPaymentClient } from '#/integrations/phonepay'
 import type { PhonePeException } from '@phonepe-pg/pg-sdk-node'
 import { CreateSdkOrderRequest, MetaInfo } from '@phonepe-pg/pg-sdk-node'
 import { redirect } from '@tanstack/react-router'
@@ -22,7 +22,7 @@ export const createCheckOut = createServerFn({ method: 'POST' })
   .handler(async ({ data }) => {
     const session = await ensureSession()
 
-    const redirectUrl = env.BETTER_AUTH_URL
+    const redirectUrl = getServerEnv().BETTER_AUTH_URL
 
     const merchantOrderId = crypto.randomUUID()
     // const prefillUserLoginDetails =
@@ -55,7 +55,7 @@ export const createCheckOut = createServerFn({ method: 'POST' })
       .build()
 
     try {
-      const result = await paymentClient.pay(orderRequest)
+      const result = await getPaymentClient().pay(orderRequest)
       throw redirect({
         href: result.redirectUrl,
       })

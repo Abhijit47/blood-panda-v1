@@ -1,13 +1,13 @@
+import { signIn, signOut, signUp, useSession } from '#/lib/auth-client'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
-import { authClient } from '#/lib/auth-client'
 
 export const Route = createFileRoute('/demo/better-auth')({
   component: BetterAuthDemo,
 })
 
 function BetterAuthDemo() {
-  const { data: session, isPending } = authClient.useSession()
+  const { data: session, isPending } = useSession()
   const [isSignUp, setIsSignUp] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -57,7 +57,7 @@ function BetterAuthDemo() {
 
           <button
             onClick={() => {
-              void authClient.signOut()
+              void signOut()
             }}
             className="demo-button demo-button-secondary w-full"
           >
@@ -88,7 +88,7 @@ function BetterAuthDemo() {
 
     try {
       if (isSignUp) {
-        const result = await authClient.signUp.email({
+        const result = await signUp.email({
           email,
           password,
           name,
@@ -97,7 +97,7 @@ function BetterAuthDemo() {
           setError(result.error.message || 'Sign up failed')
         }
       } else {
-        const result = await authClient.signIn.email({
+        const result = await signIn.email({
           email,
           password,
         })
