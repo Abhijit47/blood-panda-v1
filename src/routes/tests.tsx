@@ -222,7 +222,7 @@ function RouteComponent() {
       </div>
 
       <div className={'grid grid-cols-3 gap-4'}>
-        <div>
+        <div className={'col-span-full sm:col-span-1'}>
           <Select
             value={primary || '754513c0-4454-4fa0-83fc-c31bfd3c0e17'}
             onValueChange={(e) => handlePrimaryChange(e)}
@@ -242,7 +242,7 @@ function RouteComponent() {
             </SelectContent>
           </Select>
         </div>
-        <div>
+        <div className={'col-span-full sm:col-span-1'}>
           <Await
             promise={deferredPromise}
             fallback={<Skeleton className={'h-10 w-full'} />}
@@ -273,7 +273,7 @@ function RouteComponent() {
             }}
           </Await>
         </div>
-        <div>
+        <div className={'col-span-full sm:col-span-1'}>
           <Select>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Choose order" />
