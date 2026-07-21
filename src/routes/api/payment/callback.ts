@@ -1,90 +1,119 @@
+import { getServerEnv } from '#/config/server-env'
 import { getPaymentClient } from '#/integrations/phonepay'
-import type { PhonePeException } from '@phonepe-pg/pg-sdk-node'
-import { CreateSdkOrderRequest, MetaInfo } from '@phonepe-pg/pg-sdk-node'
-import { createFileRoute, redirect } from '@tanstack/react-router'
-import { createMiddleware, createServerFn } from '@tanstack/react-start'
+import { updateBookingStatus } from '#/lib/booking.function'
+import { authMiddleware } from '#/lib/middleware'
+import {
+  createPaymentRecord,
+  createWebhookRecord,
+} from '#/lib/payments.functions'
+import { createFileRoute } from '@tanstack/react-router'
 
-const loggingMiddleware = createMiddleware({ type: 'function' })
-  .client(({ next }) => {
-    console.log('Client-side middleware executed')
-    return next()
-  })
-  .server(({ next }) => {
-    console.log('Server-side middleware executed')
-    return next()
-  })
-
-export const checkoutUser = createServerFn({ method: 'POST' })
-  .middleware([loggingMiddleware])
-  .handler(async () => {
-    const redirectUrl = process.env.BETTER_AUTH_URL
-
-    if (!redirectUrl) {
-      throw new Error('Missing redirect URL')
-    }
-
-    const merchantOrderId = crypto.randomUUID()
-    // const prefillUserLoginDetails =
-    //   PrefillUserLoginDetails.builder().phoneNumber('')
-
-    const metaInfo = MetaInfo.builder()
-      .udf1('rand123')
-      .udf2('somebookingId')
-      .udf3('jhondeo')
-      .udf4('email')
-      .udf5('9999911111')
-      .udf6('123')
-      .udf7('nyc')
-      .udf8('26-04-2024')
-      .udf9('12:00 PM')
-      .udf10('08:00 PM')
-      .build()
-
-    // Amount in paise (100 = ₹1.00)
-    const amountInPaisa = Math.round(500 * 100)
-
-    const orderRequest = CreateSdkOrderRequest.StandardCheckoutBuilder()
-      .merchantOrderId(merchantOrderId)
-      .amount(amountInPaisa)
-      // .prefillUserLoginDetails(prefillUserLoginDetails)
-      .metaInfo(metaInfo)
-      .redirectUrl(`${redirectUrl}/booking-success`)
-      .expireAfter(3600) // Expire after 1 hour
-      .message('Message that will be shown for UPI collect transaction') // TODO: Add a proper message here
-      .build()
-
-    try {
-      const result = await getPaymentClient().pay(orderRequest)
-      throw redirect({
-        href: result.redirectUrl,
-      })
-    } catch (error) {
-      const err = error as PhonePeException
-      console.log(err.message)
-      // throw new Error(
-      //   `Failed to create checkout order: ${err.message || 'Internal Server Error'}`,
-      // )
-      return false
-    }
-  })
+/**
+ * **Recommendations for handling webhooks:**
+ * - Return 2xx only when you have successfully processed the event.
+ * - Return 4xx for issues caused by the sender (bad payload, missing required headers) so the provider usually stops retrying.
+ * - Return 5xx when you want the provider to retry (temporary failure like downtime/timeouts).
+ */
 
 export const Route = createFileRoute('/api/payment/callback')({
   server: {
-    handlers: {
-      GET: () => {
-        return new Response('GET REQUEST NOT ALLOWED', { status: 200 })
-      },
-      POST: async ({ request }) => {
-        const headers = request.headers
-        const body = await request.text()
+    middleware: [authMiddleware], // Runs first for all handlers
+    handlers: ({ createHandlers }) =>
+      createHandlers({
+        GET: async () => {
+          return new Response('Not implemented', { status: 501 })
+        },
+        POST: {
+          // middleware: [validMiddleware], // Runs after authMiddleware, only for POST
+          handler: async ({ request }) => {
+            const headers = request.headers
+            const payload = await request.text()
 
-        const authorizationHeader = headers.get('authorization')
+            const usernameConfigured = getServerEnv().PHONEPAY_USERNAME
+            const passwordConfigured = getServerEnv().PHONEPAY_PASSWORD
 
-        console.log('Authorization Header:', authorizationHeader)
-        console.log('Request Body:', body)
+            const phonepeS2SCallbackResponseBodyString = payload
 
-        return new Response('OK', { status: 200 })
-      },
-    },
+            const authorizationHeaderData = headers.get('authorization')
+            if (!authorizationHeaderData) {
+              console.error('Missing authorization header')
+              return new Response('Missing authorization header', {
+                status: 400,
+                statusText: 'Bad Request',
+              })
+            }
+
+            const callbackResponse = getPaymentClient().validateCallback(
+              usernameConfigured,
+              passwordConfigured,
+              authorizationHeaderData,
+              phonepeS2SCallbackResponseBodyString,
+            )
+
+            if (
+              callbackResponse.type.toString() === 'CHECKOUT_ORDER_COMPLETED'
+            ) {
+              const userId = callbackResponse.payload.metaInfo?.udf1 // userId
+              const bookingId = callbackResponse.payload.metaInfo?.udf2 // bookingId
+
+              if (bookingId && userId) {
+                const newPaymentPayload = {
+                  merchantId: callbackResponse.payload.merchantId,
+                  merchantOrderId:
+                    callbackResponse.payload.merchantOrderId ?? '',
+                  orderId: callbackResponse.payload.orderId,
+                  state: callbackResponse.payload.state,
+                  amount: String(callbackResponse.payload.amount),
+                  currency:
+                    'currency' in callbackResponse.payload
+                      ? (callbackResponse.payload.currency as string)
+                      : 'INR',
+                  expireAt: String(callbackResponse.payload.expireAt),
+                  userId: userId,
+                  bookingId: bookingId,
+                }
+                console.log(
+                  'Creating payment record with payload:',
+                  newPaymentPayload,
+                )
+
+                try {
+                  const newPayment = await createPaymentRecord({
+                    data: newPaymentPayload,
+                  })
+
+                  await Promise.all([
+                    updateBookingStatus({
+                      data: { bookingId, status: 'CONFIRMED' },
+                    }),
+                    createWebhookRecord({
+                      data: {
+                        payload: JSON.stringify(callbackResponse),
+                        paymentId: newPayment.id,
+                      },
+                    }),
+                  ])
+
+                  return new Response('Webhook received successfully', {
+                    status: 200,
+                    statusText: 'OK',
+                  })
+                } catch (error) {
+                  console.error('Error deleting booking:', error)
+                  return new Response('Error deleting booking', {
+                    status: 400,
+                    statusText: 'Bad Request',
+                  })
+                }
+              }
+            }
+
+            return new Response('Webhook received successfully', {
+              status: 200,
+              statusText: 'OK',
+            })
+          },
+        },
+      }),
   },
 })

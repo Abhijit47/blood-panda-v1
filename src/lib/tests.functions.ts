@@ -2,7 +2,7 @@ import { prisma } from '#/db'
 import { createServerFn } from '@tanstack/react-start'
 import { selectCategorySchema } from './validators/tests-schema'
 
-export const getTests = createServerFn().handler(async () => {
+export const getAllTests = createServerFn().handler(async () => {
   const records = await prisma.bloodTest.findMany({})
   return records
 })

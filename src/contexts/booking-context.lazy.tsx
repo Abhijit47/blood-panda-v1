@@ -9,7 +9,7 @@ import { toast } from 'sonner'
 // import { useFormStorage } from "react-hook-form-storage"
 import useSessionStorage from '#/hooks/use-session-storage'
 import { useFormPersist } from '@liorpo/react-hook-form-persist'
-import { useLoaderData } from '@tanstack/react-router'
+import { getRouteApi } from '@tanstack/react-router'
 
 type BookingStats = {
   currentStep: number
@@ -53,9 +53,19 @@ const initialValue: BookingStats = {
   thirdStepProgress: 0,
 }
 
+// ✅ MOST ELEGANT FOR MULTI-STEP FORMS
+type FormStepKeys = keyof BookingFormData
+const stepFields: Record<number, FormStepKeys> = {
+  1: 'memberDetails',
+  2: 'address',
+  3: 'schedule',
+  4: 'reviewOrder',
+}
+
+const routeApi = getRouteApi('/_protected/booking')
+
 export function BookingContextProvider(props: BookingContextProviderProps) {
   const { children } = props
-
   const [bookingStats, setBookingStats] = useSessionStorage({
     key: 'booking-form-stats',
     initialValue: initialValue,
@@ -66,7 +76,7 @@ export function BookingContextProvider(props: BookingContextProviderProps) {
   const canGoToPreviousStep = step > 1
   const canGoToNextStep = step < 4
 
-  const { user } = useLoaderData()
+  const { user } = routeApi.useLoaderData()
 
   const formInstance = useForm<BookingFormData>({
     resolver: zodResolver(bookingFormSchema as any),
@@ -74,8 +84,8 @@ export function BookingContextProvider(props: BookingContextProviderProps) {
     defaultValues: {
       memberDetails: [
         {
-          name: user?.name || '',
-          email: user?.email || '',
+          name: user.name || '',
+          email: user.email || '',
           phone: '',
           gender: 'OTHER',
           age: '0',
@@ -109,8 +119,7 @@ export function BookingContextProvider(props: BookingContextProviderProps) {
     name: `memberDetails`,
     defaultValue: [],
     compute: (member) => {
-      const testItems =
-        member.map((item) => item?.testItems || [])?.flat() || []
+      const testItems = member.map((item) => item.testItems).flat()
 
       const originalPrice = testItems.reduce(
         (acc, cur) => acc + (cur?.originalPrice || 0),
@@ -127,25 +136,41 @@ export function BookingContextProvider(props: BookingContextProviderProps) {
     },
   })
 
+  // ✅ CLEAN & SPEC-COMPLIANT (Apprach one)
+  // const isValidating = (async () => {
+  //   if (step === 1) return await formInstance.trigger('memberDetails')
+  //   if (step === 2) return await formInstance.trigger('address')
+  //   if (step === 3) return await formInstance.trigger('schedule')
+  //   return true
+  // })()
+
+  // Approach two (more elegant)
+  async function validateStep(currentStep: number): Promise<boolean> {
+    const fieldToValidate = stepFields[currentStep]
+
+    // If the step matches a specific field group, trigger it; otherwise return true
+    return await formInstance.trigger(fieldToValidate)
+  }
+
   function nextStep() {
-    const validatingForm: Promise<boolean> = new Promise(async (res, rej) => {
-      const ok =
-        step === 1
-          ? await formInstance.trigger('memberDetails')
-          : step === 2
-            ? await formInstance.trigger('address')
-            : step === 3
-              ? await formInstance.trigger('schedule')
-              : true
+    // const validatingForm: Promise<boolean> = new Promise(async (res, rej) => {
+    //   const ok =
+    //     step === 1
+    //       ? await formInstance.trigger('memberDetails')
+    //       : step === 2
+    //         ? await formInstance.trigger('address')
+    //         : step === 3
+    //           ? await formInstance.trigger('schedule')
+    //           : true
 
-      if (ok) {
-        res(true)
-      } else {
-        rej(false)
-      }
-    })
+    //   if (ok) {
+    //     res(true)
+    //   } else {
+    //     rej(false)
+    //   }
+    // })
 
-    toast.promise(validatingForm, {
+    toast.promise(validateStep(step), {
       loading: 'Validating form...',
       success: (result) => {
         if (result) {

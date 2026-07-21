@@ -1,11 +1,12 @@
 import { getServerEnv } from '#/config/server-env'
+import { prisma } from '#/db'
 import { getPaymentClient } from '#/integrations/phonepay'
 import type { PhonePeException } from '@phonepe-pg/pg-sdk-node'
 import { CreateSdkOrderRequest, MetaInfo } from '@phonepe-pg/pg-sdk-node'
 import { redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import z from 'zod'
-import { ensureSession } from './auth.functions'
+import { authMiddleware } from './middleware'
 import { bookingFormSchema } from './validators/booking-schema'
 
 const checkoutOrderPayload = z
@@ -17,10 +18,11 @@ const checkoutOrderPayload = z
 
 // type CheckoutOrderPayload = z.infer<typeof checkoutOrderPayload>
 
-export const createCheckOut = createServerFn({ method: 'POST' })
+export const createCheckOutLink = createServerFn({ method: 'POST' })
+  .middleware([authMiddleware])
   .validator(checkoutOrderPayload)
-  .handler(async ({ data }) => {
-    const session = await ensureSession()
+  .handler(async ({ data, context }) => {
+    const { user } = context
 
     const redirectUrl = getServerEnv().BETTER_AUTH_URL
 
@@ -29,7 +31,7 @@ export const createCheckOut = createServerFn({ method: 'POST' })
     //   PrefillUserLoginDetails.builder().phoneNumber('')
 
     const metaInfo = MetaInfo.builder()
-      .udf1(session.user.id)
+      .udf1(user.id)
       .udf2(data.bookingId)
       .udf3(data.memberDetails[0].name)
       .udf4(data.memberDetails[0].email)
@@ -65,5 +67,69 @@ export const createCheckOut = createServerFn({ method: 'POST' })
       throw new Error(
         `Failed to create checkout order: ${err.message || 'Internal Server Error'}`,
       )
+    }
+  })
+
+// used under webhook
+const createPaymentRecordPayload = z.object({
+  merchantId: z.string(),
+  merchantOrderId: z.string(),
+  orderId: z.string(),
+  state: z.string(),
+  amount: z.string(),
+  currency: z.string(),
+  expireAt: z.string(),
+  userId: z.string(),
+  bookingId: z.string(),
+})
+
+// type CreatePaymentRecordPayload = z.infer<typeof createPaymentRecordPayload>
+
+// when the payment is successful, we will create a payment record in the database
+export const createPaymentRecord = createServerFn({ method: 'POST' })
+  .validator(createPaymentRecordPayload)
+  .handler(async ({ data }) => {
+    try {
+      const result = await prisma.payment.create({
+        data: {
+          merchantId: data.merchantId,
+          merchantOrderId: data.merchantOrderId,
+          orderId: data.orderId,
+          state: data.state,
+          amount: data.amount,
+          currency: data.currency,
+          expireAt: data.expireAt,
+          userId: data.userId,
+          bookingId: data.bookingId,
+        },
+      })
+      return result
+    } catch (error) {
+      console.error('Error creating payment record:', error)
+      throw new Error('Failed to create payment record')
+    }
+  })
+
+const createWebhookRecordSchema = z.object({
+  payload: z.any(),
+  paymentId: z.string(),
+})
+
+// type CreateWebhookRecordPayload = z.infer<typeof createWebhookRecordSchema>
+
+export const createWebhookRecord = createServerFn({ method: 'POST' })
+  .validator(createWebhookRecordSchema)
+  .handler(async ({ data }) => {
+    try {
+      const result = await prisma.webhookLog.create({
+        data: {
+          payload: JSON.parse(data.payload),
+          paymentId: data.paymentId,
+        },
+      })
+      return result
+    } catch (error) {
+      console.error('Error creating webhook record:', error)
+      throw new Error('Failed to create webhook record')
     }
   })

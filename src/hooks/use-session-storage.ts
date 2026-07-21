@@ -1,5 +1,8 @@
-import { isBrowser } from '#/.client/browser-features'
-import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
+import { useEffect, useState } from 'react'
+
+const isBrowser =
+  typeof window !== 'undefined' && typeof window.sessionStorage !== 'undefined'
 
 type UseSessionStoragePropsType<T> = {
   key: string

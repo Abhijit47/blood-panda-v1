@@ -11,12 +11,12 @@ import IndividualCategory from '#/features/home/components/individual-category'
 import PopularPackages from '#/features/home/components/popular-packages'
 import Testimonials from '#/features/home/components/testimonials.lazy'
 import WhyChooseUs from '#/features/home/components/why-choose-us'
-import { getTests } from '#/lib/tests.functions'
+import { getAllTests } from '#/lib/tests.functions'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
   loader: async () => {
-    const deferred = getTests()
+    const deferred = getAllTests()
 
     return { deferred }
   },
