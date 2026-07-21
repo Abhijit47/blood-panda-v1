@@ -107,7 +107,7 @@ export const Route = createFileRoute('/_protected/booking')({
 function RouteComponent() {
   return (
     <main className={'mx-auto max-w-(--breakpoint-xl) space-y-8 px-4 py-4'}>
-      <div>
+      {/* <div>
         <Button
           onClick={() => {
             fetch('/hello', {
@@ -124,7 +124,7 @@ function RouteComponent() {
         >
           Say Hello
         </Button>
-      </div>
+      </div> */}
       <Suspense fallback={<SuspenseFallback />}>
         <BookingContextProvider>
           <BookingForm />
