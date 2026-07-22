@@ -8,6 +8,8 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 
+import '../bones/registry'
+
 import StoreDevtools from '../lib/demo-store-devtools'
 
 import PostHogProvider from '../integrations/posthog/provider'

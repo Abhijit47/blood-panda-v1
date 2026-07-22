@@ -190,7 +190,9 @@ export default function Header() {
                 type="button"
                 variant={'outline'}
                 // size={"icon-sm"}
-                className={'relative'}
+                className={
+                  'relative border-destructive bg-transparent text-destructive hover:bg-destructive/90 hover:text-accent transition-colors duration-300 ease-in-out'
+                }
                 onClick={() =>
                   navigate({
                     to: '/cart',

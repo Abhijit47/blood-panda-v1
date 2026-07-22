@@ -16,7 +16,7 @@ import { IconArrowUpRight } from '@tabler/icons-react'
 import { Await, getRouteApi, Link } from '@tanstack/react-router'
 // import { Skeleton } from 'boneyard-js/react'
 import { PlusCircle } from 'lucide-react'
-import { FallbackIndividials } from './fallback-loaders'
+import { FallbackIndividials } from '../../common/fallback-loaders'
 
 const routeApi = getRouteApi('/')
 

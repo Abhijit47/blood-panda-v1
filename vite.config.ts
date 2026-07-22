@@ -1,5 +1,5 @@
 import { devtools } from '@tanstack/devtools-vite'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 
@@ -9,10 +9,14 @@ import netlify from '@netlify/vite-plugin-tanstack-start'
 import babel from '@rolldown/plugin-babel'
 import tailwindcss from '@tailwindcss/vite'
 import viteReact, { reactCompilerPreset } from '@vitejs/plugin-react'
-// import { boneyardPlugin } from 'boneyard-js/vite'
+import { boneyardPlugin } from 'boneyard-js/vite'
 import { nitro } from 'nitro/vite'
 import path from 'node:path'
 import neon from './neon-vite-plugin.ts'
+
+const env = loadEnv('dev', process.cwd(), '')
+
+const isDev = env['NODE_ENV'] === 'development'
 
 const config = defineConfig({
   resolve: {
@@ -26,6 +30,17 @@ const config = defineConfig({
     },
   },
   plugins: [
+    boneyardPlugin({
+      framework: 'react',
+      routes: [
+        '/packages/gold',
+        '/packages/diamond',
+        '/packages/silver',
+        '/packages/platinum',
+        '/packages/signature',
+      ],
+      debug: isDev,
+    }),
     contentCollections(),
     devtools(),
     netlify(),

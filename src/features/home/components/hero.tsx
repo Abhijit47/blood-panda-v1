@@ -128,7 +128,14 @@ export default function Hero() {
           </div>
 
           <CardAction className={'space-x-2 justify-self-start'}>
-            <Link to="/booking" viewTransition className={buttonVariants()}>
+            <Link
+              to="/booking"
+              viewTransition
+              className={buttonVariants({
+                className:
+                  'bg-destructive! text-accent hover:bg-destructive/90',
+              })}
+            >
               <FlaskConicalIcon className="size-4" /> Book a Test
             </Link>
             <Link
@@ -136,6 +143,8 @@ export default function Hero() {
               viewTransition
               className={buttonVariants({
                 variant: 'outline',
+                className:
+                  'border-blue-600! border-2 text-blue-600 hover:bg-blue-600 hover:text-accent',
               })}
             >
               <PackageOpenIcon className="size-4" />

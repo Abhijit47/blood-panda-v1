@@ -1,12 +1,12 @@
 import { Spinner } from '#/components/ui/spinner'
-import Blogs from '#/features/home/components/blogs'
-import BookingSteps from '#/features/home/components/booking-steps'
-import CTA from '#/features/home/components/cta'
 import {
   FallbackHealthCategories,
   FallbackPopularCategory,
   FallbackTestimonials,
-} from '#/features/home/components/fallback-loaders'
+} from '#/features/common/fallback-loaders'
+import Blogs from '#/features/home/components/blogs'
+import BookingSteps from '#/features/home/components/booking-steps'
+import CTA from '#/features/home/components/cta'
 import FAQs from '#/features/home/components/faqs'
 import Features from '#/features/home/components/features'
 import HealthCategory from '#/features/home/components/health-category.lazy'

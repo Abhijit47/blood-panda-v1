@@ -53,3 +53,38 @@ export function FallbackPopularCategory() {
 export function FallbackHealthPackages() {
   return <BaseLoader />
 }
+
+export function FallbackTestItems() {
+  return (
+    <div
+      className={
+        'grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
+      }
+    >
+      {[...Array(5)].map((_, testIdx) => (
+        <Card key={testIdx} className={'py-0 gap-4'}>
+          <CardHeader
+            className={'h-18 bg-primary py-2 text-accent content-center'}
+          >
+            <CardTitle>
+              <Skeleton className={'h-4 w-32'} />
+            </CardTitle>
+          </CardHeader>
+
+          <CardContent className={'space-y-4'}>
+            <span className="block">
+              Original Price: <Skeleton className={'h-4 w-16'} />
+            </span>{' '}
+            <span className="block">
+              Discounted Price: <Skeleton className={'h-4 w-16'} />
+            </span>
+          </CardContent>
+
+          <CardFooter className={'py-4'}>
+            <Skeleton className={'h-10 w-full'} />
+          </CardFooter>
+        </Card>
+      ))}
+    </div>
+  )
+}
