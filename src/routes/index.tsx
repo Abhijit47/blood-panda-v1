@@ -21,7 +21,7 @@ import { ClientOnly, createFileRoute, useRouter } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
   loader: async () => {
-    const deferred = getAllTests()
+    const deferred = getAllTests({ data: { limit: 12 } })
 
     return { deferred }
   },

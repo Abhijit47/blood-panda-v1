@@ -1,4 +1,3 @@
-import { Badge } from '#/components/ui/badge'
 import { buttonVariants } from '#/components/ui/button'
 import {
   Card,
@@ -10,20 +9,12 @@ import {
 } from '#/components/ui/card'
 import {
   FlaskConicalIcon,
-  GlassesIcon,
   HomeIcon,
   PackageOpenIcon,
   PipetteIcon,
   StarIcon,
 } from 'lucide-react'
 
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-} from '#/components/ui/input-group'
 import {
   Item,
   ItemContent,
@@ -32,6 +23,7 @@ import {
   ItemTitle,
 } from '#/components/ui/item'
 import { Link } from '@tanstack/react-router'
+import HeroSearch from './hero-search'
 
 const stats = [
   {
@@ -107,25 +99,7 @@ export default function Hero() {
             </p>
           </CardDescription>
 
-          <InputGroup>
-            <InputGroupInput placeholder="Search tests, packages or health checkups" />
-            <InputGroupAddon align={'inline-end'}>
-              <InputGroupButton type="button">
-                <InputGroupText>Search</InputGroupText>
-                <GlassesIcon className={'size-4'} />
-              </InputGroupButton>
-            </InputGroupAddon>
-          </InputGroup>
-          <div className={'flex flex-wrap items-center gap-2'}>
-            <p>Popular search:</p>
-
-            <div className={'flex items-center gap-1'}>
-              <Badge variant={'secondary'}>CBC</Badge>
-              <Badge variant={'secondary'}>Diabetes</Badge>
-              <Badge variant={'secondary'}>Thyroid</Badge>
-              <Badge variant={'secondary'}>Vitamin D</Badge>
-            </div>
-          </div>
+          <HeroSearch />
 
           <CardAction className={'space-x-2 justify-self-start'}>
             <Link
@@ -158,7 +132,7 @@ export default function Hero() {
 
       <div
         className={
-          'absolute -bottom-96 sm:-bottom-48 md:-bottom-40 lg:-bottom-24 xl:-bottom-12 z-10 bg-background backdrop-blur-lg rounded-xl border-0 w-full max-w-6xl sscroll-fade-y'
+          'absolute -bottom-96 sm:-bottom-48 md:-bottom-40 lg:-bottom-24 xl:-bottom-12 z-10 bg-background backdrop-blur-lg rounded-xl border-0 w-full max-w-6xl scroll-fade-y'
         }
         // className={
         //   'col-span-full justify-self-center z-10 bg-accent/10 backdrop-blur-lg border-none ring-0 shadow-none rounded-none border-0 w-full max-w-6xl scroll-fade-e'

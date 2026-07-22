@@ -35,14 +35,17 @@ export default function BookingSteps() {
                 bookingSteps.lastIndexOf(bookingSteps[idx + 1]) === idx + 1
               return (
                 <Fragment key={step.id}>
-                  <Item variant={'outline'}>
+                  <Item
+                    variant={'outline'}
+                    className={'justify-center md:justify-between'}
+                  >
                     <ItemMedia
                       variant={'default'}
                       className={'size-8 rounded-full bg-accent p-2'}
                     >
                       {idx + 1}
                     </ItemMedia>
-                    <ItemContent>
+                    <ItemContent className={'min-w-16 md:min-w-auto'}>
                       <ItemTitle>{step.title}</ItemTitle>
                       <ItemDescription>{step.desc}</ItemDescription>
                     </ItemContent>

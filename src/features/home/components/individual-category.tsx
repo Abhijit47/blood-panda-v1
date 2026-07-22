@@ -15,6 +15,7 @@ import { IconArrowUpRight } from '@tabler/icons-react'
 // import { useQuery } from '@tanstack/react-query'
 import { Await, getRouteApi, Link } from '@tanstack/react-router'
 // import { Skeleton } from 'boneyard-js/react'
+import { useCart } from '#/stores/useCart'
 import { PlusCircle } from 'lucide-react'
 import { FallbackIndividials } from '../../common/fallback-loaders'
 
@@ -22,6 +23,8 @@ const routeApi = getRouteApi('/')
 
 export default function IndividualCategory() {
   const { deferred } = routeApi.useLoaderData()
+
+  const { addItem } = useCart()
 
   return (
     <section>
@@ -78,7 +81,7 @@ export default function IndividualCategory() {
                     return (
                       <Card
                         className={
-                          'w-full min-w-xs md:min-w-sm snap-start pb-0 my-4'
+                          'w-full min-w-xs md:min-w-sm snap-start my-4'
                         }
                         key={item.id}
                       >
@@ -103,6 +106,17 @@ export default function IndividualCategory() {
                           <Button
                             variant={'outline'}
                             className={'w-full rounded-full'}
+                            onClick={() =>
+                              addItem({
+                                item: {
+                                  id: item.id,
+                                  name: item.name,
+                                  price: Number(item.discountedPrice),
+                                  quantity: 1,
+                                  image: 'https://avatar.vercel.sh/rauchg.png',
+                                },
+                              })
+                            }
                           >
                             Add <PlusCircle className={'size-4'} />
                           </Button>

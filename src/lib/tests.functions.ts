@@ -2,10 +2,26 @@ import { prisma } from '#/db'
 import { createServerFn } from '@tanstack/react-start'
 import { selectCategorySchema } from './validators/tests-schema'
 
-export const getAllTests = createServerFn().handler(async () => {
-  const records = await prisma.bloodTest.findMany({})
-  return records
-})
+export const getAllTests = createServerFn()
+  .validator(selectCategorySchema.pick({ limit: true }))
+  .handler(async ({ data }) => {
+    if (data.limit) {
+      const limitedRecords = await prisma.bloodTest.findMany({
+        take: data.limit,
+        orderBy: {
+          name: 'asc',
+        },
+      })
+      return limitedRecords
+    } else {
+      const records = await prisma.bloodTest.findMany({
+        orderBy: {
+          name: 'asc',
+        },
+      })
+      return records
+    }
+  })
 
 export const getPrimaryCategoryList = createServerFn().handler(async () => {
   const primary = await prisma.primaryCategory.findMany({})

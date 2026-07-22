@@ -54,7 +54,7 @@ export default function SearchItems() {
         <InputGroupInput
           placeholder="Type to search..."
           value={query || ''}
-          onChange={(e) => debounced(e.target.value)}
+          onChange={(e) => debounced(e.target.value.toLocaleLowerCase())}
         />
         <InputGroupAddon align="inline-end">
           <InputGroupButton variant="secondary">Search</InputGroupButton>
