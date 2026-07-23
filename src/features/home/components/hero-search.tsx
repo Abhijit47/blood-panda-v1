@@ -76,12 +76,26 @@ export default function HeroSearch() {
           onChange={(e) => setQuery(e.target.value.trim().toLocaleLowerCase())}
         />
         <InputGroupAddon align={'inline-end'}>
+          <InputGroupButton
+            type="submit"
+            className={
+              'bg-destructive text-accent hover:text-destructive hover:bg-accent group transition-all duration-300 ease-in-out'
+            }
+          >
+            <InputGroupText
+              className={'text-accent group-hover:text-destructive'}
+            >
+              Search
+            </InputGroupText>
+            <GlassesIcon className={'size-4'} />
+          </InputGroupButton>
           {query && query.length > 0 ? (
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
                   type="button"
                   size={'xs'}
+                  variant={'destructive'}
                   className={'size-6'}
                   onClick={() => handleResetSearch()}
                 >
@@ -92,12 +106,7 @@ export default function HeroSearch() {
                 <p>Clear</p>
               </TooltipContent>
             </Tooltip>
-          ) : (
-            <InputGroupButton type="submit" variant={'destructive'}>
-              <InputGroupText>Search</InputGroupText>
-              <GlassesIcon className={'size-4'} />
-            </InputGroupButton>
-          )}
+          ) : null}
         </InputGroupAddon>
       </InputGroup>
       <div className={'flex flex-wrap items-center gap-2'}>

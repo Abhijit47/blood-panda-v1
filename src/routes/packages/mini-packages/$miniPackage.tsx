@@ -15,18 +15,21 @@ import { CheckCircle2Icon } from 'lucide-react'
 // import { capitalizeFirstLetter, formatCurrency, formatSlug } from '#/lib/utils'
 import { getMiniPackageDetailsByName } from '#/lib/mini-package.functions'
 import { formatCurrency, formatSlug } from '#/lib/utils'
+import { useQuery } from '@tanstack/react-query'
+import { Skeleton } from 'boneyard-js/react'
 
 export const Route = createFileRoute('/packages/mini-packages/$miniPackage')({
   loader: async ({ params }) => {
-    const miniPackageDetails = await getMiniPackageDetailsByName({
+    const defferedMiniPackageDetails = getMiniPackageDetailsByName({
       data: { name: params.miniPackage },
     })
-    return { miniPackageDetails }
+    return { defferedMiniPackageDetails }
   },
   component: RouteComponent,
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,
   notFoundComponent: NotFoundComponent,
+  wrapInSuspense: true,
   codeSplitGroupings: [
     [
       'loader',
@@ -38,11 +41,19 @@ export const Route = createFileRoute('/packages/mini-packages/$miniPackage')({
   ],
 })
 
+const baseUrl = import.meta.env.VITE_BETTER_AUTH_URL
+
+const imageBaseUrl = `${baseUrl}/mini-packages`
+
 function RouteComponent() {
   const params = Route.useParams()
   const packageSlug = params.miniPackage
 
-  const data = Route.useLoaderData()
+  const { data, isLoading } = useQuery({
+    queryKey: ['miniPackageDetails', packageSlug],
+    queryFn: () => getMiniPackageDetailsByName({ data: { name: packageSlug } }),
+    refetchOnWindowFocus: true,
+  })
 
   return (
     <main className={'mx-auto max-w-(--breakpoint-xl) space-y-8 px-4 py-12'}>
@@ -57,7 +68,9 @@ function RouteComponent() {
             alt="packages-bg"
             width={'100%'}
             height={'100%'}
-            className={'absolute top-0 left-0 -z-10 h-full w-full object-cover'}
+            className={
+              'absolute top-0 left-0 -z-10 h-full w-full object-cover rounded-3xl'
+            }
           />
           <div
             className={
@@ -76,82 +89,112 @@ function RouteComponent() {
         </div>
       </section>
 
-      <div className={'grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6'}>
-        <section className={'col-span-full lg:col-span-9'}>
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                <h2 className={'text-lg font-semibold'}>
-                  {formatSlug(packageSlug)}
-                </h2>
-              </CardTitle>
-            </CardHeader>
+      <Skeleton
+        name={`mini-package-details-${packageSlug}`}
+        loading={isLoading}
+      >
+        <div className={'grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6'}>
+          <section className={'col-span-full lg:col-span-9'}>
+            <Card>
+              <CardHeader>
+                <CardTitle className={'flex items-center gap-2'}>
+                  <div className={'size-16'}>
+                    <img
+                      src={`${imageBaseUrl}${data?.cover}`}
+                      alt={data?.name}
+                      width={'100%'}
+                      height={'100%'}
+                      className={'rounded-full object-contain w-full h-full'}
+                    />
+                  </div>
+                  <h2 className={'text-lg font-semibold'}>
+                    {formatSlug(packageSlug)}
+                  </h2>
+                </CardTitle>
+              </CardHeader>
 
-            <CardContent className={'space-y-4'}>
-              {data.miniPackageDetails.benefits.map((benefit, idx) => (
-                <Card key={crypto.randomUUID()}>
-                  <CardHeader>
-                    <CardTitle>
-                      <p>
-                        {idx + 1}. {benefit}
-                      </p>
-                    </CardTitle>
-                  </CardHeader>
-                </Card>
-              ))}
-            </CardContent>
-          </Card>
-        </section>
-
-        <aside className={'col-span-full lg:col-span-3'}>
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                <h3 className={'text-xl font-semibold'}>
-                  {formatSlug(packageSlug)} Package
-                </h3>
-              </CardTitle>
-              <CardDescription className={'space-y-2'}>
-                <p className={'text-2xl font-semibold'}>
-                  {formatCurrency(data.miniPackageDetails.discountedAmount)}
-                </p>
-                <div className={'inline-flex items-center gap-2'}>
-                  <span
-                    className={'text-sm text-muted-foreground line-through'}
-                  >
-                    {formatCurrency(data.miniPackageDetails.originalAmount)}
-                  </span>
-                  <Badge>{data.miniPackageDetails.offerAmount} % Off</Badge>
-                </div>
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ul>
-                {data.miniPackageDetails.extraFeatures.map((feature) => (
-                  <li
+              <CardContent className={'space-y-4'}>
+                {data?.benefits.map((benefit, idx) => (
+                  <Card
                     key={crypto.randomUUID()}
-                    className={'flex items-center gap-2'}
+                    className={'bg-blue-100 py-4 ring-blue-500/50'}
                   >
-                    <CheckCircle2Icon className={'size-4'} />
-                    {feature}
-                  </li>
+                    <CardHeader>
+                      <CardTitle>
+                        <p>
+                          {idx + 1}. {benefit}
+                        </p>
+                      </CardTitle>
+                    </CardHeader>
+                  </Card>
                 ))}
-              </ul>
-            </CardContent>
-            <CardFooter className="flex-col gap-2">
-              <Button className={'w-full'} asChild>
-                <Link to="/" viewTransition>
-                  <IconChevronLeft className={'size-4'} />
-                  Go Back
-                </Link>
-              </Button>
-              <Button className={'w-full'}>
-                Book Now <IconChevronRight className={'size-4'} />
-              </Button>
-            </CardFooter>
-          </Card>
-        </aside>
-      </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          <aside className={'col-span-full lg:col-span-3'}>
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  <h3 className={'text-xl font-semibold'}>
+                    {formatSlug(packageSlug)} Package
+                  </h3>
+                </CardTitle>
+                <CardDescription className={'space-y-2'}>
+                  <p className={'text-2xl font-semibold text-destructive'}>
+                    {formatCurrency(data?.discountedAmount || '0')}
+                  </p>
+                  <div className={'inline-flex items-center gap-2'}>
+                    <span
+                      className={
+                        'text-sm text-muted-foreground line-through font-medium'
+                      }
+                    >
+                      {formatCurrency(data?.originalAmount || '0')}
+                    </span>
+                    <Badge className={'bg-destructive'}>
+                      {data?.offerAmount} % Off
+                    </Badge>
+                  </div>
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className={'space-y-2'}>
+                  {data?.extraFeatures.map((feature) => (
+                    <li
+                      key={crypto.randomUUID()}
+                      className={'flex items-center gap-2'}
+                    >
+                      <CheckCircle2Icon className={'size-4 stroke-green-500'} />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+              <CardFooter className="flex-col gap-2">
+                <Button
+                  className={
+                    'w-full bg-destructive hover:bg-accent hover:text-destructive focus:ring-destructive'
+                  }
+                  asChild
+                >
+                  <Link to="/" viewTransition>
+                    <IconChevronLeft className={'size-4'} />
+                    Go Back
+                  </Link>
+                </Button>
+                <Button
+                  className={
+                    'w-full bg-destructive hover:bg-accent hover:text-destructive transition-all duration-300 ease-in-out'
+                  }
+                >
+                  Book Now <IconChevronRight className={'size-4'} />
+                </Button>
+              </CardFooter>
+            </Card>
+          </aside>
+        </div>
+      </Skeleton>
     </main>
   )
 }

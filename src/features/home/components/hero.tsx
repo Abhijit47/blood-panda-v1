@@ -70,10 +70,10 @@ export default function Hero() {
           alt="hero-bg"
           width={'100%'}
           height={'100%'}
-          className={'w-full h-full object-cover'}
+          className={'w-full h-full object-cover rounded-3xl'}
         />
       </div>
-      <Card className="z-10 bg-background/10 backdrop-blur-xs border-none ring-0 shadow-none rounded-none border-0 h-full justify-center scroll-fade-e gap-4">
+      <Card className="z-10 bg-background/10 backdrop-blur-xs border-none ring-0 shadow-none border-0 h-full justify-center scroll-fade-e gap-4">
         <CardHeader>
           <CardDescription>
             <p className={'text-destructive font-semibold text-base'}>

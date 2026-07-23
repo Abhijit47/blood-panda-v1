@@ -86,6 +86,21 @@ function RouteComponent() {
     'text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold lg:font-bold',
   )
 
+  const buttonBg = cn(
+    packageSlug === 'silver'
+      ? 'bg-silver hover:bg-silver/80 focus:ring-silver'
+      : packageSlug === 'gold'
+        ? 'bg-gold hover:bg-gold/80 focus:ring-gold'
+        : packageSlug === 'diamond'
+          ? 'bg-diamond hover:bg-diamond/80 focus:ring-diamond'
+          : packageSlug === 'platinum'
+            ? 'bg-platinum hover:bg-platinum/80 focus:ring-platinum'
+            : packageSlug === 'signature'
+              ? 'bg-signature hover:bg-signature/80 focus:ring-signature'
+              : '',
+    'text-white',
+  )
+
   return (
     <main className={'mx-auto max-w-(--breakpoint-xl) px-4 py-12'}>
       <Skeleton name={`package-details-${packageSlug}`} loading={isLoading}>
@@ -102,7 +117,7 @@ function RouteComponent() {
                 width={'100%'}
                 height={'100%'}
                 className={
-                  'absolute top-0 left-0 -z-10 h-full w-full object-cover'
+                  'absolute top-0 left-0 -z-10 h-full w-full object-cover rounded-3xl'
                 }
               />
               <div
@@ -140,7 +155,9 @@ function RouteComponent() {
                       {formatCurrency(data?.discountedAmount || '0')}
                     </p>
                     <span
-                      className={'text-sm text-muted-foreground line-through'}
+                      className={
+                        'text-sm text-muted-foreground line-through font-semibold'
+                      }
                     >
                       {formatCurrency(data?.originalAmount || '0')}
                     </span>
@@ -150,7 +167,7 @@ function RouteComponent() {
                   </div>
                 </div>
 
-                <Button variant={'destructive'}>
+                <Button className={buttonBg}>
                   <IconCalendarCheck className={'size-4'} />
                   {`Book ${capitalizeFirstLetter(packageSlug)} Package Now`}
                 </Button>
@@ -189,22 +206,32 @@ function RouteComponent() {
                       const findIconBasedOnIndex = packageIcons[idx]
                       return (
                         <AccordionItem value={category.id} key={category.id}>
-                          <AccordionTrigger className={'gap-3'}>
-                            <img
-                              src={findIconBasedOnIndex}
-                              alt={category.name}
-                              className={'h-6 w-auto'}
-                            />
+                          <AccordionTrigger className={'gap-3 items-center'}>
+                            <span
+                              className={'p-1.5 rounded-full bg-destructive/10'}
+                            >
+                              <img
+                                src={findIconBasedOnIndex}
+                                alt={category.name}
+                                className={'h-6 w-auto'}
+                              />
+                            </span>
                             {idx + 1}. {formattedCategoryName(category.name)}
                           </AccordionTrigger>
                           <AccordionContent className={'h-fit'}>
-                            <ul className={'in-even:grid in-even:grid-cols-2'}>
+                            <ul
+                              className={
+                                'in-even:grid in-even:grid-cols-2 pl-4'
+                              }
+                            >
                               {category.features.map((feature) => (
                                 <li
                                   key={crypto.randomUUID()}
                                   className={'flex items-center gap-2'}
                                 >
-                                  <CheckCircle2Icon className={'size-4'} />
+                                  <CheckCircle2Icon
+                                    className={'size-4 stroke-green-500'}
+                                  />
                                   {feature}
                                 </li>
                               ))}
@@ -227,40 +254,55 @@ function RouteComponent() {
                     </h3>
                   </CardTitle>
                   <CardDescription className={'space-y-2'}>
-                    <p className={'text-2xl font-semibold'}>
+                    <p className={'text-2xl font-semibold text-destructive'}>
                       {formatCurrency(data?.discountedAmount || '0')}
                     </p>
                     <div className={'inline-flex items-center gap-2'}>
                       <span
-                        className={'text-sm text-muted-foreground line-through'}
+                        className={
+                          'text-sm text-muted-foreground line-through font-medium'
+                        }
                       >
                         {formatCurrency(data?.originalAmount || '0')}
                       </span>
-                      <Badge>{data?.offerAmount} % Off</Badge>
+                      <Badge className={'bg-destructive'}>
+                        {data?.offerAmount} % Off
+                      </Badge>
                     </div>
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ul>
+                  <ul className={'space-y-2'}>
                     {data?.extraFeatures.map((feature) => (
                       <li
                         key={crypto.randomUUID()}
                         className={'flex items-center gap-2'}
                       >
-                        <CheckCircle2Icon className={'size-4'} />
+                        <CheckCircle2Icon
+                          className={'size-4 stroke-green-500'}
+                        />
                         {feature}
                       </li>
                     ))}
                   </ul>
                 </CardContent>
                 <CardFooter className="flex-col gap-2">
-                  <Button className={'w-full'} asChild>
+                  <Button
+                    className={
+                      'w-full bg-destructive hover:bg-accent hover:text-destructive focus:ring-destructive'
+                    }
+                    asChild
+                  >
                     <Link to="/" viewTransition>
                       <IconChevronLeft className={'size-4'} />
                       Go Back
                     </Link>
                   </Button>
-                  <Button className={'w-full'}>
+                  <Button
+                    className={
+                      'w-full bg-destructive hover:bg-accent hover:text-destructive transition-all duration-300 ease-in-out'
+                    }
+                  >
                     Book Now <IconChevronRight className={'size-4'} />
                   </Button>
                 </CardFooter>
