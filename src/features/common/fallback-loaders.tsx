@@ -48,10 +48,71 @@ export function FallbackHealthCategories() {
   return <BaseLoader />
 }
 export function FallbackPopularCategory() {
-  return <BaseLoader />
+  return (
+    <CardContent
+      className={
+        'px-0 scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-400/50 scrollbar-track-transparent flex gap-4 snap-x snap-mandatory scroll-smooth overflow-x-scroll scroll-fade-x snap-center'
+      }
+    >
+      {Array.from({ length: 5 }).map((_, idx) => {
+        return (
+          <Card
+            key={idx}
+            className={'w-full min-w-xs md:min-w-sm snap-center my-4 pt-6 pb-0'}
+          >
+            <CardHeader>
+              <CardTitle className={'flex items-center gap-2'}>
+                <Skeleton className={'size-10'} />
+                <Skeleton className={'h-4 w-32'} />
+              </CardTitle>
+            </CardHeader>
+
+            <CardContent className={'space-y-2'}>
+              <Skeleton className={'h-3 w-16'} />
+              <Skeleton className={'h-3 w-20'} />
+              <Skeleton className={'h-3 w-16'} />
+            </CardContent>
+            <CardFooter
+              className={
+                'relative flex items-center justify-between space-y-4 border-t-2 border-border/50 py-4'
+              }
+            >
+              <Skeleton className={'h-5 w-20'} />
+              <Skeleton className={'h-8 w-16'} />
+            </CardFooter>
+          </Card>
+        )
+      })}
+    </CardContent>
+  )
 }
-export function FallbackHealthPackages() {
-  return <BaseLoader />
+export function FallbackHealthCategory() {
+  return (
+    <CardContent
+      className={
+        'px-0 scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-400/50 scrollbar-track-transparent flex gap-4 snap-x snap-mandatory scroll-smooth overflow-x-scroll scroll-fade-x snap-center'
+      }
+    >
+      {Array.from({ length: 7 }).map((_, idx) => {
+        return (
+          <div key={idx} className={'space-y-3 text-center py-4'}>
+            <Card
+              className={
+                'border-0 bg-destructive/10 shadow-md ring-2 ring-transparent hover:ring-destructive/50 rounded-full size-48 mx-auto'
+              }
+            >
+              <CardContent className={'px-0 w-full h-full'}>
+                <Skeleton className={'size-36 mx-auto rounded-full'} />
+              </CardContent>
+            </Card>
+            <CardDescription>
+              <Skeleton className={'h-3 w-32 mx-auto'} />
+            </CardDescription>
+          </div>
+        )
+      })}
+    </CardContent>
+  )
 }
 
 export function FallbackTestItems() {

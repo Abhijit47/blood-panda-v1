@@ -16,7 +16,7 @@ export default function HowItWorks() {
         className={'rounded-none border-0 bg-transparent shadow-none ring-0'}
       >
         <CardHeader>
-          <CardTitle className={'flex items-center justify-center'}>
+          <CardTitle className={'flex items-center justify-center gap-2'}>
             <Separator
               orientation="vertical"
               className={
@@ -39,13 +39,20 @@ export default function HowItWorks() {
           </CardTitle>
         </CardHeader>
 
-        <CardContent className={'flex items-center justify-between px-2'}>
+        <CardContent
+          className={
+            'flex items-center justify-evenly px-2 overflow-x-auto touch-pan-x md:touch-auto'
+          }
+        >
           {howItWorks.map((step, idx) => {
             const isLastItem =
               howItWorks.lastIndexOf(howItWorks[idx + 1]) === idx + 1
 
             return (
-              <div key={step.id} className={'flex items-center'}>
+              <div
+                key={step.id}
+                className={'flex items-center justify-center mb-5'}
+              >
                 <div className={'flex flex-col items-center gap-1'}>
                   <span
                     className={cn(
@@ -62,12 +69,12 @@ export default function HowItWorks() {
                     {step.stepName}
                   </span>
                 </div>
-                <div className={'mb-4'}>
+                <div className={'mb-2'}>
                   {isLastItem ? (
                     <Separator
                       orientation="vertical"
                       className={
-                        'h-1 min-w-16 sm:min-w-36 md:min-w-xs scroll-fade-e rounded-full -bg-linear-270 from-blue-400 from-25% via-lime-300 via-40% to-yellow-300 to-35% ml-4'
+                        'h-1 mx-auto min-w-10 sm:min-w-30 md:min-w-60 lg:min-w-xs scroll-fade-e rounded-full -bg-linear-270 from-blue-400 from-25% via-lime-300 via-40% to-yellow-300 to-35% ml-1 md:ml-2 lg:ml-4'
                       }
                     />
                   ) : null}
@@ -96,7 +103,7 @@ export default function HowItWorks() {
                 </CardContent>
 
                 <CardHeader>
-                  <CardTitle>{item.title}</CardTitle>
+                  <CardTitle className={'capitalize'}>{item.title}</CardTitle>
                   <CardDescription>{item.desc}</CardDescription>
                 </CardHeader>
               </Card>

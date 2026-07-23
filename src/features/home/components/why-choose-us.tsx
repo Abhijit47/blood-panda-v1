@@ -35,7 +35,7 @@ export default function WhyChooseUs() {
           </CardDescription>
         </CardHeader>
         <CardContent className={'w-full max-w-md mx-auto'}>
-          <h4 className={'font-semibold'}>
+          <h4 className={'font-semibold text-center'}>
             Blood Masters built on the principles of accuracy, speed, and trust.
             Every test is processed in NABL accredited labs with the highest
             quality standards.
@@ -46,42 +46,42 @@ export default function WhyChooseUs() {
             {whyChooseReasons.map((item) => {
               return (
                 <li key={item.id} className={'flex items-center gap-2'}>
-                  <BadgeCheckIcon className={'size-4'} />
+                  <BadgeCheckIcon className={'size-4 stroke-green-600'} />
                   {item.text}
                 </li>
               )
             })}
           </ul>
 
-          <Card className={'w-full rounded-none'}>
+          <Card className={'w-full rounded-none shadow-none ring-0'}>
             <CardContent
-              className={'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'}
+              className={'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2'}
             >
-              <Card className={''}>
+              <Card className={'rounded-lg'}>
                 <CardContent className={'flex flex-col items-center gap-1'}>
                   <h5 className={'text-lg font-semibold'}>10k+</h5>
-                  <IconFileCheck className={'size-6'} />
+                  <IconFileCheck className={'size-6 stroke-destructive'} />
                 </CardContent>
               </Card>
 
-              <Card className={''}>
+              <Card className={'rounded-lg'}>
                 <CardContent className={'flex flex-col items-center gap-1'}>
                   <h5 className={'text-lg font-semibold'}>24 Hr</h5>
-                  <IconClock24 className={'size-6'} />
+                  <IconClock24 className={'size-6 stroke-blue-600'} />
                 </CardContent>
               </Card>
 
-              <Card className={''}>
+              <Card className={'rounded-lg'}>
                 <CardContent className={'flex flex-col items-center gap-1'}>
                   <h5 className={'text-lg font-semibold'}>4.9 Stars</h5>
-                  <IconStar className={'size-6'} />
+                  <IconStar className={'size-6 stroke-yellow-400'} />
                 </CardContent>
               </Card>
 
-              <Card className={''}>
+              <Card className={'rounded-lg'}>
                 <CardContent className={'flex flex-col items-center gap-1'}>
                   <h5 className={'text-lg font-semibold'}>NABL</h5>
-                  <IconShieldCheck className={'size-6'} />
+                  <IconShieldCheck className={'size-6 stroke-green-600'} />
                 </CardContent>
               </Card>
             </CardContent>

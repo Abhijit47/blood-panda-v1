@@ -9,20 +9,17 @@ import {
   CardHeader,
   CardTitle,
 } from '#/components/ui/card'
-// import { individualCategories } from '#/constants'
 import { formatCurrency } from '#/lib/utils'
-import { IconArrowUpRight } from '@tabler/icons-react'
-// import { useQuery } from '@tanstack/react-query'
-import { Await, getRouteApi, Link } from '@tanstack/react-router'
-// import { Skeleton } from 'boneyard-js/react'
 import { useCart } from '#/stores/useCart'
+import { IconArrowUpRight } from '@tabler/icons-react'
+import { Await, getRouteApi, Link } from '@tanstack/react-router'
 import { PlusCircle } from 'lucide-react'
 import { FallbackIndividials } from '../../common/fallback-loaders'
 
 const routeApi = getRouteApi('/')
 
 export default function IndividualCategory() {
-  const { deferred } = routeApi.useLoaderData()
+  const { deferredTests } = routeApi.useLoaderData()
 
   const { addItem } = useCart()
 
@@ -69,7 +66,7 @@ export default function IndividualCategory() {
         </CardContent> */}
 
         <CardContent className={'px-0'}>
-          <Await promise={deferred} fallback={<FallbackIndividials />}>
+          <Await promise={deferredTests} fallback={<FallbackIndividials />}>
             {(data) => {
               return (
                 <CardContent
@@ -81,7 +78,7 @@ export default function IndividualCategory() {
                     return (
                       <Card
                         className={
-                          'w-full min-w-xs md:min-w-sm snap-start my-4'
+                          'w-full min-w-xs md:min-w-sm snap-center my-4'
                         }
                         key={item.id}
                       >

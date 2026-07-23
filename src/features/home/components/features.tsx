@@ -26,7 +26,7 @@ export default function Features() {
 
       <ItemGroup className="w-full flex-row flex-wrap lg:flex-nowrap">
         {featureItems.map((item) => (
-          <Item key={item.id} variant="outline">
+          <Item key={item.id} variant="outline" className={'bg-blue-500/10'}>
             <ItemMedia
               variant={'image'}
               className={cn('my-auto p-0.5 rounded-full', `${item.bgColor}`)}
@@ -38,10 +38,10 @@ export default function Features() {
               <ItemDescription>{item.desc}</ItemDescription>
             </ItemContent>
             <ItemActions>
-              <Button variant={'outline'} size={'sm'} asChild>
+              <Button variant={'ghost'} className={'size-10'} asChild>
                 {item.href === '/profile' ? (
                   <Link to={item.href} viewTransition>
-                    <ChevronRight className={'size-4'} />
+                    <ChevronRight className={'size-6 text-blue-600'} />
                   </Link>
                 ) : (
                   <Link
@@ -49,7 +49,7 @@ export default function Features() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <ChevronRight className={'size-4'} />
+                    <ChevronRight className={'size-6 text-blue-600'} />
                   </Link>
                 )}
               </Button>

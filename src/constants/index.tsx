@@ -131,9 +131,9 @@ export const featureItems = [
     title: 'Talk to an Expert',
     desc: 'Need guidance before booking? Our healthcare team is here to help.',
     icon: (
-      <IconPhoneCall className={'size-8 fill-orange-500 stroke-orange-300'} />
+      <IconPhoneCall className={'size-8 fill-orange-600 stroke-orange-200'} />
     ),
-    bgColor: 'bg-custom-5',
+    bgColor: 'bg-destructive/30',
     href: 'tel:+918277842200',
   },
   {
@@ -141,65 +141,63 @@ export const featureItems = [
     title: 'Whatsapp Support',
     desc: 'Chat with our support team for quick assistance.',
     icon: (
-      <IconBrandWhatsapp className={'size-8 fill-green-400 stroke-olive-50'} />
+      <IconBrandWhatsapp className={'size-8 fill-green-400 stroke-green-50'} />
     ),
-    bgColor: 'bg-custom-6',
+    bgColor: 'bg-green-500/30',
     href: 'https://wa.link/fvmq1j',
   },
   {
     id: crypto.randomUUID(),
     title: 'Upload Prescription',
     desc: "Upload your doctor's prescription and we'll recommend the right tests.",
-    icon: (
-      <IconFileInvoice className={'size-8 fill-blue-700 stroke-olive-50'} />
-    ),
-    bgColor: 'bg-custom-7',
+    icon: <IconFileInvoice className={'size-8 fill-blue-700 stroke-blue-50'} />,
+    bgColor: 'bg-blue-500/20',
     href: '/profile',
   },
 ]
 
-export const healthPackages = [
-  {
-    id: crypto.randomUUID(),
-    planName: 'silver',
-    features: ['61+ tests included', 'Essential Check', 'Report in 24 hrs'],
-    originalPrice: '1599',
-    discountedPrice: '1199',
-    isPopular: false,
-  },
-  {
-    id: crypto.randomUUID(),
-    planName: 'gold',
-    features: ['79+ Tests Included', 'Advanced Profilling', 'Report in 24 hrs'],
-    originalPrice: '3299',
-    discountedPrice: '2499',
-    isPopular: false,
-  },
-  {
-    id: crypto.randomUUID(),
-    planName: 'diamond',
-    features: ['90+ Tests Included', 'Executive Screen', 'Report in 24 hrs'],
-    originalPrice: '3999',
-    discountedPrice: '2999',
-    isPopular: true,
-  },
-  {
-    id: crypto.randomUUID(),
-    planName: 'platinum',
-    features: ['110+ Tests Included', 'Full Body Master', 'Report in 24 hrs'],
-    originalPrice: '4599',
-    discountedPrice: '3499',
-    isPopular: false,
-  },
-  {
-    id: crypto.randomUUID(),
-    planName: 'signature',
-    features: ['130+ Tests Included', 'Elite Wellness', 'Report in 24 hrs'],
-    originalPrice: '5299',
-    discountedPrice: '3999',
-    isPopular: false,
-  },
-]
+// export const healthPackages = [
+//   {
+//     id: crypto.randomUUID(),
+//     planName: 'silver',
+//     features: ['61+ tests included', 'Essential Check', 'Report in 24 hrs'],
+//     originalPrice: '1599',
+//     discountedPrice: '1199',
+//     isPopular: false,
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     planName: 'gold',
+//     features: ['79+ Tests Included', 'Advanced Profilling', 'Report in 24 hrs'],
+//     originalPrice: '3299',
+//     discountedPrice: '2499',
+//     isPopular: false,
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     planName: 'diamond',
+//     features: ['90+ Tests Included', 'Executive Screen', 'Report in 24 hrs'],
+//     originalPrice: '3999',
+//     discountedPrice: '2999',
+//     isPopular: true,
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     planName: 'platinum',
+//     features: ['110+ Tests Included', 'Full Body Master', 'Report in 24 hrs'],
+//     originalPrice: '4599',
+//     discountedPrice: '3499',
+//     isPopular: false,
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     planName: 'signature',
+//     features: ['130+ Tests Included', 'Elite Wellness', 'Report in 24 hrs'],
+//     originalPrice: '5299',
+//     discountedPrice: '3999',
+//     isPopular: false,
+//   },
+// ]
 
 export const healthCategories = [
   {
@@ -258,43 +256,43 @@ export const healthCategories = [
   },
 ]
 
-export const individualCategories = [
-  {
-    id: crypto.randomUUID(),
-    title: 'Complete Blood Count',
-    desc: '24 parameters',
-    originalPrice: '399',
-    discountedPrice: '299',
-  },
-  {
-    id: crypto.randomUUID(),
-    title: 'Throid Profile (T3, T4, TSH)',
-    desc: '3 parameters',
-    originalPrice: '799',
-    discountedPrice: '599',
-  },
-  {
-    id: crypto.randomUUID(),
-    title: 'HbA1c - Diabetes Check',
-    desc: '1 parameter',
-    originalPrice: '499',
-    discountedPrice: '399',
-  },
-  {
-    id: crypto.randomUUID(),
-    title: 'Vitamin D Total',
-    desc: '1 parameter',
-    originalPrice: '999',
-    discountedPrice: '699',
-  },
-  {
-    id: crypto.randomUUID(),
-    title: 'Lipid Profile',
-    desc: '9 parameters',
-    originalPrice: '599',
-    discountedPrice: '499',
-  },
-]
+// export const individualCategories = [
+//   {
+//     id: crypto.randomUUID(),
+//     title: 'Complete Blood Count',
+//     desc: '24 parameters',
+//     originalPrice: '399',
+//     discountedPrice: '299',
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     title: 'Throid Profile (T3, T4, TSH)',
+//     desc: '3 parameters',
+//     originalPrice: '799',
+//     discountedPrice: '599',
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     title: 'HbA1c - Diabetes Check',
+//     desc: '1 parameter',
+//     originalPrice: '499',
+//     discountedPrice: '399',
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     title: 'Vitamin D Total',
+//     desc: '1 parameter',
+//     originalPrice: '999',
+//     discountedPrice: '699',
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     title: 'Lipid Profile',
+//     desc: '9 parameters',
+//     originalPrice: '599',
+//     discountedPrice: '499',
+//   },
+// ]
 
 export const bookingSteps = [
   {

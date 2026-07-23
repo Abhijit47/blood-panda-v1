@@ -31,6 +31,9 @@ const config = defineConfig({
   },
   plugins: [
     boneyardPlugin({
+      breakpoints: [
+        375, 480, 576, 640, 768, 1024, 1280, 1440, 1536, 1920, 2560, 3840,
+      ],
       framework: 'react',
       routes: [
         '/packages/gold',
@@ -40,6 +43,8 @@ const config = defineConfig({
         '/packages/signature',
       ],
       debug: isDev,
+      // cdp: 9222,
+      wait: 800,
     }),
     contentCollections(),
     devtools(),

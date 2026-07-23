@@ -22,33 +22,38 @@ import {
   ItemMedia,
   ItemTitle,
 } from '#/components/ui/item'
+import { cn } from '#/lib/utils'
 import { Link } from '@tanstack/react-router'
 import HeroSearch from './hero-search'
 
-const stats = [
+const heroStats = [
   {
     id: crypto.randomUUID(),
     stat: '4.9/5',
     description: 'Rating',
-    icon: <StarIcon />,
+    icon: <StarIcon className={'stroke-destructive'} />,
+    bgColor: 'bg-destructive/10',
   },
   {
     id: crypto.randomUUID(),
     stat: '10000+',
     description: 'Samples Collected ',
-    icon: <PipetteIcon />,
+    icon: <PipetteIcon className={'stroke-green-500'} />,
+    bgColor: 'bg-green-500/10',
   },
   {
     id: crypto.randomUUID(),
     stat: 'Free',
     description: 'Home Collection',
-    icon: <HomeIcon />,
+    icon: <HomeIcon className={'stroke-purple-500'} />,
+    bgColor: 'bg-purple-500/10',
   },
   {
     id: crypto.randomUUID(),
     stat: 'Certified',
     description: 'Labs',
-    icon: <FlaskConicalIcon />,
+    icon: <FlaskConicalIcon className={'stroke-sky-500'} />,
+    bgColor: 'bg-sky-500/10',
   },
 ]
 
@@ -90,7 +95,7 @@ export default function Hero() {
           <CardDescription>
             <p
               className={
-                'text-sm md:text-base font-normal text-muted-foreground'
+                'text-sm md:text-base font-normal text-foreground lg:text-muted-foreground'
               }
             >
               With Blood Panda ,book trusted diagnostic tests and health
@@ -132,7 +137,7 @@ export default function Hero() {
 
       <div
         className={
-          'absolute -bottom-96 sm:-bottom-48 md:-bottom-40 lg:-bottom-24 xl:-bottom-12 z-10 bg-background backdrop-blur-lg rounded-xl border-0 w-full max-w-6xl scroll-fade-y'
+          'absolute -bottom-96 sm:-bottom-48 md:-bottom-40 lg:-bottom-24 xl:-bottom-12 z-10 bg-background rounded-xl border-0 w-full max-w-6xl px-4 lg:shadow-lg'
         }
         // className={
         //   'col-span-full justify-self-center z-10 bg-accent/10 backdrop-blur-lg border-none ring-0 shadow-none rounded-none border-0 w-full max-w-6xl scroll-fade-e'
@@ -143,9 +148,14 @@ export default function Hero() {
             'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-4'
           }
         >
-          {stats.map((stat) => (
+          {heroStats.map((stat) => (
             <Item key={stat.id} variant={'outline'}>
-              <ItemMedia variant="image">{stat.icon}</ItemMedia>
+              <ItemMedia
+                variant="image"
+                className={cn('my-auto p-0.5 rounded-full', `${stat.bgColor}`)}
+              >
+                {stat.icon}
+              </ItemMedia>
               <ItemContent>
                 <ItemTitle className={'font-semibold text-base'}>
                   {stat.stat}

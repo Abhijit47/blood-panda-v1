@@ -1,29 +1,31 @@
 import { Spinner } from '#/components/ui/spinner'
-import {
-  FallbackHealthCategories,
-  FallbackPopularCategory,
-  FallbackTestimonials,
-} from '#/features/common/fallback-loaders'
+import { FallbackTestimonials } from '#/features/common/fallback-loaders'
 import Blogs from '#/features/home/components/blogs'
 import BookingSteps from '#/features/home/components/booking-steps'
 import CTA from '#/features/home/components/cta'
 import FAQs from '#/features/home/components/faqs'
 import Features from '#/features/home/components/features'
-import HealthCategory from '#/features/home/components/health-category.lazy'
+import HealthCategory from '#/features/home/components/health-category'
 import Hero from '#/features/home/components/hero'
 import HowItWorks from '#/features/home/components/how-it-works'
 import IndividualCategory from '#/features/home/components/individual-category'
-import PopularPackages from '#/features/home/components/popular-packages.lazy'
+import PopularPackages from '#/features/home/components/popular-packages'
 import Testimonials from '#/features/home/components/testimonials.lazy'
 import WhyChooseUs from '#/features/home/components/why-choose-us'
+import { getMiniPackages } from '#/lib/mini-package.functions'
+import { getAllPackages } from '#/lib/package.functions'
 import { getAllTests } from '#/lib/tests.functions'
 import { ClientOnly, createFileRoute, useRouter } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
-  loader: async () => {
-    const deferred = getAllTests({ data: { limit: 12 } })
+  loader: () => {
+    const deferredTests = getAllTests({ data: { limit: 12 } })
+    // const defferedPackages = import('#/features/home/components/popular-packages.lazy')
+    const defferedPackages = getAllPackages()
 
-    return { deferred }
+    const defferedMiniPackages = getMiniPackages()
+
+    return { deferredTests, defferedPackages, defferedMiniPackages }
   },
   component: App,
   pendingComponent: PendingComponent,
@@ -46,12 +48,10 @@ function App() {
     <main className={'mx-auto max-w-(--breakpoint-xl) space-y-8 px-4'}>
       <Hero />
       <Features />
-      <ClientOnly fallback={<FallbackPopularCategory />}>
-        <PopularPackages />
-      </ClientOnly>
-      <ClientOnly fallback={<FallbackHealthCategories />}>
-        <HealthCategory />
-      </ClientOnly>
+
+      <PopularPackages />
+
+      <HealthCategory />
 
       <IndividualCategory />
 
