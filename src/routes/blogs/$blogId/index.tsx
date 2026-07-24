@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '#/components/ui/card'
+import { seo } from '#/constants/seo-details'
 import { MDXContent } from '@content-collections/mdx/react'
 import { Image } from '@unpic/react'
 import { format } from 'date-fns'
@@ -25,10 +26,16 @@ export const Route = createFileRoute('/blogs/$blogId/')({
 
     return data
   },
+  head(ctx) {
+    const { params } = ctx
+    const slug = params.blogId
+    return seo(`/blogs/$blogId/`, slug)
+  },
   component: RouteComponent,
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,
   notFoundComponent: NotFoundComponent,
+  wrapInSuspense: true,
   codeSplitGroupings: [
     [
       'loader',

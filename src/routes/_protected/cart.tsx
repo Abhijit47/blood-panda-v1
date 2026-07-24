@@ -3,11 +3,13 @@ import { Spinner } from '#/components/ui/spinner'
 import { useCart } from '#/stores/useCart'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 
+import { seo } from '#/constants/seo-details'
 import CartItemsSection from '#/features/cart/cart-items-section'
 import CartOrderSummary from '#/features/cart/cart-order-summary'
 import EmptyCartState from '#/features/cart/empty-cart-state'
 
 export const Route = createFileRoute('/_protected/cart')({
+  head: () => seo('/cart'),
   component: RouteComponent,
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,

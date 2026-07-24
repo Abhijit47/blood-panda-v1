@@ -1,10 +1,12 @@
 import { Button } from '#/components/ui/button'
 import { Spinner } from '#/components/ui/spinner'
+import { seo } from '#/constants/seo-details'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 
 // import data from '#/dashboard/data.json'
 
 export const Route = createFileRoute('/_admin/bookings')({
+  head: () => seo('/bookings'),
   component: RouteComponent,
   pendingComponent: PendingComponent,
   notFoundComponent: NotFoundComponent,

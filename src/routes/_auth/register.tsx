@@ -1,9 +1,11 @@
 import { Button } from '#/components/ui/button'
 import { Spinner } from '#/components/ui/spinner'
+import { seo } from '#/constants/seo-details'
 import RegisterForm from '#/features/auth/register-form'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth/register')({
+  head: () => seo('/register'),
   component: RouteComponent,
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,

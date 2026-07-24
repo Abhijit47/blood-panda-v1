@@ -23,6 +23,7 @@ import { IconDownload, IconLogout } from '@tabler/icons-react'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { ChevronRight } from 'lucide-react'
 
+import { seo } from '#/constants/seo-details'
 import ChangeUserPasswordDialog from '#/features/profile/change-user-password-dialog'
 import DeleteUserPrescriptionDialog from '#/features/profile/delete-user-prescription-dialog'
 import EditUserProfileDialog from '#/features/profile/edit-user-profile-dialog'
@@ -32,6 +33,7 @@ import ViewPrescriptionDialog from '#/features/profile/view-prescription-dialog'
 import ViewReportDialog from '#/features/profile/view-report-dialog'
 
 export const Route = createFileRoute('/_protected/profile')({
+  head: () => seo('/profile'),
   loader: ({ context }) => {
     const { user } = context
 

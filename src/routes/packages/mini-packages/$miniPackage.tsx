@@ -13,6 +13,7 @@ import {
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 import { CheckCircle2Icon } from 'lucide-react'
 // import { capitalizeFirstLetter, formatCurrency, formatSlug } from '#/lib/utils'
+import { seo } from '#/constants/seo-details'
 import { getMiniPackageDetailsByName } from '#/lib/mini-package.functions'
 import { formatCurrency, formatSlug } from '#/lib/utils'
 import { useQuery } from '@tanstack/react-query'
@@ -25,6 +26,11 @@ export const Route = createFileRoute('/packages/mini-packages/$miniPackage')({
       data: { name: params.miniPackage },
     })
     return { defferedMiniPackageDetails }
+  },
+  head(ctx) {
+    const { params } = ctx
+    const slug = params.miniPackage
+    return seo(`/packages/mini-packages/$miniPackage`, slug)
   },
   component: RouteComponent,
   pendingComponent: PendingComponent,

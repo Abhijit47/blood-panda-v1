@@ -18,6 +18,7 @@ import {
   CardTitle,
 } from '#/components/ui/card'
 import { packageIcons } from '#/constants'
+import { seo } from '#/constants/seo-details'
 import {
   capitalizeFirstLetter,
   cn,
@@ -44,6 +45,11 @@ export const Route = createFileRoute('/packages/$package')({
       data: { name: params.package },
     })
     return { defferdPackageDetails }
+  },
+  head(ctx) {
+    const { params } = ctx
+    const slug = params.package
+    return seo(`/packages/$package`, slug)
   },
   component: RouteComponent,
   pendingComponent: PendingComponent,

@@ -1,8 +1,10 @@
 import { Spinner } from '#/components/ui/spinner'
+import { seo } from '#/constants/seo-details'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { Image } from '@unpic/react'
 
 export const Route = createFileRoute('/contact-us')({
+  head: () => seo('/contact-us'),
   component: RouteComponent,
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,

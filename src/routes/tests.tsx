@@ -1,4 +1,5 @@
 import { Spinner } from '#/components/ui/spinner'
+import { seo } from '#/constants/seo-details'
 import FilterItems from '#/features/tests/filter-items'
 import SearchItems from '#/features/tests/search-items'
 import TestItems from '#/features/tests/test-items'
@@ -12,6 +13,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { Image } from '@unpic/react'
 
 export const Route = createFileRoute('/tests')({
+  head: () => seo('/tests'),
   validateSearch: selectCategorySchema,
   // Declare which search params the loader depends on
   loaderDeps: ({ search: { primary, secondary, q } }) => ({
@@ -57,6 +59,15 @@ export const Route = createFileRoute('/tests')({
   errorComponent: ({ error }) => ErrorComponent({ error }),
   notFoundComponent: NotFoundComponent,
   pendingComponent: PendingComponent,
+  codeSplitGroupings: [
+    [
+      'loader',
+      'component',
+      'pendingComponent',
+      'errorComponent',
+      'notFoundComponent',
+    ],
+  ],
 })
 
 function RouteComponent() {

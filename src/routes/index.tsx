@@ -1,4 +1,5 @@
 import { Spinner } from '#/components/ui/spinner'
+import { seo } from '#/constants/seo-details'
 import { FallbackTestimonials } from '#/features/common/fallback-loaders'
 import Blogs from '#/features/home/components/blogs'
 import BookingSteps from '#/features/home/components/booking-steps'
@@ -17,7 +18,10 @@ import { getAllPackages } from '#/lib/package.functions'
 import { getAllTests } from '#/lib/tests.functions'
 import { ClientOnly, createFileRoute, useRouter } from '@tanstack/react-router'
 
+// const BASE_URL = import.meta.env.VITE_BETTER_AUTH_URL as string
+
 export const Route = createFileRoute('/')({
+  head: () => seo('/'),
   loader: () => {
     const deferredTests = getAllTests({ data: { limit: 12 } })
     // const defferedPackages = import('#/features/home/components/popular-packages.lazy')

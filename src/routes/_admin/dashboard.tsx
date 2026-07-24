@@ -1,5 +1,6 @@
 import { Button } from '#/components/ui/button'
 import { Spinner } from '#/components/ui/spinner'
+import { seo } from '#/constants/seo-details'
 import { getSession } from '@/lib/auth.functions'
 import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 
@@ -13,6 +14,7 @@ export const Route = createFileRoute('/_admin/dashboard')({
     }
     return { user: session.user }
   },
+  head: () => seo('/dashboard'),
   component: Dashboard,
   pendingComponent: PendingComponent,
   notFoundComponent: NotFoundComponent,
