@@ -7,24 +7,23 @@ import {
 } from '@tabler/icons-react'
 import { Link } from '@tanstack/react-router'
 import {
-  ChevronRightCircleIcon,
   ChevronRightIcon,
   Globe2Icon,
   MailPlusIcon,
   PhoneCallIcon,
 } from 'lucide-react'
 import { Button } from './ui/button'
-import { Card, CardAction, CardContent, CardDescription } from './ui/card'
+// import { Card, CardAction, CardContent, CardDescription } from './ui/card'
 
 export default function Footer() {
   return (
     <footer
       className={
-        'mx-auto max-w-(--breakpoint-xl) space-y-8 rounded-tl-lg rounded-tr-lg bg-blue-800 px-4 py-8'
+        'mx-auto max-w-(--breakpoint-xl) space-y-8 rounded-tl-lg rounded-tr-lg bg-blue-700 px-4 py-8'
       }
     >
       <div className={'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'}>
-        <div className={'space-y-2'}>
+        <div className={'space-y-4'}>
           <div className={'flex flex-col items-start justify-center'}>
             <img src="/logo-idol.png" alt="logo" width={70} height={49} />
             <img src="/logo-txt.png" alt="logo" width={196} height={34} />
@@ -37,7 +36,14 @@ export default function Footer() {
             </span>
           </p>
 
-          <Button type="button" className={'rounded-full'} asChild>
+          <Button
+            type="button"
+            variant={'outline'}
+            className={
+              'rounded-full bg-transparent text-green-300 hover:bg-green-500 hover:text-background w-full'
+            }
+            asChild
+          >
             <a
               href="https://wa.link/fvmq1j"
               target="_blank"
@@ -48,11 +54,19 @@ export default function Footer() {
             </a>
           </Button>
 
-          <div className={'flex items-center gap-3'}>
-            <IconBrandFacebook className={'size-5 stroke-accent'} />
-            <IconBrandLinkedin className={'size-5 stroke-accent'} />
-            <IconBrandYoutube className={'size-5 stroke-accent'} />
-            <IconBrandInstagram className={'size-5 stroke-accent'} />
+          <div className={'flex items-center justify-center gap-3'}>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <IconBrandFacebook className={'size-5 stroke-accent'} />
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <IconBrandLinkedin className={'size-5 stroke-accent'} />
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <IconBrandYoutube className={'size-5 stroke-accent'} />
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <IconBrandInstagram className={'size-5 stroke-accent'} />
+            </a>
           </div>
         </div>
         <div className={'space-y-2'}>
@@ -200,6 +214,51 @@ export default function Footer() {
           </ul>
         </div>
         <div className={'space-y-2'}>
+          {/* here will come privacy-policy, refund-policy, terem and condition for what heading is suitable, suggest me */}
+          <h5 className={'font-semibold text-background'}>Policies & Terms</h5>
+          <ul>
+            <li>
+              <Button
+                variant={'link'}
+                asChild
+                size={'sm'}
+                className={'px-0 text-background'}
+              >
+                <Link to="/privacy-policy" viewTransition>
+                  <ChevronRightIcon className={'size-4'} />
+                  Privacy Policy
+                </Link>
+              </Button>
+            </li>
+            <li>
+              <Button
+                variant={'link'}
+                asChild
+                size={'sm'}
+                className={'px-0 text-background'}
+              >
+                <Link to="/terms-and-condition" viewTransition>
+                  <ChevronRightIcon className={'size-4'} />
+                  Terms and Conditions
+                </Link>
+              </Button>
+            </li>
+            <li>
+              <Button
+                variant={'link'}
+                asChild
+                size={'sm'}
+                className={'px-0 text-background'}
+              >
+                <Link to="/refund-policy" viewTransition>
+                  <ChevronRightIcon className={'size-4'} />
+                  Refund Policy
+                </Link>
+              </Button>
+            </li>
+          </ul>
+        </div>
+        {/* <div className={'space-y-2'}>
           <h5 className={'font-semibold text-background'}>Book now</h5>
           <Card className={''}>
             <CardContent className={'space-y-2'}>
@@ -219,7 +278,7 @@ export default function Footer() {
               </CardAction>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
       </div>
     </footer>
   )
