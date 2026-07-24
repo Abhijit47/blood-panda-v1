@@ -24,7 +24,7 @@
     "db:seed": "dotenv -e .env pnpx prisma db seed",
     "db:reset": "dotenv -e .env pnpx prisma migrate reset",
     "db:dev": "pnpm db:push && pnpm db:generate",
-    "db:studio": "pnpm dlx prisma studio --browser none",
+    "db:studio": "dotenv -e .env pnpm dlx prisma studio --browser none",
     "auth:gen": "pnpm dlx auth@latest generate --config \"./src/lib/auth.ts\" --output \"./src/lib/auth-generated.ts\" --yes",
     "email:dev": "dotenv -e .env email dev --port 3001"
   },

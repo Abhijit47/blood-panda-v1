@@ -40,27 +40,27 @@ const data = {
   navMain: [
     {
       title: 'Dashboard',
-      url: '/admin',
+      url: '/dashboard',
       icon: <LayoutDashboardIcon />,
     },
     {
       title: 'Patients',
-      url: '/admin/patients',
+      url: '/patients',
       icon: <UsersIcon />,
     },
     {
       title: 'Bookings',
-      url: '/admin/bookings',
+      url: '/bookings',
       icon: <ChartBarIcon />,
     },
     {
       title: 'Subscribers',
-      url: '/admin/subscribers',
+      url: '/subscribers',
       icon: <IconReceipt />,
     },
     {
       title: 'Prescriptions',
-      url: '/admin/prescriptions',
+      url: '/prescriptions',
       icon: <FileChartColumnIcon />,
     },
     {

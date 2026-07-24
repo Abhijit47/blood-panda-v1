@@ -3,6 +3,7 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  useMatches,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import Footer from '../components/Footer'
@@ -25,6 +26,12 @@ import { Toaster } from '#/components/ui/sonner'
 import { TooltipProvider } from '#/components/ui/tooltip'
 import type { TRPCRouter } from '#/integrations/trpc/router'
 import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query'
+
+declare module '@tanstack/react-router' {
+  interface StaticDataRouteOption {
+    showNavbar?: boolean
+  }
+}
 
 interface MyRouterContext {
   queryClient: QueryClient
@@ -60,6 +67,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const showNavbar = useMatches({
+    select: (matches) =>
+      !matches.some((m) => m.staticData.showNavbar === false),
+  })
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -69,9 +80,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <ThemeProvider defaultTheme="light" storageKey="theme">
           <PostHogProvider>
             <TooltipProvider>
-              <Header />
-              {children}
-              <Footer />
+              {showNavbar ? (
+                <>
+                  <Header />
+                  {children}
+                  <Footer />
+                </>
+              ) : (
+                <>{children}</>
+              )}
             </TooltipProvider>
             <Toaster
               position="top-center"

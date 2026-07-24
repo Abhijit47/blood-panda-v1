@@ -12,6 +12,7 @@ import {
 } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_admin')({
+  staticData: { showNavbar: false },
   beforeLoad: async ({ location }) => {
     const session = await getSession()
     if (!session) {

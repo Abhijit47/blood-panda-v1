@@ -66,7 +66,7 @@ const config = defineConfig({
     babel({ presets: [reactCompilerPreset()] }),
   ],
   optimizeDeps: {
-    include: ['swiper', 'swiper/react', 'swiper/modules'],
+    include: ['swiper', 'swiper/react', 'swiper/modules', 'recharts'],
   },
 })
 

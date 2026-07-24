@@ -11,6 +11,7 @@ import {
 } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth')({
+  staticData: { showNavbar: false },
   beforeLoad: async ({ location }) => {
     const session = await getSession()
     if (session) {
