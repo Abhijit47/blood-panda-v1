@@ -76,17 +76,19 @@ function RouteComponent() {
             className={'absolute top-0 left-0 -z-10 h-full w-full object-cover'}
           /> */}
           <Image
-            src="/packages/packages-bg.png"
+            src="/tests-bg.jpg"
             alt="packages-bg"
             layout="constrained"
-            width={1282}
-            height={488}
-            className={'absolute top-0 left-0 -z-10 h-full w-full object-cover'}
+            width={1280}
+            height={932}
+            className={
+              'absolute top-0 left-0 -z-10 h-full w-full object-contain object-bottom-right opacity-60 lg:opacity-100'
+            }
             priority={true}
           />
           <div
             className={
-              'flex h-full w-full max-w-lg flex-col items-start justify-center gap-4 px-4 md:px-8 lg:px-12'
+              'flex h-full w-full lg:max-w-lg flex-col items-start justify-center gap-2 lg:gap-4 px-4 md:px-8 lg:px-12 backdrop:blur-md bg-accent/70 lg:bg-transparent'
             }
           >
             <h1
@@ -98,7 +100,7 @@ function RouteComponent() {
             </h1>
             <p
               className={
-                'text-xs sm:text-base lg:text-lg text-muted-foreground'
+                'text-sm sm:text-base lg:text-lg text-foreground lg:text-muted-foreground'
               }
             >
               With Blood Panda, book a blood or urine lab test at home & get the
