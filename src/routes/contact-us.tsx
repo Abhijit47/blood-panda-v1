@@ -1,5 +1,8 @@
+import { Card, CardContent } from '#/components/ui/card'
 import { Spinner } from '#/components/ui/spinner'
 import { seo } from '#/constants/seo-details'
+import ContactBookingForm from '#/features/contact/contact-booking-form'
+import ContactInfo from '#/features/contact/contact-info'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { Image } from '@unpic/react'
 
@@ -17,28 +20,16 @@ export const Route = createFileRoute('/contact-us')({
 
 function RouteComponent() {
   return (
-    <main className={'mx-auto max-w-(--breakpoint-xl) space-y-8 px-4'}>
-      <div className={'text-center py-12'}>
-        {/* <img
-          src="/not-found.avif"
-          alt="not-found"
-          width={'100%'}
-          height={'100%'}
-          className={'mx-auto max-w-(--breakpoint-sm)'}
-        /> */}
-        <Image
-          src="/not-found.avif"
-          alt="not-found"
-          layout="constrained"
-          width={500}
-          height={500}
-          className={'mx-auto max-w-(--breakpoint-sm)'}
-          priority={true}
-        />
-        <h1 className={'text-2xl font-semibold'}>
-          Under construction. Please check back later.
-        </h1>
-      </div>
+    <main className={'mx-auto max-w-(--breakpoint-xl) space-y-8 py-12 px-4'}>
+      <section>
+        <Card className={'rounded-none py-0 shadow-none ring-0'}>
+          <CardContent className={'grid grid-cols-1 lg:grid-cols-2 gap-4 px-0'}>
+            <ContactInfo />
+
+            <ContactBookingForm />
+          </CardContent>
+        </Card>
+      </section>
     </main>
   )
 }
@@ -59,6 +50,14 @@ function NotFoundComponent() {
   return (
     <div className={'mx-auto max-w-(--breakpoint-lg) space-y-8 px-4 py-12'}>
       <h1 className={'text-2xl font-semibold'}>Page not found</h1>
+      <Image
+        src="/not-found.avif"
+        alt="not-found"
+        layout="constrained"
+        width={500}
+        height={500}
+        className={'mx-auto max-w-(--breakpoint-sm)'}
+      />
     </div>
   )
 }
