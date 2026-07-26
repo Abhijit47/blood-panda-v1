@@ -78,6 +78,10 @@ export function seo(path: Path, slug?: string) {
         name: 'twitter:image',
         content: '/packages/packages-bg.png',
       },
+      {
+        name: 'google-site-verification',
+        content: '4uPUnRNCMEh9V7rLYPCGf3pznyY8Dk5EVsbRrxYpw28',
+      },
     ],
     links: [
       {
