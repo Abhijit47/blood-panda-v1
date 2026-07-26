@@ -20,12 +20,14 @@ const links: LinkOption[] = [
   {
     name: 'Home',
     to: '/',
+    href: `${BASE_URL}`,
     frequency: 'daily',
     priority: 1.0,
   },
   {
     name: 'Tests',
     to: '/tests',
+    href: `${BASE_URL}/tests`,
     frequency: 'daily',
     priority: 1.0,
   },
@@ -175,27 +177,17 @@ export const Route = createFileRoute('/sitemap.xml')({
 
               ${links.map((link) => {
                 // if to have $ in it then we need to replace it with the actual value from href
-                const to = link.to.includes('$')
-                  ? link.href || link.to
-                  : link.to
+                // const to = link.to.includes('$')
+                //   ? link.href || link.to
+                //   : link.to
                 return `
                 <url>
-                  <loc>${to}</loc>
+                  <loc>${link.href}</loc>
                   <changefreq>${link.frequency}</changefreq>
                   <priority>${link.priority.toString()}</priority>
                 </url>
               `
               })}
-
-
-              <url>
-                <loc>${BASE_URL}/</loc>
-                <changefreq>daily</changefreq>
-                <priority>1.0</priority>
-              </url>
-              
-              
-              
               
               ${posts
                 .map(
