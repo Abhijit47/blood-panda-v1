@@ -15,6 +15,7 @@ export const auth = betterAuth({
     },
     useSecureCookies: isDev ? false : true,
   },
+  baseURL: getServerEnv().BETTER_AUTH_URL,
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
     transaction: true,
@@ -26,12 +27,18 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: true, // automatically sign in the user after registration
   },
-  // socialProviders: {
-  //   github: {
-  //     clientId: process.env.GITHUB_CLIENT_ID as string,
-  //     clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-  //   },
-  // },
+  socialProviders: {
+    // github: {
+    //   clientId: process.env.GITHUB_CLIENT_ID as string,
+    //   clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+    // },
+    google: {
+      accessType: 'offline',
+      clientId: getServerEnv().GOOGLE_CLIENT_ID,
+      clientSecret: getServerEnv().GOOGLE_CLIENT_SECRET,
+      prompt: 'select_account consent',
+    },
+  },
   user: {
     additionalFields: {
       role: {

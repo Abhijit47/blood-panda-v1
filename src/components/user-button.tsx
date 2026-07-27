@@ -30,7 +30,7 @@ type UserButtonProps = {
     email: string
     emailVerified: boolean
     name: string
-    image?: string | null | undefined
+    image: string
   } & {
     role: string
   } & {}
@@ -69,6 +69,13 @@ export default function UserButton({ user }: UserButtonProps) {
       },
     })
   }
+
+  const fallbackName =
+    user.name
+      .split(' ')
+      .map((n) => n[0])
+      .join('') || 'U'
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -76,17 +83,20 @@ export default function UserButton({ user }: UserButtonProps) {
           <Avatar>
             <AvatarImage
               // src="https://github.com/shadcn.png"
-              src={user.image!}
+              src={user.image}
               alt={user.name}
             />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>{fallbackName}</AvatarFallback>
             <AvatarBadge className="bg-green-600 dark:bg-green-800" />
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
         <DropdownMenuGroup>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel className={'font-semibold'}>
+            {user.name || user.email || 'User'}
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link to="/profile" viewTransition>
               <IconUserScan className={'size-4'} /> Profile

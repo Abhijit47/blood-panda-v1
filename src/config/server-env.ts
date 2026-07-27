@@ -14,6 +14,8 @@ const envSchema = z.object({
   PHONEPAY_WEBHOOK_SECRET: z.string().optional(),
   PHONEPAY_USERNAME: z.string().min(1),
   PHONEPAY_PASSWORD: z.string().min(1),
+  GOOGLE_CLIENT_ID: z.string().min(1),
+  GOOGLE_CLIENT_SECRET: z.string().min(1),
 })
 
 export const getServerEnv = createServerOnlyFn(() => {
