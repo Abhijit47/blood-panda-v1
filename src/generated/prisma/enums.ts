@@ -47,7 +47,8 @@ export type BookingStatus = (typeof BookingStatus)[keyof typeof BookingStatus]
 
 export const BookingType = {
   COD: 'COD',
-  ONLINE_PAYMENT: 'ONLINE_PAYMENT'
+  ONLINE_PAYMENT: 'ONLINE_PAYMENT',
+  INSTANT_BOOKING: 'INSTANT_BOOKING'
 } as const
 
 export type BookingType = (typeof BookingType)[keyof typeof BookingType]

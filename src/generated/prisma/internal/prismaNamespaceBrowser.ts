@@ -295,7 +295,16 @@ export const BookingScalarFieldEnum = {
   status: 'status',
   userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  fullName: 'fullName',
+  mobileNumber: 'mobileNumber',
+  address: 'address',
+  city: 'city',
+  zipcode: 'zipcode',
+  preferredTime: 'preferredTime',
+  preferredDate: 'preferredDate',
+  testRequirement: 'testRequirement',
+  agreeOfTerms: 'agreeOfTerms'
 } as const
 
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]

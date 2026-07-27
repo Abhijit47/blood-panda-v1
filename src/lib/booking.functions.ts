@@ -4,7 +4,10 @@ import { createServerFn } from '@tanstack/react-start'
 import z from 'zod'
 import { authMiddleware } from './middleware'
 import { createCheckOutLink } from './payments.functions'
-import { bookingFormSchema } from './validators/booking-schema'
+import {
+  bookingFormSchema,
+  instantBookingFormSchema,
+} from './validators/booking-schema'
 
 const createBookingRecordSchema = z
   .object({
@@ -147,5 +150,31 @@ export const updateBookingStatus = createServerFn({ method: 'POST' })
     } catch (error) {
       console.error('Error updating booking:', error)
       throw new Error('Failed to update booking')
+    }
+  })
+
+export const createInstanstBookingRecord = createServerFn({ method: 'POST' })
+  .validator(instantBookingFormSchema)
+  .handler(async ({ data }) => {
+    try {
+      const newBooking = await prisma.booking.create({
+        data: {
+          type: 'INSTANT_BOOKING',
+          status: 'PENDING',
+          fullName: data.fullName,
+          mobileNumber: data.mobileNumber,
+          address: data.address,
+          city: data.city,
+          zipcode: data.zipcode,
+          preferredTime: data.preferredTime,
+          preferredDate: data.preferredDate,
+          testRequirement: data.testRequirement,
+          agreeOfTerms: data.agreeOfTerms,
+        },
+      })
+      return newBooking
+    } catch (error) {
+      console.error('Error creating instant booking:', error)
+      throw new Error('Failed to create instant booking')
     }
   })

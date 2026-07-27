@@ -17,7 +17,12 @@ import {
   ItemTitle,
 } from '#/components/ui/item'
 import { Separator } from '#/components/ui/separator'
-import { IconBrandWhatsapp, IconHeadset } from '@tabler/icons-react'
+import {
+  IconBrandWhatsapp,
+  IconClock,
+  IconHeadset,
+  IconPhoneCall,
+} from '@tabler/icons-react'
 import { Image } from '@unpic/react'
 
 export default function ContactInfo() {
@@ -56,7 +61,7 @@ export default function ContactInfo() {
             <ItemGroup className={'bg-transparent'}>
               <Item size={'sm'} variant={'muted'}>
                 <ItemMedia variant="image">
-                  <IconBrandWhatsapp />
+                  <IconPhoneCall />
                 </ItemMedia>
                 <ItemContent>
                   <ItemDescription>Call or WhatsApp Us</ItemDescription>
@@ -102,7 +107,7 @@ export default function ContactInfo() {
               <Separator />
               <Item size={'sm'} variant={'muted'}>
                 <ItemMedia variant="image">
-                  <IconBrandWhatsapp />
+                  <IconClock />
                 </ItemMedia>
                 <ItemContent>
                   <ItemDescription>We're Available</ItemDescription>

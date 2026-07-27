@@ -54,9 +54,60 @@ export const bookingFormSchema = z.object({
   reviewOrder: reviewOrderSchema,
 })
 
+export const instantBookingFormSchema = z
+  .object({
+    fullName: z
+      .string()
+      .min(1, 'Full name is required')
+      .max(100, 'Full name must be at most 100 characters'),
+    mobileNumber: z.string().min(1, 'Mobile number is required'),
+    address: z
+      .string()
+      .min(1, 'Address is required')
+      .max(100, 'Address must be at most 200 characters'),
+    city: z
+      .string()
+      .min(1, 'City is required')
+      .max(30, 'City must be at most 100 characters'),
+    zipcode: z.string().min(1, 'Pincode is required'),
+    preferredTime: z.string().min(1, 'Preferred time is required'),
+    preferredDate: z.date().min(new Date(), 'Preferred date is required'),
+    testRequirement: z
+      .string()
+      .min(10, 'Test requirement is required')
+      .max(500, 'Test requirement must be at most 500 characters'),
+    agreeOfTerms: z.boolean().refine((val) => val === true, {
+      message: 'You must agree to our privacy policy',
+    }),
+  })
+  .superRefine((data, ctx) => {
+    // number look like this: +91 1234567890 +91 WITH SPACE 10 DIGITS
+    function isValidMobileNumber(mobileNumber: string): boolean {
+      return /^(\+91\s?)?[0-9]{10}$/.test(mobileNumber)
+    }
+
+    if (!isValidMobileNumber(data.mobileNumber)) {
+      ctx.addIssue({
+        code: 'custom',
+        message:
+          'Mobile number must be 10 digits and can optionally start with +91',
+      })
+    }
+
+    // pincode validation for India (6 digits)
+    if (!/^[0-9]{6}/.test(data.zipcode)) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Pincode must be 6 digits',
+      })
+    }
+  })
+
 export type TestItem = z.infer<typeof testItemSchema>
 export type MemberDetailsFormData = z.infer<typeof memberDetailsFormSchema>
 export type AddressFormData = z.infer<typeof addressFormSchema>
 export type ScheduleFormData = z.infer<typeof scheduleFormSchema>
 
 export type BookingFormData = z.infer<typeof bookingFormSchema>
+
+export type InstantBookingFormData = z.infer<typeof instantBookingFormSchema>

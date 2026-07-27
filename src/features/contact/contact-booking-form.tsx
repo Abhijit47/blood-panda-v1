@@ -34,7 +34,10 @@ import {
   SelectValue,
 } from '#/components/ui/select'
 import { Separator } from '#/components/ui/separator'
+import { createInstanstBookingRecord } from '#/lib/booking.functions'
 import { disablePastDates, generateTimeSlots } from '#/lib/utils'
+import type { InstantBookingFormData } from '#/lib/validators/booking-schema'
+import { instantBookingFormSchema } from '#/lib/validators/booking-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   IconCalendarCheck,
@@ -43,63 +46,13 @@ import {
   IconClockCheck,
   IconRestore,
 } from '@tabler/icons-react'
-import { Link } from '@tanstack/react-router'
+import { useMutation } from '@tanstack/react-query'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { useServerFn } from '@tanstack/react-start'
 import { Fragment, useState } from 'react'
 import type { SubmitErrorHandler, SubmitHandler } from 'react-hook-form'
 import { Controller, useForm, useWatch } from 'react-hook-form'
 import { toast } from 'sonner'
-import z from 'zod'
-
-const instantBookingFormSchema = z
-  .object({
-    fullName: z
-      .string()
-      .min(1, 'Full name is required')
-      .max(100, 'Full name must be at most 100 characters'),
-    mobileNumber: z.string().min(1, 'Mobile number is required'),
-    address: z
-      .string()
-      .min(1, 'Address is required')
-      .max(100, 'Address must be at most 200 characters'),
-    city: z
-      .string()
-      .min(1, 'City is required')
-      .max(30, 'City must be at most 100 characters'),
-    zipcode: z.string().min(1, 'Pincode is required'),
-    preferredTime: z.string().min(1, 'Preferred time is required'),
-    preferredDate: z.date().min(new Date(), 'Preferred date is required'),
-    testRequirement: z
-      .string()
-      .min(10, 'Test requirement is required')
-      .max(500, 'Test requirement must be at most 500 characters'),
-    agreeOfTerms: z.boolean().refine((val) => val === true, {
-      message: 'You must agree to our privacy policy',
-    }),
-  })
-  .superRefine((data, ctx) => {
-    // number look like this: +91 1234567890 +91 WITH SPACE 10 DIGITS
-    function isValidMobileNumber(mobileNumber: string): boolean {
-      return /^(\+91\s?)?[0-9]{10}$/.test(mobileNumber)
-    }
-
-    if (!isValidMobileNumber(data.mobileNumber)) {
-      ctx.addIssue({
-        code: 'custom',
-        message:
-          'Mobile number must be 10 digits and can optionally start with +91',
-      })
-    }
-
-    // pincode validation for India (6 digits)
-    if (!/^[0-9]{6}/.test(data.zipcode)) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'Pincode must be 6 digits',
-      })
-    }
-  })
-
-type InstantBookingFormData = z.infer<typeof instantBookingFormSchema>
 
 const today = new Date()
 
@@ -119,7 +72,7 @@ export default function ContactBookingForm() {
       city: '',
       zipcode: '',
       preferredTime: '',
-      preferredDate: today,
+      preferredDate: undefined,
       testRequirement: '',
       agreeOfTerms: false,
     },
@@ -138,6 +91,15 @@ export default function ContactBookingForm() {
     },
   })
 
+  const navigate = useNavigate()
+
+  const createInstantBooking = useServerFn(createInstanstBookingRecord)
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: createInstantBooking,
+    mutationKey: ['createInstantBooking'],
+  })
+
   const onError: SubmitErrorHandler<InstantBookingFormData> = (errors) => {
     // console.log('Form submission errors:', errors)
     Object.values(errors).forEach((error) => {
@@ -153,21 +115,28 @@ export default function ContactBookingForm() {
     return
   }
 
-  const onSubmit: SubmitHandler<InstantBookingFormData> = (data) => {
-    console.log('Form submitted successfully:', data)
-    toast('You submitted the following values:', {
-      description: (
-        <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-      position: 'bottom-right',
-      classNames: {
-        content: 'flex flex-col gap-2',
+  const onSubmit: SubmitHandler<InstantBookingFormData> = (values) => {
+    // console.log('Form submitted successfully:', values)
+    // console.log('json data', JSON.stringify(values, null, 2))
+
+    toast.promise(mutateAsync({ data: values }), {
+      loading: 'Submitting your request...',
+      description:
+        'Please wait while we process your request. This may take a few moments.',
+      descriptionClassName: 'text-[10px]',
+      success: (data) => {
+        setTimeout(() => {
+          form.reset()
+          navigate({ to: '/', replace: true, viewTransition: true })
+        }, 300)
+        return `${data.fullName || 'User'}, Your request has been submitted successfully!`
       },
-      style: {
-        '--border-radius': 'calc(var(--radius)  + 4px)',
-      } as React.CSSProperties,
+      error: (err) => {
+        return (
+          err.messages ||
+          'There was an error submitting your request. Please try again.'
+        )
+      },
     })
   }
 
@@ -476,8 +445,8 @@ export default function ContactBookingForm() {
             </FieldSet>
 
             <Field orientation="horizontal">
-              <Button type="submit" className={'w-full'}>
-                Submit Request
+              <Button type="submit" className={'w-full'} disabled={isPending}>
+                {isPending ? 'Submitting...' : 'Submit Request'}
               </Button>
             </Field>
           </FieldGroup>

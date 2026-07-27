@@ -1,6 +1,6 @@
 import { getServerEnv } from '#/config/server-env'
 import { getPaymentClient } from '#/integrations/phonepay'
-import { updateBookingStatus } from '#/lib/booking.function'
+import { updateBookingStatus } from '#/lib/booking.functions'
 import {
   createPaymentRecord,
   createWebhookRecord,

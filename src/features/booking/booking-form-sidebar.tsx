@@ -11,7 +11,7 @@ import {
 import { Separator } from '#/components/ui/separator'
 import { Spinner } from '#/components/ui/spinner'
 import { useBookingContext } from '#/contexts/booking-context.lazy'
-import { createBookingRecord } from '#/lib/booking.function'
+import { createBookingRecord } from '#/lib/booking.functions'
 import { formatCurrency } from '#/lib/utils'
 import type { BookingFormData } from '#/lib/validators/booking-schema'
 import { useMutation } from '@tanstack/react-query'

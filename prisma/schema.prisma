@@ -230,14 +230,24 @@ model Booking {
   id        String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   type      BookingType   @default(COD)
   status    BookingStatus @default(PENDING)
-  userId    String        @db.Uuid
+  userId    String?       @db.Uuid
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
   addresses Address[]
-  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User?         @relation(fields: [userId], references: [id], onDelete: Cascade)
   members   Member[]
   payments  Payment[]
   schedules Schedule[]
+
+  fullName        String?
+  mobileNumber    String?
+  address         String?
+  city            String?
+  zipcode         String?
+  preferredTime   String?
+  preferredDate   DateTime?
+  testRequirement String?
+  agreeOfTerms    Boolean?
 
   @@map("booking")
 }
@@ -302,4 +312,5 @@ enum BookingStatus {
 enum BookingType {
   COD
   ONLINE_PAYMENT
+  INSTANT_BOOKING
 }
