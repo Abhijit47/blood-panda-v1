@@ -3,7 +3,7 @@ import { SidebarInset, SidebarProvider } from '#/components/ui/sidebar'
 import { Spinner } from '#/components/ui/spinner'
 import { AppSidebar } from '#/features/admin/components/app-sidebar'
 import { SiteHeader } from '#/features/admin/components/site-header'
-import { getSession } from '#/lib/auth.functions'
+import { getAdminSession } from '#/lib/auth.functions'
 import {
   createFileRoute,
   Outlet,
@@ -13,15 +13,25 @@ import {
 
 export const Route = createFileRoute('/_admin')({
   staticData: { showNavbar: false },
+  // beforeLoad: async ({ location }) => {
+  //   const session = await getSession()
+  //   if (!session) {
+  //     throw redirect({
+  //       to: '/login',
+  //       search: { redirect: location.href },
+  //     })
+  //   }
+  //   return { user: session.user }
+  // },
   beforeLoad: async ({ location }) => {
-    const session = await getSession()
-    if (!session) {
+    try {
+      await getAdminSession() // throws 'Forbidden' if no permission
+    } catch (e) {
       throw redirect({
-        to: '/login',
+        to: '/',
         search: { redirect: location.href },
       })
     }
-    return { user: session.user }
   },
   component: RouteComponent,
   pendingComponent: PendingComponent,

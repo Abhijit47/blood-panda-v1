@@ -1,9 +1,11 @@
 import { prisma } from '#/db'
 import { betterAuth } from 'better-auth'
+import { admin as adminPlugin } from 'better-auth/plugins'
 import { tanstackStartCookies } from 'better-auth/tanstack-start'
 
 import { getServerEnv } from '#/config/server-env'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
+import { ac, ADMIN, MODERATOR, USER } from './permissions'
 
 const isDev = import.meta.env.DEV
 
@@ -44,6 +46,19 @@ export const auth = betterAuth({
       role: {
         type: 'string',
         input: false,
+        defaultValue: 'USER',
+      },
+      prescriptions: {
+        type: 'string[]',
+        input: false,
+        required: false,
+        defaultValue: [],
+      },
+      testReports: {
+        type: 'string[]',
+        input: false,
+        required: false,
+        defaultValue: [],
       },
     },
   },
@@ -61,7 +76,17 @@ export const auth = betterAuth({
   },
 
   trustedOrigins: [getServerEnv().BETTER_AUTH_URL],
-  plugins: [tanstackStartCookies()],
+  plugins: [
+    adminPlugin({
+      ac,
+      roles: {
+        ADMIN: ADMIN,
+        MODERATOR: MODERATOR,
+        USER: USER,
+      },
+    }),
+    tanstackStartCookies(),
+  ],
 })
 
 export type Auth = typeof auth

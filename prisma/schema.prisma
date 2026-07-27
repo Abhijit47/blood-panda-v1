@@ -22,6 +22,13 @@ model User {
   posts         Post[]
   sessions      Session[]
 
+  banned     Boolean?
+  banReason  String?
+  banExpires DateTime? @db.Timestamptz(3)
+
+  prescriptions String[] @default([])
+  testReports   String[] @default([])
+
   @@map("user")
 }
 
@@ -35,6 +42,8 @@ model Session {
   userAgent String?
   userId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  impersonatedBy String?
 
   @@index([userId])
   @@map("session")
