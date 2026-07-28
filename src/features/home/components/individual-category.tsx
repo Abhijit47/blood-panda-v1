@@ -101,8 +101,10 @@ export default function IndividualCategory() {
                         </CardContent>
                         <CardFooter>
                           <Button
-                            variant={'outline'}
-                            className={'w-full rounded-full'}
+                            variant={'destructive'}
+                            className={
+                              'w-full rounded-full bg-transparent border-destructive hover:border-destructive hover:bg-destructive/10 text-destructive hover:text-destructive'
+                            }
                             onClick={() =>
                               addItem({
                                 item: {
