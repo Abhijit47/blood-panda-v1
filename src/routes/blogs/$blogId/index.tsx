@@ -89,7 +89,8 @@ function RouteComponent() {
             layout="fullWidth"
             // height={500}
             // width={500}
-            aspectRatio={21 / 9}
+            priority={true}
+            aspectRatio={16 / 9}
             className={'h-full w-full'}
           />
         </CardContent>
@@ -120,7 +121,7 @@ function RouteComponent() {
         </CardContent>
 
         <CardContent>
-          <article className="prose prose-sm max-w-none md:prose-base lg:prose-lg dark:prose-invert">
+          <article className="prose prose-sm max-w-none md:prose-base lg:prose-lg dark:prose-invert prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h5:text-base prose-h6:text-base">
             <MDXContent code={currentPost.mdx} />
           </article>
         </CardContent>

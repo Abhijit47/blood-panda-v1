@@ -1,4 +1,4 @@
-import { Button } from '#/components/ui/button'
+import { buttonVariants } from '#/components/ui/button'
 import {
   Card,
   CardContent,
@@ -7,8 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from '#/components/ui/card'
-import { blogs } from '#/constants'
-import { formattedDate } from '#/lib/utils'
+import { Link } from '@tanstack/react-router'
+// import { blogs } from '#/constants'
+import { allPosts } from 'content-collections'
 import { ArrowRightIcon } from 'lucide-react'
 
 export default function Blogs() {
@@ -46,12 +47,12 @@ export default function Blogs() {
         <CardContent
           className={'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'}
         >
-          {blogs.map((blog) => {
+          {allPosts.map((blog) => {
             return (
-              <Card key={blog.id} className={'pt-0 pb-2 gap-2'}>
+              <Card key={blog._meta.path} className={'pt-0 pb-2 gap-2'}>
                 <CardContent className={'scroll-fade-b px-0'}>
                   <img
-                    src={blog.cover}
+                    src={blog.image}
                     alt={blog.title}
                     width={'100%'}
                     height={'100%'}
@@ -59,15 +60,29 @@ export default function Blogs() {
                   />
                 </CardContent>
                 <CardHeader>
-                  <CardDescription>{formattedDate(blog.date)}</CardDescription>
+                  <CardDescription>
+                    {new Intl.DateTimeFormat('en-In', {
+                      dateStyle: 'medium',
+                    }).format(new Date(blog.createdAt))}
+                  </CardDescription>
                   <CardTitle>
                     <h4>{blog.title}</h4>
                   </CardTitle>
                 </CardHeader>
                 <CardFooter className={'mt-auto'}>
-                  <Button type="button" variant={'link'}>
+                  <Link
+                    // to={`/blogs/${post._meta.path}`}
+                    to={'/blogs/$blogId'}
+                    params={{ blogId: blog._meta.path }}
+                    className={buttonVariants({
+                      variant: 'link',
+                      // size: 'xs',
+                      className: 'px-0! rounded-none',
+                    })}
+                    viewTransition
+                  >
                     Read more <ArrowRightIcon className={'size-4'} />
-                  </Button>
+                  </Link>
                 </CardFooter>
               </Card>
             )

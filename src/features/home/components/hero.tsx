@@ -18,7 +18,7 @@ export default function Hero() {
   return (
     <section
       className={
-        'grid grid-cols-1 lg:grid-cols-2 place-items-center gap-4 relative aspect-auto sm:aspect-14/9 md:aspect-video lg:aspect-20/9 xl:aspect-24/9 mt-4'
+        'grid grid-cols-1 lg:grid-cols-2 place-items-center gap-4 relative aspect-auto sm:aspect-14/9 md:aspect-video lg:aspect-20/9 xl:aspect-20/9 mt-4'
       }
     >
       <div className={'w-full h-full absolute top-0 left-0'}>
@@ -35,7 +35,7 @@ export default function Hero() {
           layout="constrained"
           width={1469}
           height={691}
-          className={'w-full h-full object-cover rounded-3xl'}
+          className={'w-full h-full rounded-3xl'}
           priority={true}
         />
       </div>
