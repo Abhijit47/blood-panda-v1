@@ -20,7 +20,7 @@ import { signIn, signUp } from '#/lib/auth-client'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { Image } from '@unpic/react'
 import { toast } from 'sonner'
-import AuthStats from './auth-stats'
+// import AuthStats from './auth-stats'
 
 export default function RegisterForm() {
   const [name, setName] = useState('')
@@ -241,14 +241,14 @@ export default function RegisterForm() {
         </div> */}
         <div className="relative hidden md:block">
           <Image
-            src="/login-bg.png"
+            src="/login-bg.jpeg"
             alt="Image"
             width={643}
             height={203}
             className="h-full w-full object-cover object-right"
             priority={true}
           />
-          <AuthStats />
+          {/* <AuthStats /> */}
         </div>
       </CardContent>
     </Card>

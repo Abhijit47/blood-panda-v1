@@ -7,7 +7,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router'
 import data from '#/dashboard/data.json'
 
 export const Route = createFileRoute('/_admin/bookings')({
-  head: () => seo('/bookings'),
+  head: () => seo({ path: '/bookings' }),
   component: RouteComponent,
   pendingComponent: PendingComponent,
   notFoundComponent: NotFoundComponent,

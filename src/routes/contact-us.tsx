@@ -7,7 +7,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { Image } from '@unpic/react'
 
 export const Route = createFileRoute('/contact-us')({
-  head: () => seo('/contact-us'),
+  head: () => seo({ path: '/contact-us' }),
   component: RouteComponent,
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,

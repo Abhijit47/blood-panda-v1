@@ -8,16 +8,17 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/_admin'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TermsAndConditionRouteImport } from './routes/terms-and-condition'
 import { Route as TestsRouteImport } from './routes/tests'
 import { Route as AdminBookingsRouteImport } from './routes/_admin/bookings'
 import { Route as AdminDashboardRouteImport } from './routes/_admin/dashboard'
@@ -39,12 +40,6 @@ import { Route as ApiPaymentCheckoutRouteImport } from './routes/api/payment/che
 import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
 import { Route as BlogsBlogIdIndexRouteImport } from './routes/blogs/$blogId/index'
 import { Route as PackagesMiniPackagesMiniPackageRouteImport } from './routes/packages/mini-packages/$miniPackage'
-
-const PrivacyPolicyLazyRouteImport = createFileRoute('/privacy-policy')()
-const RefundPolicyLazyRouteImport = createFileRoute('/refund-policy')()
-const TermsAndConditionLazyRouteImport = createFileRoute(
-  '/terms-and-condition',
-)()
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -68,18 +63,16 @@ const ContactUsRoute = ContactUsRouteImport.update({
   path: '/contact-us',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrivacyPolicyLazyRoute = PrivacyPolicyLazyRouteImport.update({
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() =>
-  import('./routes/privacy-policy.lazy').then((d) => d.Route),
-)
-const RefundPolicyLazyRoute = RefundPolicyLazyRouteImport.update({
+} as any)
+const RefundPolicyRoute = RefundPolicyRouteImport.update({
   id: '/refund-policy',
   path: '/refund-policy',
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/refund-policy.lazy').then((d) => d.Route))
+} as any)
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
   id: '/robots.txt',
   path: '/robots.txt',
@@ -90,13 +83,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TermsAndConditionLazyRoute = TermsAndConditionLazyRouteImport.update({
+const TermsAndConditionRoute = TermsAndConditionRouteImport.update({
   id: '/terms-and-condition',
   path: '/terms-and-condition',
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() =>
-  import('./routes/terms-and-condition.lazy').then((d) => d.Route),
-)
+} as any)
 const TestsRoute = TestsRouteImport.update({
   id: '/tests',
   path: '/tests',
@@ -207,12 +198,12 @@ const PackagesMiniPackagesMiniPackageRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contact-us': typeof ContactUsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms-and-condition': typeof TermsAndConditionRoute
   '/tests': typeof TestsRoute
-  '/privacy-policy': typeof PrivacyPolicyLazyRoute
-  '/refund-policy': typeof RefundPolicyLazyRoute
-  '/terms-and-condition': typeof TermsAndConditionLazyRoute
   '/bookings': typeof AdminBookingsRoute
   '/dashboard': typeof AdminDashboardRoute
   '/patients': typeof AdminPatientsRoute
@@ -237,12 +228,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contact-us': typeof ContactUsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms-and-condition': typeof TermsAndConditionRoute
   '/tests': typeof TestsRoute
-  '/privacy-policy': typeof PrivacyPolicyLazyRoute
-  '/refund-policy': typeof RefundPolicyLazyRoute
-  '/terms-and-condition': typeof TermsAndConditionLazyRoute
   '/bookings': typeof AdminBookingsRoute
   '/dashboard': typeof AdminDashboardRoute
   '/patients': typeof AdminPatientsRoute
@@ -271,12 +262,12 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/_protected': typeof ProtectedRouteWithChildren
   '/contact-us': typeof ContactUsRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/refund-policy': typeof RefundPolicyRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms-and-condition': typeof TermsAndConditionRoute
   '/tests': typeof TestsRoute
-  '/privacy-policy': typeof PrivacyPolicyLazyRoute
-  '/refund-policy': typeof RefundPolicyLazyRoute
-  '/terms-and-condition': typeof TermsAndConditionLazyRoute
   '/_admin/bookings': typeof AdminBookingsRoute
   '/_admin/dashboard': typeof AdminDashboardRoute
   '/_admin/patients': typeof AdminPatientsRoute
@@ -303,12 +294,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contact-us'
-    | '/robots.txt'
-    | '/sitemap.xml'
-    | '/tests'
     | '/privacy-policy'
     | '/refund-policy'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/terms-and-condition'
+    | '/tests'
     | '/bookings'
     | '/dashboard'
     | '/patients'
@@ -333,12 +324,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/contact-us'
-    | '/robots.txt'
-    | '/sitemap.xml'
-    | '/tests'
     | '/privacy-policy'
     | '/refund-policy'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/terms-and-condition'
+    | '/tests'
     | '/bookings'
     | '/dashboard'
     | '/patients'
@@ -366,12 +357,12 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_protected'
     | '/contact-us'
-    | '/robots.txt'
-    | '/sitemap.xml'
-    | '/tests'
     | '/privacy-policy'
     | '/refund-policy'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/terms-and-condition'
+    | '/tests'
     | '/_admin/bookings'
     | '/_admin/dashboard'
     | '/_admin/patients'
@@ -400,12 +391,12 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   ProtectedRoute: typeof ProtectedRouteWithChildren
   ContactUsRoute: typeof ContactUsRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  RefundPolicyRoute: typeof RefundPolicyRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsAndConditionRoute: typeof TermsAndConditionRoute
   TestsRoute: typeof TestsRoute
-  PrivacyPolicyLazyRoute: typeof PrivacyPolicyLazyRoute
-  RefundPolicyLazyRoute: typeof RefundPolicyLazyRoute
-  TermsAndConditionLazyRoute: typeof TermsAndConditionLazyRoute
   PackagesPackageRoute: typeof PackagesPackageRoute
   BlogsIndexRoute: typeof BlogsIndexRoute
   PackagesIndexRoute: typeof PackagesIndexRoute
@@ -458,14 +449,14 @@ declare module '@tanstack/react-router' {
       id: '/privacy-policy'
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
-      preLoaderRoute: typeof PrivacyPolicyLazyRouteImport
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/refund-policy': {
       id: '/refund-policy'
       path: '/refund-policy'
       fullPath: '/refund-policy'
-      preLoaderRoute: typeof RefundPolicyLazyRouteImport
+      preLoaderRoute: typeof RefundPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/robots.txt': {
@@ -486,7 +477,7 @@ declare module '@tanstack/react-router' {
       id: '/terms-and-condition'
       path: '/terms-and-condition'
       fullPath: '/terms-and-condition'
-      preLoaderRoute: typeof TermsAndConditionLazyRouteImport
+      preLoaderRoute: typeof TermsAndConditionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tests': {
@@ -693,12 +684,12 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   ProtectedRoute: ProtectedRouteWithChildren,
   ContactUsRoute: ContactUsRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  RefundPolicyRoute: RefundPolicyRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsAndConditionRoute: TermsAndConditionRoute,
   TestsRoute: TestsRoute,
-  PrivacyPolicyLazyRoute: PrivacyPolicyLazyRoute,
-  RefundPolicyLazyRoute: RefundPolicyLazyRoute,
-  TermsAndConditionLazyRoute: TermsAndConditionLazyRoute,
   PackagesPackageRoute: PackagesPackageRoute,
   BlogsIndexRoute: BlogsIndexRoute,
   PackagesIndexRoute: PackagesIndexRoute,

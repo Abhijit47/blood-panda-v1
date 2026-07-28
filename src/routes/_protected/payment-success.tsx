@@ -2,7 +2,7 @@ import { seo } from '#/constants/seo-details'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_protected/payment-success')({
-  head: () => seo('/payment-success'),
+  head: () => seo({ path: '/payment-success' }),
   component: RouteComponent,
 })
 

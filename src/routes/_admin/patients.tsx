@@ -7,7 +7,7 @@ import data from '#/dashboard/data.json'
 import { DataTable } from '#/features/admin/components/data-table'
 
 export const Route = createFileRoute('/_admin/patients')({
-  head: () => seo('/patients'),
+  head: () => seo({ path: '/patients' }),
   component: RouteComponent,
   pendingComponent: PendingComponent,
   notFoundComponent: NotFoundComponent,

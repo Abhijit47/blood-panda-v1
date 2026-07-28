@@ -5,7 +5,20 @@ const BASE_URL = import.meta.env.VITE_BETTER_AUTH_URL as string
 
 type Path = FileRouteTypes['fullPaths']
 
-export function seo(path: Path, slug?: string) {
+type SeoDetails = {
+  path: Path
+  slug?: string
+  title?: string
+  description?: string
+  keywords?: string
+  image?: string
+  type?: string
+  url?: string
+}
+
+export function seo(props: SeoDetails) {
+  const { path, slug, title, description, keywords, image, type, url } = props
+
   const titlePath =
     path === '/' ? 'Home' : `${capitalizeFirstLetter(path.split('/')[1])}`
 
@@ -28,6 +41,14 @@ export function seo(path: Path, slug?: string) {
 
   // console.log('canonicalPath', canonicalPath)
 
+  const defaultTitle = `Blood & Lab Tests in Bengaluru | BloodPanda - ${titlePath} ${slug ? `| ${formatSlug(slug)}` : ''}`
+
+  const defaultDescription =
+    'Book home blood tests in Bengaluru with BloodPanda. NABL-accredited partner labs, doorstep sample collection, affordable health packages, and fast, accurate reports online.'
+
+  const defaultKeywords =
+    'BloodPanda, BloodPanda Diagnostics, Blood Test, Home Blood Test, Home Sample Collection, Diagnostic Lab, Health Checkup, Full Body Checkup, Lab Tests, Blood Tests, NABL Lab, Medical Laboratory, Preventive Health Checkup, Diagnostic Services, Home Diagnostics, Online Blood Test Booking, Bengaluru Diagnostics, Bangalore Blood Tests, Affordable Health Packages, Accurate Test Results, Health Screening, Lab Test Packages, Blood Test at Home, Medical Testing Services, Health Monitoring, Wellness Checkup, Blood Test Reports Online, Home Health Services, Diagnostic Testing in Bengaluru'
+
   return {
     meta: [
       {
@@ -35,24 +56,20 @@ export function seo(path: Path, slug?: string) {
       },
       {
         name: 'description',
-        content:
-          'Book home blood tests in Bengaluru with BloodPanda. NABL-accredited partner labs, doorstep sample collection, affordable health packages, and fast, accurate reports online.',
+        content: description || defaultDescription,
       },
       {
         name: 'keywords',
-        content:
-          'BloodPanda, BloodPanda Diagnostics, Blood Test, Home Blood Test, Home Sample Collection, Diagnostic Lab, Health Checkup, Full Body Checkup, Lab Tests, Blood Tests, NABL Lab, Medical Laboratory, Preventive Health Checkup, Diagnostic Services, Home Diagnostics, Online Blood Test Booking, Bengaluru Diagnostics, Bangalore Blood Tests, Affordable Health Packages, Accurate Test Results, Health Screening, Lab Test Packages, Blood Test at Home, Medical Testing Services, Health Monitoring, Wellness Checkup, Blood Test Reports Online, Home Health Services, Diagnostic Testing in Bengaluru',
+        content: keywords || defaultKeywords,
       },
       // Open Graph
       {
         property: 'og:title',
-        content:
-          'Blood Tests & Lab Tests in Bengaluru | Home Sample Collection | BloodPanda',
+        content: title || defaultTitle,
       },
       {
         property: 'og:description',
-        content:
-          'Book home blood tests in Bengaluru with BloodPanda. NABL-accredited partner labs, doorstep sample collection, affordable health packages, and fast, accurate reports online.',
+        content: description || defaultDescription,
       },
       { property: 'og:image', content: '/packages/packages-bg.png' },
       { property: 'og:type', content: 'article' },
@@ -66,13 +83,11 @@ export function seo(path: Path, slug?: string) {
       { name: 'twitter:url', content: `${BASE_URL}${path}` },
       {
         name: 'twitter:title',
-        content:
-          'Book home blood tests in Bengaluru with BloodPanda. NABL-accredited partner labs, doorstep sample collection, affordable health packages, and fast, accurate reports online.',
+        content: title || defaultTitle,
       },
       {
         name: 'twitter:description',
-        content:
-          'BloodPanda offers doorstep blood sample collection, health checkups, and diagnostic tests through trusted NABL-accredited partner labs across Bengaluru.',
+        content: description || defaultDescription,
       },
       {
         name: 'twitter:image',

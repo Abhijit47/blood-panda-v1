@@ -5,7 +5,7 @@ import LoginForm from '#/features/auth/login-form'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth/login')({
-  head: () => seo('/login'),
+  head: () => seo({ path: '/login' }),
   component: RouteComponent,
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,

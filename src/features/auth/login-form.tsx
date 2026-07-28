@@ -20,7 +20,7 @@ import { signIn } from '#/lib/auth-client'
 import { Link, useLocation, useNavigate } from '@tanstack/react-router'
 import { Image } from '@unpic/react'
 import { toast } from 'sonner'
-import AuthStats from './auth-stats'
+// import AuthStats from './auth-stats'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('')
@@ -89,7 +89,7 @@ export default function LoginForm() {
       <CardContent className="grid p-0 md:grid-cols-2">
         <div className="relative hidden md:block">
           <Image
-            src="/login-bg.png"
+            src="/login-bg.jpeg"
             alt="Image"
             width={643}
             height={203}
@@ -97,7 +97,7 @@ export default function LoginForm() {
             priority={true}
           />
 
-          <AuthStats />
+          {/* <AuthStats /> */}
         </div>
 
         <form onSubmit={handleSignIn} className="relative p-6 md:p-8">

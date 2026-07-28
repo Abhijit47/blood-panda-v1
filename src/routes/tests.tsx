@@ -13,7 +13,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { Image } from '@unpic/react'
 
 export const Route = createFileRoute('/tests')({
-  head: () => seo('/tests'),
+  head: () => seo({ path: '/tests' }),
   validateSearch: selectCategorySchema,
   // Declare which search params the loader depends on
   loaderDeps: ({ search: { primary, secondary, q } }) => ({

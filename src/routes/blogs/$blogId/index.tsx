@@ -29,7 +29,7 @@ export const Route = createFileRoute('/blogs/$blogId/')({
   head(ctx) {
     const { params } = ctx
     const slug = params.blogId
-    return seo(`/blogs/$blogId/`, slug)
+    return seo({ path: `/blogs/$blogId/`, slug })
   },
   component: RouteComponent,
   pendingComponent: PendingComponent,

@@ -23,7 +23,7 @@ export const Route = createFileRoute('/_admin/dashboard')({
     }
     return { user: session.user }
   },
-  head: () => seo('/dashboard'),
+  head: () => seo({ path: '/dashboard' }),
   component: Dashboard,
   pendingComponent: PendingComponent,
   notFoundComponent: NotFoundComponent,

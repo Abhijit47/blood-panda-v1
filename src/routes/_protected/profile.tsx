@@ -33,7 +33,7 @@ import ViewPrescriptionDialog from '#/features/profile/view-prescription-dialog'
 import ViewReportDialog from '#/features/profile/view-report-dialog'
 
 export const Route = createFileRoute('/_protected/profile')({
-  head: () => seo('/profile'),
+  head: () => seo({ path: '/profile' }),
   loader: ({ context }) => {
     const { user } = context
 

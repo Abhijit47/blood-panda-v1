@@ -67,7 +67,7 @@ import { ClientOnly, createFileRoute, useRouter } from '@tanstack/react-router'
 //   })
 
 export const Route = createFileRoute('/_protected/booking')({
-  head: () => seo('/booking'),
+  head: () => seo({ path: '/booking' }),
   loader: ({ context }) => {
     const deferred = getAllTests({ data: { limit: undefined } })
     return { deferred, user: context.user }

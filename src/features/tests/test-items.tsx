@@ -94,8 +94,9 @@ export default function TestItems() {
 
                         <CardFooter className={'py-4'}>
                           <Button
+                            variant={'destructive'}
                             className={
-                              'w-full bg-destructive text-accent hover:bg-destructive/90'
+                              'w-full bg-transparent ring-1 ring-destructive hover:bg-destructive hover:ring-destructive focus-visible:ring-destructive/40 hover:text-accent transition-colors duration-150 ease-in-out'
                             }
                             type="button"
                             onClick={() =>

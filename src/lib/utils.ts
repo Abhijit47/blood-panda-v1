@@ -22,6 +22,15 @@ export function formattedDate(value: string) {
   }).format(Number(value))
 }
 
+export function formatPoliciesDate(dateString: string) {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+  }).format(new Date(dateString))
+}
+
 export function capitalizeFirstLetter(value: string) {
   return value.charAt(0).toUpperCase() + value.slice(1)
 }

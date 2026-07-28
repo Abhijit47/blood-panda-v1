@@ -21,7 +21,7 @@ import { ClientOnly, createFileRoute, useRouter } from '@tanstack/react-router'
 // const BASE_URL = import.meta.env.VITE_BETTER_AUTH_URL as string
 
 export const Route = createFileRoute('/')({
-  head: () => seo('/'),
+  head: () => seo({ path: '/' }),
   loader: () => {
     const deferredTests = getAllTests({ data: { limit: 12 } })
     // const defferedPackages = import('#/features/home/components/popular-packages.lazy')

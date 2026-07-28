@@ -17,7 +17,7 @@ import { format } from 'date-fns'
 import { ArrowRightIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/blogs/')({
-  head: () => seo('/blogs/'),
+  head: () => seo({ path: '/blogs/' }),
   component: RouteComponent,
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,

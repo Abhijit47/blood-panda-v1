@@ -30,7 +30,7 @@ export const Route = createFileRoute('/packages/mini-packages/$miniPackage')({
   head(ctx) {
     const { params } = ctx
     const slug = params.miniPackage
-    return seo(`/packages/mini-packages/$miniPackage`, slug)
+    return seo({ path: `/packages/mini-packages/$miniPackage`, slug })
   },
   component: RouteComponent,
   pendingComponent: PendingComponent,
@@ -67,7 +67,7 @@ function RouteComponent() {
       <section className={''}>
         <div
           className={
-            'relative aspect-square h-full w-full sm:aspect-video md:aspect-video lg:aspect-26/9'
+            'relative aspect-video h-full w-full sm:aspect-video md:aspect-18/9 lg:aspect-22/9'
           }
         >
           {/* <img
@@ -85,11 +85,19 @@ function RouteComponent() {
             layout="constrained"
             width={1282}
             height={488}
+            className={'absolute top-0 left-0 -z-10 h-full w-full rounded-3xl'}
+          />
+          {/* <Image
+            src="/packages/packages-bg.png"
+            alt="packages-bg"
+            layout="constrained"
+            width={1282}
+            height={488}
             className={
               'absolute top-0 left-0 -z-10 h-full w-full object-cover rounded-3xl'
             }
             // priority={true}
-          />
+          /> */}
           <div
             className={
               'flex h-full w-full flex-col items-start justify-center gap-4 px-4 md:px-8 lg:px-12'

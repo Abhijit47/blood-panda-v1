@@ -1,4 +1,4 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { refundPolicy } from 'content-collections'
 
 import {
@@ -8,28 +8,42 @@ import {
   CardHeader,
   CardTitle,
 } from '#/components/ui/card'
+import { Separator } from '#/components/ui/separator'
+import { seo } from '#/constants/seo-details'
+import { formatPoliciesDate } from '#/lib/utils'
 import { MDXContent } from '@content-collections/mdx/react'
 
-export const Route = createLazyFileRoute('/refund-policy')({
+export const Route = createFileRoute('/refund-policy')({
+  head: () => {
+    return seo({ path: '/refund-policy', description: refundPolicy.summary })
+  },
+  wrapInSuspense: true,
   component: RouteComponent,
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,
   notFoundComponent: NotFoundComponent,
+  codeSplitGroupings: [
+    ['component', 'pendingComponent', 'errorComponent', 'notFoundComponent'],
+  ],
 })
 
 function RouteComponent() {
   return (
     <main className={'mx-auto max-w-(--breakpoint-lg) space-y-8 px-4 py-12'}>
-      <Card className={'rounded-none bg-transparent shadow-none ring-0'}>
-        <CardHeader>
-          <CardTitle>
-            <h1>Refund Policy</h1>
+      <Card>
+        <CardHeader className={'text-center'}>
+          <CardTitle className={'text-3xl font-semibold text-center'}>
+            Refund Policy
           </CardTitle>
-          <CardDescription></CardDescription>
+          <CardDescription>
+            Last updated: {formatPoliciesDate(new Date().toISOString())}
+          </CardDescription>
         </CardHeader>
 
+        <Separator />
+
         <CardContent>
-          <article className="prose prose-sm max-w-none md:prose-base lg:prose-lg dark:prose-invert">
+          <article className="prose prose-sm max-w-none md:prose-base lg:prose-lg dark:prose-invert prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h5:text-base prose-h6:text-base prose-hr:my-4 prose-hr:border-t-2">
             <MDXContent code={refundPolicy.mdx} />
           </article>
         </CardContent>

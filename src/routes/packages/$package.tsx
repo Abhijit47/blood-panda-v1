@@ -49,7 +49,7 @@ export const Route = createFileRoute('/packages/$package')({
   head(ctx) {
     const { params } = ctx
     const slug = params.package
-    return seo(`/packages/$package`, slug)
+    return seo({ path: `/packages/$package`, slug })
   },
   component: RouteComponent,
   pendingComponent: PendingComponent,
@@ -115,7 +115,7 @@ function RouteComponent() {
           <section className={''}>
             <div
               className={
-                'relative aspect-11/9 h-full w-full sm:aspect-14/9 md:aspect-18/9 lg:aspect-22/9'
+                'relative aspect-video h-full w-full sm:aspect-video md:aspect-18/9 lg:aspect-22/9'
               }
             >
               {/* <img
@@ -134,10 +134,20 @@ function RouteComponent() {
                 width={1282}
                 height={488}
                 className={
+                  'absolute top-0 left-0 -z-10 h-full w-full rounded-3xl'
+                }
+              />
+              {/* <Image
+                src={`${imageUrl}/${data?.cover}`}
+                alt={`Cover image for ${capitalizeFirstLetter(packageSlug)} package`}
+                layout="constrained"
+                width={1282}
+                height={488}
+                className={
                   'absolute top-0 left-0 -z-10 h-full w-full object-cover rounded-3xl'
                 }
                 // priority={true}
-              />
+              /> */}
               <div
                 className={
                   'flex h-full w-full flex-col items-start justify-center gap-4 px-4 md:px-8 lg:px-12'

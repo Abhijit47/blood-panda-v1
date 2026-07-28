@@ -5,7 +5,7 @@ import RegisterForm from '#/features/auth/register-form'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_auth/register')({
-  head: () => seo('/register'),
+  head: () => seo({ path: '/register' }),
   component: RouteComponent,
   pendingComponent: PendingComponent,
   errorComponent: ErrorComponent,
