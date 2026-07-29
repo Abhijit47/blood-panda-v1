@@ -87,7 +87,7 @@ export default function HeroStats() {
                     >
                       <OdometerExample
                         target={'odometer-target'}
-                        value={100}
+                        value={10000}
                         duration={2.3}
                         lastDigitDelay={0}
                         className={'font-semibold! text-base!'}
