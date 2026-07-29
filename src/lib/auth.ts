@@ -75,7 +75,10 @@ export const auth = betterAuth({
     },
   },
 
-  trustedOrigins: [getServerEnv().BETTER_AUTH_URL],
+  trustedOrigins: [
+    getServerEnv().BETTER_AUTH_URL,
+    'https://blood-panda-v1.vercel.app',
+  ],
   plugins: [
     adminPlugin({
       ac,
