@@ -1,6 +1,6 @@
 import { prisma } from '#/db'
 import { betterAuth } from 'better-auth'
-import { admin as adminPlugin } from 'better-auth/plugins'
+import { admin as adminPlugin, openAPI } from 'better-auth/plugins'
 import { tanstackStartCookies } from 'better-auth/tanstack-start'
 
 import { getServerEnv } from '#/config/server-env'
@@ -72,6 +72,22 @@ export const auth = betterAuth({
     },
   },
 
+  databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          // Modify the user object before it is created
+          return {
+            data: {
+              ...user,
+              role: 'USER',
+            },
+          }
+        },
+      },
+    },
+  },
+
   session: {
     storeSessionInDatabase: true,
     preserveSessionInDatabase: true,
@@ -98,6 +114,7 @@ export const auth = betterAuth({
       },
     }),
     tanstackStartCookies(),
+    openAPI(),
   ],
 })
 
