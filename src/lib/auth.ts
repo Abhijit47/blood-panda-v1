@@ -39,6 +39,15 @@ export const auth = betterAuth({
       clientId: getServerEnv().GOOGLE_CLIENT_ID,
       clientSecret: getServerEnv().GOOGLE_CLIENT_SECRET,
       prompt: 'select_account consent',
+      mapProfileToUser: (profile) => {
+        return {
+          name: profile.name || profile.given_name || profile.family_name,
+          email: profile.email,
+          image: profile.picture,
+          emailVerified: profile.email_verified,
+          role: 'USER',
+        }
+      },
     },
   },
   user: {
