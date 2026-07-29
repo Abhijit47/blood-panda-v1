@@ -81,7 +81,7 @@ export default function HeroStats() {
                     <ClientOnly
                       fallback={
                         <span className={'font-semibold! text-base!'}>
-                          10000+
+                          10,000+
                         </span>
                       }
                     >
