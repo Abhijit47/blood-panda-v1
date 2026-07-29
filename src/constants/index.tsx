@@ -168,7 +168,7 @@ export const heroStats = [
   {
     id: crypto.randomUUID(),
     stat: '10000+',
-    description: 'Samples Collected ',
+    description: 'Samples Collected',
     icon: <PipetteIcon className={'stroke-green-500'} />,
     bgColor: 'bg-green-500/10',
   },

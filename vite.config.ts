@@ -66,7 +66,15 @@ const config = defineConfig({
     babel({ presets: [reactCompilerPreset()] }),
   ],
   optimizeDeps: {
-    include: ['swiper', 'swiper/react', 'swiper/modules', 'recharts'],
+    include: [
+      'swiper',
+      'swiper/react',
+      'swiper/modules',
+      'recharts',
+      'countup.js',
+      'odometer_countup',
+      'embla-carousel-react',
+    ],
   },
 })
 

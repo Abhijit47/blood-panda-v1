@@ -72,7 +72,7 @@ export default function Hero() {
 
           <HeroSearch />
 
-          <CardAction className={'space-x-2 justify-self-start'}>
+          <CardAction className={'space-x-2 justify-self-start space-y-2'}>
             <Link
               to="/booking"
               viewTransition

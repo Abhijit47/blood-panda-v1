@@ -8,6 +8,7 @@ import FAQs from '#/features/home/components/faqs'
 import Features from '#/features/home/components/features'
 import HealthCategory from '#/features/home/components/health-category'
 import Hero from '#/features/home/components/hero'
+import HeroCarousel from '#/features/home/components/hero-carousel'
 import HowItWorks from '#/features/home/components/how-it-works'
 import IndividualCategory from '#/features/home/components/individual-category'
 import PopularPackages from '#/features/home/components/popular-packages'
@@ -17,7 +18,6 @@ import { getMiniPackages } from '#/lib/mini-package.functions'
 import { getAllPackages } from '#/lib/package.functions'
 import { getAllTests } from '#/lib/tests.functions'
 import { ClientOnly, createFileRoute, useRouter } from '@tanstack/react-router'
-
 // const BASE_URL = import.meta.env.VITE_BETTER_AUTH_URL as string
 
 export const Route = createFileRoute('/')({
@@ -54,6 +54,7 @@ export const Route = createFileRoute('/')({
 function App() {
   return (
     <main className={'mx-auto max-w-(--breakpoint-xl) space-y-8 px-4'}>
+      <HeroCarousel />
       <Hero />
       <Features />
 
