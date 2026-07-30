@@ -135,6 +135,8 @@ model BloodTest {
   primaryCategory     PrimaryCategory   @relation(fields: [primaryCategoryId], references: [id], onDelete: Cascade)
   secondaryCategory   SecondaryCategory @relation(fields: [secondaryCategoryId], references: [id], onDelete: Cascade)
 
+  isRegularItem Boolean @default(false)
+
   @@index([name])
   @@map("blood_test")
 }

@@ -199,7 +199,8 @@ export const BloodTestScalarFieldEnum = {
   secondaryCategoryId: 'secondaryCategoryId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  memberId: 'memberId'
+  memberId: 'memberId',
+  isRegularItem: 'isRegularItem'
 } as const
 
 export type BloodTestScalarFieldEnum = (typeof BloodTestScalarFieldEnum)[keyof typeof BloodTestScalarFieldEnum]
