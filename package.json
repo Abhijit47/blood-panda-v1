@@ -26,7 +26,8 @@
     "db:dev": "pnpm db:push && pnpm db:generate",
     "db:studio": "dotenv -e .env pnpm dlx prisma studio --browser none",
     "auth:gen": "pnpm dlx auth@latest generate --config \"./src/lib/auth.ts\" --output \"./src/lib/auth-generated.prisma\" --yes",
-    "email:dev": "dotenv -e .env email dev --port 3001"
+    "email:dev": "dotenv -e .env email dev --port 3001",
+    "db:erd": "pnpm dlx @liam-hq/cli erd build --format prisma --input docs/rework-schema.prisma --output-dir .erd"
   },
   "dependencies": {
     "@better-auth/prisma-adapter": "^1.6.23",
