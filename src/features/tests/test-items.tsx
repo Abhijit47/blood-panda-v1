@@ -72,7 +72,19 @@ export default function TestItems() {
                           </CardTitle>
                         </CardHeader>
 
-                        <CardContent className={'space-y-4'}>
+                        <CardContent className={'space-y-2'}>
+                          <p className={'space-x-2'}>
+                            <span>Fasting Required:</span>
+                            <Badge
+                              variant={
+                                test.isFastingRequired
+                                  ? 'destructive'
+                                  : 'outline'
+                              }
+                            >
+                              {test.isFastingRequired ? 'Yes' : 'No'}
+                            </Badge>
+                          </p>
                           <span className="block">
                             Original Price:{' '}
                             <Badge

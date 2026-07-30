@@ -78,7 +78,7 @@ export default function IndividualCategory() {
                     return (
                       <Card
                         className={
-                          'w-full min-w-xs md:min-w-sm snap-center my-4'
+                          'w-full min-w-xs md:min-w-sm snap-center my-4 gap-4'
                         }
                         key={item.id}
                       >
@@ -86,8 +86,14 @@ export default function IndividualCategory() {
                           <CardTitle>
                             <h4>{item.name}</h4>
                           </CardTitle>
-                          <CardDescription>
+                          <CardDescription className={'space-y-2'}>
                             <p>{'N/a'}</p>
+                            <p className={'space-x-2'}>
+                              <span>Fasting Required:</span>
+                              <Badge>
+                                {item.isFastingRequired ? 'Yes' : 'No'}
+                              </Badge>
+                            </p>
                           </CardDescription>
                         </CardHeader>
 

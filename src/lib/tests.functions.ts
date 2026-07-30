@@ -11,6 +11,9 @@ export const getAllTests = createServerFn()
         orderBy: {
           name: 'asc',
         },
+        where: {
+          isRegularItem: true,
+        },
       })
       return limitedRecords
     } else {

@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from '#/components/ui/card'
 import { ScrollArea } from '#/components/ui/scroll-area'
+import { formatCurrency } from '#/lib/utils'
 import { useCart } from '#/stores/useCart'
 import { IconTrash } from '@tabler/icons-react'
 import { MinusIcon, PlusIcon, Trash2Icon } from 'lucide-react'
@@ -141,7 +142,10 @@ export default function CartItemsSection() {
 
                           <div className="text-right">
                             <div className="font-medium">
-                              ${(item.price * item.quantity).toFixed(2)}
+                              {/* ${(item.price * item.quantity).toFixed(2)} */}
+                              {formatCurrency(
+                                String(item.price * item.quantity),
+                              )}
                             </div>
                             {/* {item.originalPrice && (
                                 <div className="text-sm text-muted-foreground line-through">

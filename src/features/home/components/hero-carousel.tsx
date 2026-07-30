@@ -25,6 +25,17 @@ import HeroSearch from './hero-search'
 
 const isDev = import.meta.env.DEV
 
+const heroSlides = [
+  {
+    id: crypto.randomUUID(),
+    bg: '/hero-bg-1.jpg',
+  },
+  {
+    id: crypto.randomUUID(),
+    bg: '/hero-bg-2.jpg',
+  },
+]
+
 export default function HeroCarousel() {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
@@ -89,7 +100,7 @@ export default function HeroCarousel() {
       className="w-full h-full overflow-x-hidden"
     >
       <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {heroSlides.map((_, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
               <Card
@@ -99,11 +110,11 @@ export default function HeroCarousel() {
                 <img
                   // src={`https://picsum.photos/800/800?grayscale&random=${index + 45}`}
                   // alt={`Slide ${index + 1}`}
-                  src="/hero-bg.png"
-                  alt="hero-bg"
+                  src={heroSlides[index].bg}
+                  alt={`Slide ${index + 1}`}
                   width={800}
                   height={800}
-                  className="absolute inset-0 size-full scale-100 transition-transform duration-500 ease-in-out group-hover/card:scale-105"
+                  className="absolute inset-0 size-full scale-100 transition-transform duration-500 ease-in-out group-hover/card:scale-105 object-right object-cover"
                 />
                 {/* Background fade effects */}
                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/80 to-transparent" />
@@ -120,7 +131,7 @@ export default function HeroCarousel() {
 
                 <div
                   className={
-                    'absolute top-0 left-0 h-full bg-linear-to-r from-black/40 to-transparent backdrop-blur-2x scroll-fade-e w-auto md:w-6/12'
+                    'absolute top-0 left-0 h-full bg-linear-to-r from-black/80 to-transparent backdrop-blur-2x scroll-fade-e w-auto md:w-6/12'
                   }
                 >
                   <Card className="bg-background/10 backdrop-blur-xs border-none ring-0 shadow-none border-0 h-full justify-center scroll-fade-e gap-4">
@@ -138,10 +149,12 @@ export default function HeroCarousel() {
                             'text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold'
                           }
                         >
-                          <span className={'text-foreground'}>
+                          <span className={'text-background'}>
                             Your Health.
                           </span>{' '}
-                          <span className={'text-primary'}>Our Priority</span>
+                          <span className={'text-background'}>
+                            Our Priority
+                          </span>
                         </h1>
                       </CardTitle>
                     </CardHeader>
