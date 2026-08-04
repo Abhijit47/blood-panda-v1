@@ -2,37 +2,34 @@ import AutoPlay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useEffect, useState } from 'react'
 
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '#/components/ui/card'
+import { Card } from '#/components/ui/card'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '#/components/ui/carousel'
 
-import { buttonVariants } from '#/components/ui/button'
+// import { buttonVariants } from '#/components/ui/button'
 import type { CarouselApi } from '#/components/ui/carousel'
 import { Progress } from '#/components/ui/progress'
-import { Link } from '@tanstack/react-router'
-import { FlaskConicalIcon, PackageOpenIcon } from 'lucide-react'
-import HeroSearch from './hero-search'
+// import { Link } from '@tanstack/react-router'
+// import { FlaskConicalIcon, PackageOpenIcon } from 'lucide-react'
+// import HeroSearch from './hero-search'
 
 const isDev = import.meta.env.DEV
 
 const heroSlides = [
   {
     id: crypto.randomUUID(),
-    bg: '/hero-bg-1.jpg',
+    bg: '/hero-1.jpg',
   },
   {
     id: crypto.randomUUID(),
-    bg: '/hero-bg-2.jpg',
+    bg: '/hero-2.jpg',
+  },
+  {
+    id: crypto.randomUUID(),
+    bg: '/hero-3.jpg',
   },
 ]
 
@@ -114,10 +111,10 @@ export default function HeroCarousel() {
                   alt={`Slide ${index + 1}`}
                   width={800}
                   height={800}
-                  className="absolute inset-0 size-full scale-100 transition-transform duration-500 ease-in-out group-hover/card:scale-105 object-right object-cover"
+                  className="absolute inset-0 size-full scale-100 transition-transform duration-500 ease-in-out group-hover/card:scale-105"
                 />
                 {/* Background fade effects */}
-                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/80 to-transparent" />
+                {/* <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/80 to-transparent" /> */}
 
                 {/* Content */}
                 {/* <div className="absolute inset-0 top-auto flex flex-col justify-end bg-black/20 p-4">
@@ -129,7 +126,7 @@ export default function HeroCarousel() {
                   </p>
                 </div> */}
 
-                <div
+                {/* <div
                   className={
                     'absolute top-0 left-0 h-full bg-linear-to-r from-black/80 to-transparent backdrop-blur-2x scroll-fade-e w-auto md:w-6/12'
                   }
@@ -200,7 +197,7 @@ export default function HeroCarousel() {
                       </CardAction>
                     </CardContent>
                   </Card>
-                </div>
+                </div> */}
               </Card>
             </div>
           </CarouselItem>

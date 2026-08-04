@@ -540,26 +540,45 @@ export const faqs = [
   {
     id: crypto.randomUUID(),
     question: 'Is fasting required?',
-    answer:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni architecto repellendus repellat nemo dolorem? Obcaecati consequatur voluptatibus laboriosam expedita vel accusamus debitis dicta eius! Distinctio ad iusto porro reiciendis laboriosam!',
+    answer: 'Fasting is required only for certain blood tests,',
+    listItems: [
+      'Fasting Blood Sugar (FBS) – 8–12 hours fasting',
+      'Lipid Profile (Cholesterol & Triglycerides) – 9–12 hours fasting (especially for triglycerides)',
+      'Oral Glucose Tolerance Test (OGTT/GTT) – Overnight fasting (8–12 hours)',
+      'Glucose Challenge Tests (as instructed by your doctor)',
+      'Fasting Insulin – 8–12 hours fasting',
+      'C-Peptide (Fasting) – If specifically requested',
+      'Iron Studies (Serum Iron) – Overnight fasting is preferred, with morning sample collection',
+      'Vitamin B12 (optional)',
+      'Homocysteine – 8–12 hours fasting is preferred',
+      'Thyroid function tests',
+    ],
+    ctaText:
+      'When you book your test, our team will inform you in advance if fasting is necessary and provide any preparation instructions.',
   },
   {
     id: crypto.randomUUID(),
     question: 'Is home collection really free?',
     answer:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni architecto repellendus repellat nemo dolorem? Obcaecati consequatur voluptatibus laboriosam expedita vel accusamus debitis dicta eius! Distinctio ad iusto porro reiciendis laboriosam!',
+      'Yes! BloodPanda offers FREE home sample collection in our service areas with no hidden charges. Our trained professionals collect samples safely and hygienically at your doorstep, saving you time and eliminating the need to visit a diagnostic center.',
+    listItems: undefined,
+    ctaText: undefined,
   },
   {
     id: crypto.randomUUID(),
-    question: 'How long for reports?',
+    question: 'How long does it take to receive reports?',
     answer:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni architecto repellendus repellat nemo dolorem? Obcaecati consequatur voluptatibus laboriosam expedita vel accusamus debitis dicta eius! Distinctio ad iusto porro reiciendis laboriosam!',
+      'Most routine test reports are available within 6–24 hours. Some specialized tests may require 2–7 working days, depending on the investigation. Reports are securely delivered via WhatsApp or email, making them easy to access anytime.',
+    listItems: undefined,
+    ctaText: undefined,
   },
   {
     id: crypto.randomUUID(),
     question: 'Which areas do you serve?',
     answer:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni architecto repellendus repellat nemo dolorem? Obcaecati consequatur voluptatibus laboriosam expedita vel accusamus debitis dicta eius! Distinctio ad iusto porro reiciendis laboriosam!',
+      'We currently provide home sample collection across Bengaluru. If you’re unsure whether your location is covered, simply contact us—we’ll be happy to assist.',
+    listItems: undefined,
+    ctaText: undefined,
   },
 ]
 

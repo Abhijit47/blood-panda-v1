@@ -7,6 +7,7 @@ import {
 
 import { Card, CardContent, CardHeader, CardTitle } from '#/components/ui/card'
 import { faqs } from '#/constants'
+import { CheckCircle2Icon } from 'lucide-react'
 
 export default function FAQs() {
   return (
@@ -36,8 +37,23 @@ export default function FAQs() {
                       {faq.question}
                     </h5>
                   </AccordionTrigger>
-                  <AccordionContent>
+                  <AccordionContent className={'h-fit'}>
                     <p>{faq.answer}</p>
+                    {faq.listItems && (
+                      <ul className={'space-y-1'}>
+                        {faq.listItems.map((item, index) => (
+                          <li key={index} className={'flex items-center gap-2'}>
+                            <CheckCircle2Icon className={'size-4'} />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {faq.ctaText && (
+                      <p className={'mt-2 text-sm font-semibold text-primary'}>
+                        {faq.ctaText}
+                      </p>
+                    )}
                   </AccordionContent>
                 </AccordionItem>
               )

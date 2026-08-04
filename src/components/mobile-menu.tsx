@@ -214,12 +214,13 @@ export default function MobileMenu() {
             </p>
             <address className={'space-y-1'}>
               <p className={'text-sm'}>
-                123 Main Street, Suite 456
+                8<sup>th</sup> Cross Road, Sai Sree Layout,
+                <br />(<small>Near Electronic City</small>)
                 <br />
-                Cityville, ST 12345
+                Bengaluru, Karnataka 560100
               </p>
               <p>
-                <strong>Phone:</strong>{' '}
+                <strong>Phone 1:</strong>{' '}
                 <a
                   href="tel:+918277842200"
                   className={'text-primary'}
@@ -227,6 +228,17 @@ export default function MobileMenu() {
                   rel="noopener noreferrer"
                 >
                   +91 82778 42200
+                </a>
+              </p>
+              <p>
+                <strong>Phone 2:</strong>{' '}
+                <a
+                  href="tel:+919449024906"
+                  className={'text-primary'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  +91 94490 24906
                 </a>
               </p>
               <p>
