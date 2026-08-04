@@ -2,7 +2,14 @@ import AutoPlay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
 import { useEffect, useState } from 'react'
 
-import { Card } from '#/components/ui/card'
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '#/components/ui/card'
 import {
   Carousel,
   CarouselContent,
@@ -10,8 +17,12 @@ import {
 } from '#/components/ui/carousel'
 
 // import { buttonVariants } from '#/components/ui/button'
+import { buttonVariants } from '#/components/ui/button'
 import type { CarouselApi } from '#/components/ui/carousel'
 import { Progress } from '#/components/ui/progress'
+import { Link } from '@tanstack/react-router'
+import { FlaskConicalIcon, PackageOpenIcon } from 'lucide-react'
+import HeroSearch from './hero-search'
 // import { Link } from '@tanstack/react-router'
 // import { FlaskConicalIcon, PackageOpenIcon } from 'lucide-react'
 // import HeroSearch from './hero-search'
@@ -126,7 +137,7 @@ export default function HeroCarousel() {
                   </p>
                 </div> */}
 
-                {/* <div
+                <div
                   className={
                     'absolute top-0 left-0 h-full bg-linear-to-r from-black/80 to-transparent backdrop-blur-2x scroll-fade-e w-auto md:w-6/12'
                   }
@@ -197,7 +208,7 @@ export default function HeroCarousel() {
                       </CardAction>
                     </CardContent>
                   </Card>
-                </div> */}
+                </div>
               </Card>
             </div>
           </CarouselItem>

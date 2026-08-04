@@ -21,6 +21,7 @@ import {
   IconBrandWhatsapp,
   IconClock,
   IconHeadset,
+  IconMapCheck,
   IconPhoneCall,
 } from '@tabler/icons-react'
 import { Image } from '@unpic/react'
@@ -59,6 +60,37 @@ export default function ContactInfo() {
         <Card className={'bg-transparent shadow-none ring-0 rounded-none'}>
           <CardContent>
             <ItemGroup className={'bg-transparent'}>
+              <Item size={'sm'} variant={'muted'}>
+                <ItemMedia variant="image">
+                  <IconMapCheck />
+                </ItemMedia>
+                <ItemContent>
+                  <ItemDescription>Our Location</ItemDescription>
+                  <address>
+                    <p className={'text-sm'}>
+                      8<sup>th</sup> Cross Road, Sai Sree Layout,
+                      <br />(<small>Near Electronic City</small>)
+                      <br />
+                      Bengaluru, Karnataka 560100
+                    </p>
+                  </address>
+                  <ItemTitle>
+                    <a
+                      href="https://maps.app.goo.gl/rtbNTeYYabsyUyyDA"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={buttonVariants({
+                        variant: 'link',
+                        size: 'sm',
+                        className: 'h-fit px-0!',
+                      })}
+                    >
+                      Get Directions
+                    </a>
+                  </ItemTitle>
+                </ItemContent>
+              </Item>
+              <Separator />
               <Item size={'sm'} variant={'muted'}>
                 <ItemMedia variant="image">
                   <IconPhoneCall />
