@@ -1,18 +1,19 @@
 import { Spinner } from '#/components/ui/spinner'
 import { seo } from '#/constants/seo-details'
-import { FallbackTestimonials } from '#/features/common/fallback-loaders'
+// import { FallbackTestimonials } from '#/features/common/fallback-loaders'
 import Blogs from '#/features/home/components/blogs'
 import BookingSteps from '#/features/home/components/booking-steps'
 import CTA from '#/features/home/components/cta'
 import FAQs from '#/features/home/components/faqs'
 import Features from '#/features/home/components/features'
 import HealthCategory from '#/features/home/components/health-category'
-import Hero from '#/features/home/components/hero'
+// import Hero from '#/features/home/components/hero'
 import HeroCarousel from '#/features/home/components/hero-carousel'
 import HowItWorks from '#/features/home/components/how-it-works'
 import IndividualCategory from '#/features/home/components/individual-category'
 import PopularPackages from '#/features/home/components/popular-packages'
-import Testimonials from '#/features/home/components/testimonials.lazy'
+// import Testimonials from '#/features/home/components/testimonials.lazy'
+import Testimonies from '#/features/home/components/testimonies'
 import WhyChooseUs from '#/features/home/components/why-choose-us'
 import { getMiniPackages } from '#/lib/mini-package.functions'
 import { getAllPackages } from '#/lib/package.functions'
@@ -55,7 +56,7 @@ function App() {
   return (
     <main className={'mx-auto max-w-(--breakpoint-xl) space-y-8 px-4'}>
       <HeroCarousel />
-      <Hero />
+      {/* <Hero /> */}
       <Features />
 
       <PopularPackages />
@@ -66,9 +67,10 @@ function App() {
 
       <BookingSteps />
       <WhyChooseUs />
-      <ClientOnly fallback={<FallbackTestimonials />}>
+      <Testimonies />
+      {/* <ClientOnly fallback={<FallbackTestimonials />}>
         <Testimonials />
-      </ClientOnly>
+      </ClientOnly> */}
       <HowItWorks />
       <Blogs />
       <CTA />

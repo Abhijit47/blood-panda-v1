@@ -374,8 +374,7 @@ export const testimonies = [
     author: {
       name: 'Priya S.',
       location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
+      avatar: '/testimonials/1.jpg',
     },
   },
   {
@@ -385,8 +384,7 @@ export const testimonies = [
     author: {
       name: 'Rajesh M.',
       location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
+      avatar: '/testimonials/2.jpg',
     },
   },
   {
@@ -396,8 +394,7 @@ export const testimonies = [
     author: {
       name: 'Anita K.',
       location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
+      avatar: '/testimonials/3.jpg',
     },
   },
   {
@@ -407,98 +404,89 @@ export const testimonies = [
     author: {
       name: 'Amit K.',
       location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
+      avatar: '/testimonials/4.jpg',
     },
   },
-  {
-    id: crypto.randomUUID(),
-    rating: 5,
-    msg: 'The phlebotomist arrived exactly on time. Reports were Whatsapped in under 12 hours. Absolutely seamless experience!',
-    author: {
-      name: 'Priya S.',
-      location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
-    },
-  },
-  {
-    id: crypto.randomUUID(),
-    rating: 5,
-    msg: 'Booked the Gold package for my parents. Entire process was smooth, professional and the staff was very courteous.',
-    author: {
-      name: 'Rajesh M.',
-      location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
-    },
-  },
-  {
-    id: crypto.randomUUID(),
-    rating: 5,
-    msg: 'Best diagnostic service. NABL certified, accurate results, and truly free home collection, Will use again!',
-    author: {
-      name: 'Anita K.',
-      location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
-    },
-  },
-  {
-    id: crypto.randomUUID(),
-    rating: 5,
-    msg: 'Highly recommended for accurate diagnostic and grest customer support.',
-    author: {
-      name: 'Amit K.',
-      location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
-    },
-  },
-  {
-    id: crypto.randomUUID(),
-    rating: 5,
-    msg: 'The phlebotomist arrived exactly on time. Reports were Whatsapped in under 12 hours. Absolutely seamless experience!',
-    author: {
-      name: 'Priya S.',
-      location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
-    },
-  },
-  {
-    id: crypto.randomUUID(),
-    rating: 5,
-    msg: 'Booked the Gold package for my parents. Entire process was smooth, professional and the staff was very courteous.',
-    author: {
-      name: 'Rajesh M.',
-      location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
-    },
-  },
-  {
-    id: crypto.randomUUID(),
-    rating: 5,
-    msg: 'Best diagnostic service. NABL certified, accurate results, and truly free home collection, Will use again!',
-    author: {
-      name: 'Anita K.',
-      location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
-    },
-  },
-  {
-    id: crypto.randomUUID(),
-    rating: 5,
-    msg: 'Highly recommended for accurate diagnostic and grest customer support.',
-    author: {
-      name: 'Amit K.',
-      location: 'Bangalore',
-      avatar:
-        'https://www.untitledui.com/images/avatars/ali-mahdi?w=288&h=288&q=75&fm=webp',
-    },
-  },
+  // {
+  //   id: crypto.randomUUID(),
+  //   rating: 5,
+  //   msg: 'The phlebotomist arrived exactly on time. Reports were Whatsapped in under 12 hours. Absolutely seamless experience!',
+  //   author: {
+  //     name: 'Priya S.',
+  //     location: 'Bangalore',
+  //     avatar: '/testimonials/1.jpg',
+  //   },
+  // },
+  // {
+  //   id: crypto.randomUUID(),
+  //   rating: 5,
+  //   msg: 'Booked the Gold package for my parents. Entire process was smooth, professional and the staff was very courteous.',
+  //   author: {
+  //     name: 'Rajesh M.',
+  //     location: 'Bangalore',
+  //     avatar: '/testimonials/2.jpg',
+  //   },
+  // },
+  // {
+  //   id: crypto.randomUUID(),
+  //   rating: 5,
+  //   msg: 'Best diagnostic service. NABL certified, accurate results, and truly free home collection, Will use again!',
+  //   author: {
+  //     name: 'Anita K.',
+  //     location: 'Bangalore',
+  //     avatar: '/testimonials/3.jpg',
+  //   },
+  // },
+  // {
+  //   id: crypto.randomUUID(),
+  //   rating: 5,
+  //   msg: 'Highly recommended for accurate diagnostic and grest customer support.',
+  //   author: {
+  //     name: 'Amit K.',
+  //     location: 'Bangalore',
+  //     avatar: '/testimonials/4.jpg',
+  //   },
+  // },
+  // {
+  //   id: crypto.randomUUID(),
+  //   rating: 5,
+  //   msg: 'The phlebotomist arrived exactly on time. Reports were Whatsapped in under 12 hours. Absolutely seamless experience!',
+  //   author: {
+  //     name: 'Priya S.',
+  //     location: 'Bangalore',
+  //     avatar: '/testimonials/1.jpg',
+  //   },
+  // },
+  // {
+  //   id: crypto.randomUUID(),
+  //   rating: 5,
+  //   msg: 'Booked the Gold package for my parents. Entire process was smooth, professional and the staff was very courteous.',
+  //   author: {
+  //     name: 'Rajesh M.',
+  //     location: 'Bangalore',
+  //     avatar: '/testimonials/2.jpg',
+  //   },
+  // },
+  // {
+  //   id: crypto.randomUUID(),
+  //   rating: 5,
+  //   msg: 'Best diagnostic service. NABL certified, accurate results, and truly free home collection, Will use again!',
+  //   author: {
+  //     name: 'Anita K.',
+  //     location: 'Bangalore',
+  //     avatar: '/testimonials/3.jpg',
+  //   },
+  // },
+  // {
+  //   id: crypto.randomUUID(),
+  //   rating: 5,
+  //   msg: 'Highly recommended for accurate diagnostic and grest customer support.',
+  //   author: {
+  //     name: 'Amit K.',
+  //     location: 'Bangalore',
+  //     avatar: '/testimonials/4.jpg',
+  //   },
+  // },
 ]
 
 export const howItWorks = [
