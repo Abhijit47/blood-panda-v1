@@ -149,3 +149,52 @@ export function generateTimeSlots(
 
   return slots
 }
+
+export function formatWithOffset(date = new Date()) {
+  const dtf = new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  })
+
+  const parts = Object.fromEntries(
+    dtf.formatToParts(date).map((p) => [p.type, p.value]),
+  )
+  const yyyy = parts.year
+  const MM = parts.month
+  const dd = parts.day
+  const HH = parts.hour
+  const mm = parts.minute
+  const ss = parts.second
+
+  // JS offset is minutes *behind* UTC; invert sign for ISO offset
+  const offsetMinutes = -date.getTimezoneOffset()
+  const sign = offsetMinutes >= 0 ? '+' : '-'
+  const abs = Math.abs(offsetMinutes)
+  const offHH = String(Math.floor(abs / 60)).padStart(2, '0')
+  const offMM = String(abs % 60).padStart(2, '0')
+
+  return `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}${sign}${offHH}:${offMM}`
+}
+
+export function generateCustomerID() {
+  // Generates a 36-character string, then deletes all hyphens
+  return crypto.randomUUID().replace(/-/g, '')
+}
+
+export function generateShortID(length = 10) {
+  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+  const randomBytes = new Uint8Array(length)
+  crypto.getRandomValues(randomBytes)
+
+  let result = ''
+  for (let i = 0; i < length; i++) {
+    // Map random bytes safely to the character array pool
+    result += chars[randomBytes[i] % chars.length]
+  }
+  return result
+}
