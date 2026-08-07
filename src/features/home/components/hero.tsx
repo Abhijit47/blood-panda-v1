@@ -12,7 +12,7 @@ import { FlaskConicalIcon, PackageOpenIcon } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 import { Image } from '@unpic/react'
 import HeroSearch from './hero-search'
-import HeroStats from './hero-stats'
+// import HeroStats from './hero-stats'
 
 export default function Hero() {
   return (
@@ -101,7 +101,7 @@ export default function Hero() {
 
       <div className={'z-10 hidden lg:block'}>&nbsp;</div>
 
-      <HeroStats />
+      {/* <HeroStats /> */}
     </section>
   )
 }
