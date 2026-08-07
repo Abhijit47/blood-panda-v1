@@ -7,8 +7,8 @@ import CTA from '#/features/home/components/cta'
 import FAQs from '#/features/home/components/faqs'
 import Features from '#/features/home/components/features'
 import HealthCategory from '#/features/home/components/health-category'
-import Hero from '#/features/home/components/hero'
-import HeroCarousel from '#/features/home/components/hero-carousel'
+// import Hero from '#/features/home/components/hero'
+// import HeroCarousel from '#/features/home/components/hero-carousel'
 import HeroCarouselV2 from '#/features/home/components/hero-carousel-v2'
 import HowItWorks from '#/features/home/components/how-it-works'
 import IndividualCategory from '#/features/home/components/individual-category'
@@ -58,11 +58,11 @@ function App() {
   return (
     <main className={'mx-auto max-w-(--breakpoint-xl) space-y-8 px-4'}>
       <HeroCarouselV2 />
-      <HeroCarousel />
-      <Hero />
-      <Features />
-
+      {/* <HeroCarousel /> */}
+      {/* <Hero /> */}
       <SearchBar />
+
+      <Features />
 
       <PopularPackages />
 

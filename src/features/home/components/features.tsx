@@ -15,7 +15,10 @@ import { ChevronRight } from 'lucide-react'
 
 export default function Features() {
   return (
-    <section className={'space-y-4 mt-105 sm:mt-55 md:mt-48 lg:mt-32 xl:mt-20'}>
+    <section
+
+    // className={'space-y-4 mt-105 sm:mt-55 md:mt-48 lg:mt-32 xl:mt-20'}
+    >
       <h2
         className={
           'text:xl md:text-2xl lg:text-3xl xl:text-4xl font-medium lg:font-semibold'
