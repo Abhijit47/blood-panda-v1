@@ -68,67 +68,143 @@ export default function IndividualCategory() {
         <CardContent className={'px-0'}>
           <Await promise={deferredTests} fallback={<FallbackIndividials />}>
             {(data) => {
+              // split data total 2 parts
+              const half = Math.ceil(data.length / 2)
+              const firstHalf = data.slice(0, half)
+              const secondHalf = data.slice(half)
+
               return (
                 <CardContent
-                  className={
-                    'px-0 scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-400/50 scrollbar-track-transparent flex gap-4 snap-x snap-mandatory scroll-smooth overflow-x-scroll scroll-fade-x'
-                  }
+                  // className={
+                  //   'px-0 scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-400/50 scrollbar-track-transparent flex gap-4 snap-x snap-mandatory scroll-smooth overflow-x-scroll scroll-fade-x'
+                  // }
+                  className={'px-0 space-y-4'}
                 >
-                  {data.map((item) => {
-                    return (
-                      <Card
-                        className={
-                          'w-full min-w-xs md:min-w-sm snap-center my-4 gap-4'
-                        }
-                        key={item.id}
-                      >
-                        <CardHeader>
-                          <CardTitle>
-                            <h4>{item.name}</h4>
-                          </CardTitle>
-                          <CardDescription className={'space-y-2'}>
-                            <p>{'N/a'}</p>
-                            <p className={'space-x-2'}>
-                              <span>Fasting Required:</span>
-                              <Badge>
-                                {item.isFastingRequired ? 'Yes' : 'No'}
-                              </Badge>
-                            </p>
-                          </CardDescription>
-                        </CardHeader>
+                  <div
+                    className={
+                      'px-0 scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-400/50 scrollbar-track-transparent flex gap-4 snap-x snap-mandatory scroll-smooth overflow-x-scroll scroll-fade-x'
+                    }
+                  >
+                    {firstHalf.map((item) => {
+                      return (
+                        <Card
+                          className={
+                            'w-full min-w-xs md:min-w-sm snap-center my-4 gap-4'
+                          }
+                          key={item.id}
+                        >
+                          <CardHeader>
+                            <CardTitle>
+                              <h4>{item.name}</h4>
+                            </CardTitle>
+                            <CardDescription className={'space-y-2'}>
+                              <p>{'N/a'}</p>
+                              <p className={'space-x-2'}>
+                                <span>Fasting Required:</span>
+                                <Badge>
+                                  {item.isFastingRequired ? 'Yes' : 'No'}
+                                </Badge>
+                              </p>
+                            </CardDescription>
+                          </CardHeader>
 
-                        <CardContent>
-                          <Badge variant={'ghost'} className={'line-through'}>
-                            {formatCurrency(item.originalPrice)}
-                          </Badge>
-                          <h5 className={'text-lg font-semibold'}>
-                            {formatCurrency(item.discountedPrice)}
-                          </h5>
-                        </CardContent>
-                        <CardFooter>
-                          <Button
-                            variant={'destructive'}
-                            className={
-                              'w-full rounded-full bg-transparent border-destructive hover:border-destructive hover:bg-destructive/10 text-destructive hover:text-destructive'
-                            }
-                            onClick={() =>
-                              addItem({
-                                item: {
-                                  id: item.id,
-                                  name: item.name,
-                                  price: Number(item.discountedPrice),
-                                  quantity: 1,
-                                  image: 'https://avatar.vercel.sh/rauchg.png',
-                                },
-                              })
-                            }
-                          >
-                            Add <PlusCircle className={'size-4'} />
-                          </Button>
-                        </CardFooter>
-                      </Card>
-                    )
-                  })}
+                          <CardContent>
+                            <Badge variant={'ghost'} className={'line-through'}>
+                              {formatCurrency(item.originalPrice)}
+                            </Badge>
+                            <h5 className={'text-lg font-semibold'}>
+                              {formatCurrency(item.discountedPrice)}
+                            </h5>
+                          </CardContent>
+                          <CardFooter>
+                            <Button
+                              variant={'destructive'}
+                              className={
+                                'w-full rounded-full bg-transparent border-destructive hover:border-destructive hover:bg-destructive/10 text-destructive hover:text-destructive'
+                              }
+                              onClick={() =>
+                                addItem({
+                                  item: {
+                                    id: item.id,
+                                    name: item.name,
+                                    price: Number(item.discountedPrice),
+                                    quantity: 1,
+                                    image:
+                                      'https://avatar.vercel.sh/rauchg.png',
+                                  },
+                                })
+                              }
+                            >
+                              Add <PlusCircle className={'size-4'} />
+                            </Button>
+                          </CardFooter>
+                        </Card>
+                      )
+                    })}
+                  </div>
+
+                  <div
+                    className={
+                      'px-0 scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-400/50 scrollbar-track-transparent flex gap-4 snap-x snap-mandatory scroll-smooth overflow-x-scroll scroll-fade-x'
+                    }
+                  >
+                    {secondHalf.map((item) => {
+                      return (
+                        <Card
+                          className={
+                            'w-full min-w-xs md:min-w-sm snap-center my-4 gap-4'
+                          }
+                          key={item.id}
+                        >
+                          <CardHeader>
+                            <CardTitle>
+                              <h4>{item.name}</h4>
+                            </CardTitle>
+                            <CardDescription className={'space-y-2'}>
+                              <p>{'N/a'}</p>
+                              <p className={'space-x-2'}>
+                                <span>Fasting Required:</span>
+                                <Badge>
+                                  {item.isFastingRequired ? 'Yes' : 'No'}
+                                </Badge>
+                              </p>
+                            </CardDescription>
+                          </CardHeader>
+
+                          <CardContent>
+                            <Badge variant={'ghost'} className={'line-through'}>
+                              {formatCurrency(item.originalPrice)}
+                            </Badge>
+                            <h5 className={'text-lg font-semibold'}>
+                              {formatCurrency(item.discountedPrice)}
+                            </h5>
+                          </CardContent>
+                          <CardFooter>
+                            <Button
+                              variant={'destructive'}
+                              className={
+                                'w-full rounded-full bg-transparent border-destructive hover:border-destructive hover:bg-destructive/10 text-destructive hover:text-destructive'
+                              }
+                              onClick={() =>
+                                addItem({
+                                  item: {
+                                    id: item.id,
+                                    name: item.name,
+                                    price: Number(item.discountedPrice),
+                                    quantity: 1,
+                                    image:
+                                      'https://avatar.vercel.sh/rauchg.png',
+                                  },
+                                })
+                              }
+                            >
+                              Add <PlusCircle className={'size-4'} />
+                            </Button>
+                          </CardFooter>
+                        </Card>
+                      )
+                    })}
+                  </div>
                 </CardContent>
               )
             }}
