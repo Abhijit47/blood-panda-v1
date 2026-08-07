@@ -158,7 +158,11 @@ export default function MobileMenu() {
                                 Explore...
                               </DropdownMenuSubTrigger>
                               <DropdownMenuPortal>
-                                <DropdownMenuSubContent>
+                                <DropdownMenuSubContent
+                                  align="end"
+                                  sideOffset={-100}
+                                  alignOffset={40}
+                                >
                                   {miniPackagesLink.map((pkg) => (
                                     <DropdownMenuItem key={pkg.id} asChild>
                                       <Link
